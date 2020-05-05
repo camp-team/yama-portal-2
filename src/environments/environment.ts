@@ -3,7 +3,17 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: 'AIzaSyDDtE-uIhnFyjwkfXoPttqfmr-89zBvPOM',
+    authDomain: 'yama-portal.firebaseapp.com',
+    databaseURL: 'https://yama-portal.firebaseio.com',
+    projectId: 'yama-portal',
+    storageBucket: 'yama-portal.appspot.com',
+    messagingSenderId: '573459282339',
+    appId: '1:573459282339:web:62cda53ce81823b9e8c216',
+    measurementId: 'G-B0Y97SH0ZH',
+  },
 };
 
 /*

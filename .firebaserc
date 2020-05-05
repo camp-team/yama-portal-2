@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "yama-portal"
+  },
+  "targets": {
+    "yama-portal": {
+      "hosting": {
+        "yama-portal": [
+          "yama-portal"
+        ]
+      }
+    }
   }
 }
