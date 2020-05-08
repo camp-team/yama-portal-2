@@ -11,3 +11,28 @@
 .app-name {
   margin: 10px auto;
 }
+
+mat-sidenav {
+  width: 230px;
+}
+
+.copyright[_ngcontent-gmv-c130] {
+  color: rgba(0, 0, 0, 0.38);
+  font-size: 13px;
+  padding: 16px;
+}
+ol,
+p,
+ul {
+  line-height: 1.8;
+}
+p {
+  margin: 0;
+}
+user agent stylesheet p {
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
