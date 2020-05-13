@@ -1,1 +1,20 @@
-<p>form works!</p>
+<div class="form">
+  <div class="form__map">
+    <iframe
+      src="https://www.google.com/maps/d/embed?mid=1-Uov2ANGKaYKUV207hf7LgPu6XZFnwzp"
+      width="375"
+      height="300"
+    ></iframe>
+  </div>
+  <form [formGroup]="form" class="form__form" (ngSubmit)="submit()">
+    <mat-form-field>
+      <mat-label>Textarea</mat-label>
+      <textarea
+        formControlName="content"
+        placeholder="test"
+        matInput
+      ></textarea>
+    </mat-form-field>
+    <button mat-raised-button color="primary">投稿</button>
+  </form>
+</div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-form',
@@ -6,7 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./form.component.scss'],
 })
 export class FormComponent implements OnInit {
-  constructor() {}
+  form = this.fb.group({
+    content: ['', [Validators.required, Validators.maxLength(1000)]],
+  });
+
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {}
+
+  submit() {
+    console.log(this.form.value);
+  }
 }
