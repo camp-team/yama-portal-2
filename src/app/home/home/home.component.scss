@@ -1,19 +1,16 @@
-.container {
+.sidenav {
   display: flex;
   flex-direction: column;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  &__copyright {
+    color: rgba(0, 0, 0, 0.38);
+    font-size: 13px;
+    padding: 16px;
+  }
+  &__app-name {
+    margin: 10px auto;
+  }
 }
 
-.app-name {
-  margin: 10px auto;
-}
-
-.copyright {
-  color: rgba(0, 0, 0, 0.38);
-  font-size: 13px;
-  padding: 16px;
+.home {
+  text-align: center;
 }
