@@ -1,36 +1,3 @@
-<mat-sidenav-container class="sidenav">
-  <mat-sidenav #sidenav mode="over">
-    <mat-nav-list>
-      <a routerLink="/home" routerLinkActive="active" mat-list-item>ホーム</a>
-      <a mat-list-item>プロフィール</a>
-      <a mat-list-item>設定</a>
-    </mat-nav-list>
-    <mat-divider></mat-divider>
-    <mat-nav-list>
-      <a routerLink="/terms" routerLinkActive="active" mat-list-item
-        >利用規約</a
-      >
-      <a routerLink="/legal" routerLinkActive="active" mat-list-item
-        >特定商取引法に基づく表記</a
-      >
-    </mat-nav-list>
-    <mat-divider></mat-divider>
-    <div>
-      <p class="sidenav__copyright">© 2020 Hideki Arima</p>
-    </div>
-  </mat-sidenav>
-
-  <mat-sidenav-content>
-    <mat-toolbar>
-      <button mat-icon-button (click)="sidenav.toggle()">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <p class="sidenav__app-name">Logo</p>
-      <button mat-button>Login</button>
-    </mat-toolbar>
-  </mat-sidenav-content>
-</mat-sidenav-container>
-
 <div class="home">
   <div class="home__mountain-name">
     <h1>天城山</h1>
@@ -45,8 +12,7 @@
   <div class="home__sort">検索</div>
   <div class="timeline">タイムライン</div>
   <div class="form">
-    <!-- formに飛ばす予定、仮にlegalに飛ぶ -->
-    <button mat-icon-button routerLink="/legal" routerLinkActive="active">
+    <button mat-icon-button routerLink="/form" routerLinkActive="active">
       <mat-icon>comment</mat-icon>
     </button>
   </div>

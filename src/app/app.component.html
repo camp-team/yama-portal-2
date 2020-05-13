@@ -1,1 +1,35 @@
+<header>
+  <mat-sidenav-container class="sidenav">
+    <mat-sidenav #sidenav mode="over">
+      <mat-nav-list>
+        <a routerLink="/home" routerLinkActive="active" mat-list-item>ホーム</a>
+        <a mat-list-item>プロフィール</a>
+        <a mat-list-item>設定</a>
+      </mat-nav-list>
+      <mat-divider></mat-divider>
+      <mat-nav-list>
+        <a routerLink="/terms" routerLinkActive="active" mat-list-item
+          >利用規約</a
+        >
+        <a routerLink="/legal" routerLinkActive="active" mat-list-item
+          >特定商取引法に基づく表記</a
+        >
+      </mat-nav-list>
+      <mat-divider></mat-divider>
+      <div>
+        <p class="sidenav__copyright">© 2020 Hideki Arima</p>
+      </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <mat-toolbar>
+        <button mat-icon-button (click)="sidenav.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <p class="sidenav__app-name">Logo</p>
+        <button mat-button>Login</button>
+      </mat-toolbar>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</header>
 <router-outlet></router-outlet>
