@@ -8,10 +8,15 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent {
   title = 'yama-portal';
+  user$ = this.authService.afUser$;
 
   constructor(private authService: AuthService) {}
 
   login() {
     this.authService.login();
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }
