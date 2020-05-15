@@ -2,7 +2,7 @@
   <mat-sidenav-container class="sidenav">
     <mat-sidenav #sidenav mode="over">
       <mat-nav-list>
-        <a routerLink="/home" routerLinkActive="active" mat-list-item>ホーム</a>
+        <a routerLink="" routerLinkActive="active" mat-list-item>ホーム</a>
         <a mat-list-item>プロフィール</a>
         <a mat-list-item>設定</a>
       </mat-nav-list>
@@ -27,7 +27,12 @@
           <mat-icon>menu</mat-icon>
         </button>
         <p class="sidenav__app-name">Logo</p>
-        <button mat-button>Login</button>
+        <button *ngIf="user$ | async" (click)="logout()" mat-button>
+          Logout
+        </button>
+        <button *ngIf="!(user$ | async)" (click)="login()" mat-button>
+          Login
+        </button>
       </mat-toolbar>
     </mat-sidenav-content>
   </mat-sidenav-container>
