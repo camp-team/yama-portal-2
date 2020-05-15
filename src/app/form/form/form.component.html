@@ -7,7 +7,7 @@
     ></iframe>
   </div>
   <form [formGroup]="form" class="form__form" (ngSubmit)="submit()">
-    <mat-radio-group formControlName="rabel">
+    <mat-radio-group formControlName="label">
       <mat-radio-button value="denger">危険箇所</mat-radio-button>
       <mat-radio-button value="viewPoint">絶景ポイント</mat-radio-button>
       <mat-radio-button value="toilet">お手洗い</mat-radio-button>
@@ -17,11 +17,20 @@
     <mat-form-field>
       <mat-label>Textarea</mat-label>
       <textarea
+        type="text"
         formControlName="content"
         placeholder="test"
         matInput
       ></textarea>
+      <mat-error *ngIf="contentControl.hasError('required')"
+        >必須入力です</mat-error
+      >
+      <mat-error *ngIf="contentControl.hasError('maxlength')"
+        >長すぎます</mat-error
+      >
     </mat-form-field>
-    <button mat-raised-button color="primary">投稿</button>
+    <button [disabled]="form.invalid" mat-raised-button color="primary">
+      投稿
+    </button>
   </form>
 </div>

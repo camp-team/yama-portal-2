@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-form',
@@ -8,7 +8,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class FormComponent implements OnInit {
   form = this.fb.group({
-    rabel: [
+    label: [
       '',
       [
         Validators.required,
@@ -21,6 +21,10 @@ export class FormComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {}
+
+  get contentControl(): FormControl {
+    return this.form.get('content') as FormControl;
+  }
 
   submit() {
     console.log(this.form.value);
