@@ -8,6 +8,13 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class FormComponent implements OnInit {
   form = this.fb.group({
+    rabel: [
+      '',
+      [
+        Validators.required,
+        Validators.pattern(/denger|viewPoint|toiler|water|rest/),
+      ],
+    ],
     content: ['', [Validators.required, Validators.maxLength(1000)]],
   });
 
