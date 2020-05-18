@@ -14,7 +14,7 @@ export class FormComponent implements OnInit {
       '',
       [
         Validators.required,
-        Validators.pattern(/denger|viewPoint|toiler|water|rest/),
+        Validators.pattern(/denger|viewPoint|toilet|water|rest/),
       ],
     ],
     content: ['', [Validators.required, Validators.maxLength(1000)]],

@@ -3,6 +3,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Post } from '../interfaces/post';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -25,5 +27,13 @@ export class PostService {
         });
         this.router.navigateByUrl('/');
       });
+  }
+
+  getPost(): Observable<Post[]> {
+    return this.db
+      .collection<Post>('posts', (ref) => {
+        return ref.limit(2);
+      })
+      .valueChanges();
   }
 }
