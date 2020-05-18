@@ -35,7 +35,7 @@ export class FormComponent implements OnInit {
   submit() {
     const formData = this.form.value;
     this.postService.createPost({
-      uid: this.authService.uid,
+      userId: this.authService.userId,
       label: formData.label,
       content: formData.content,
     });

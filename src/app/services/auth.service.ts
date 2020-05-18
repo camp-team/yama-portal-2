@@ -10,7 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class AuthService {
   afUser$: Observable<User> = this.afAuth.user;
-  uid: string;
+  userId: string;
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -18,7 +18,7 @@ export class AuthService {
     private snackBar: MatSnackBar
   ) {
     this.afUser$.subscribe((user) => {
-      this.uid = user && user.uid;
+      this.userId = user && user.uid;
     });
   }
 
