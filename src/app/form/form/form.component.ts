@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
+import { PostService } from 'src/app/services/post.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-form',
@@ -18,7 +20,11 @@ export class FormComponent implements OnInit {
     content: ['', [Validators.required, Validators.maxLength(1000)]],
   });
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private postService: PostService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -27,6 +33,11 @@ export class FormComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.form.value);
+    const formData = this.form.value;
+    this.postService.createPost({
+      uid: this.authService.uid,
+      label: formData.label,
+      content: formData.content,
+    });
   }
 }
