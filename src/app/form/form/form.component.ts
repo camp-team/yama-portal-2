@@ -18,6 +18,7 @@ export class FormComponent implements OnInit {
       ],
     ],
     content: ['', [Validators.required, Validators.maxLength(1000)]],
+    public: [true],
   });
 
   constructor(

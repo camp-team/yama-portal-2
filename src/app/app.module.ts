@@ -10,7 +10,6 @@ import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -32,7 +31,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     AngularFireStorageModule,
     AngularFireAuthModule,
     AngularFireFunctionsModule,
-    MatButtonModule,
     MatToolbarModule,
     MatIconModule,
     MatInputModule,
