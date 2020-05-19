@@ -17,15 +17,11 @@ export class FormComponent implements OnInit {
         Validators.pattern(/denger|viewPoint|toilet|water|rest/),
       ],
     ],
-    content: ['', [Validators.required, Validators.maxLength(1000)]],
+    content: ['', [Validators.required, Validators.maxLength(500)]],
     public: [true],
   });
 
-  constructor(
-    private fb: FormBuilder,
-    private postService: PostService,
-    private authService: AuthService
-  ) {}
+  constructor(private fb: FormBuilder, private postService: PostService) {}
 
   ngOnInit(): void {}
 
@@ -35,10 +31,6 @@ export class FormComponent implements OnInit {
 
   submit() {
     const formData = this.form.value;
-    this.postService.createPost({
-      userId: this.authService.userId,
-      label: formData.label,
-      content: formData.content,
-    });
+    this.postService.createPost(this.form.value);
   }
 }
