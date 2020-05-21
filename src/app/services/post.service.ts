@@ -45,6 +45,10 @@ export class PostService {
       .valueChanges();
   }
 
+  getPosts(): Observable<Post[]> {
+    return this.db.collection<Post>('posts').valueChanges();
+  }
+
   deletePost(id: string): Promise<void> {
     return this.db.doc<Post>(`posts/${id}`).delete();
   }

@@ -18,6 +18,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { NgAisModule } from 'angular-instantsearch';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [AppComponent],
@@ -40,6 +42,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatRippleModule,
     MatSidenavModule,
     MatSnackBarModule,
+    NgAisModule.forRoot(),
+    MatButtonModule,
   ],
   providers: [{ provide: REGION, useValue: 'asia-northeast1' }],
   bootstrap: [AppComponent],

@@ -25,5 +25,5 @@ export const addRecord = functions
       createdAt: data.createdAt.toMillis(),
     };
 
-    index.saveObject(item);
+    return index.saveObject(item);
   });
