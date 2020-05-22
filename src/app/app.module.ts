@@ -10,7 +10,6 @@ import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -19,6 +18,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { NgAisModule } from 'angular-instantsearch';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,7 +33,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     AngularFireStorageModule,
     AngularFireAuthModule,
     AngularFireFunctionsModule,
-    MatButtonModule,
     MatToolbarModule,
     MatIconModule,
     MatInputModule,
@@ -42,6 +42,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatRippleModule,
     MatSidenavModule,
     MatSnackBarModule,
+    NgAisModule.forRoot(),
+    MatButtonModule,
   ],
   providers: [{ provide: REGION, useValue: 'asia-northeast1' }],
   bootstrap: [AppComponent],

@@ -1,0 +1,25 @@
+<h2>from Algolia</h2>
+
+<ais-instantsearch [config]="config">
+  <ais-configure [searchParameters]="searchParams"></ais-configure>
+  <ais-search-box></ais-search-box>
+  <ais-hits>
+    <ng-template let-hits="hits">
+      <ol>
+        <li *ngFor="let hit of hits">
+          {{ hit.label }}
+        </li>
+      </ol>
+    </ng-template>
+  </ais-hits>
+</ais-instantsearch>
+
+<h2>from Firestore</h2>
+
+<ul>
+  <li *ngFor="let post of posts$ | async">
+    <h2>{{ post.label }}</h2>
+    <h2>{{ post.content }}</h2>
+    <h2>{{ post.createdAt.toDate() | date: 'yyyy/MM/dd' }}</h2>
+  </li>
+</ul>

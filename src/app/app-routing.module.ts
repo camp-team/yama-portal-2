@@ -24,6 +24,11 @@ const routes: Routes = [
     canLoad: [AuthGuard],
     canActivate: [AuthGuard],
   },
+  {
+    path: 'posts',
+    loadChildren: () =>
+      import('./post-list/post-list.module').then((m) => m.PostListModule),
+  },
 ];
 
 @NgModule({

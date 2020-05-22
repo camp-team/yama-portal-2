@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { PostService } from '../services/post.service';
 import { Observable } from 'rxjs';
-import { Post } from 'src/app/interfaces/post';
-import { PostService } from 'src/app/services/post.service';
+import { Post } from '../interfaces/post';
 const algoliasearch = require('algoliasearch/lite');
 
 const searchClient = algoliasearch(
@@ -10,11 +10,11 @@ const searchClient = algoliasearch(
 );
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  selector: 'app-post-list',
+  templateUrl: './post-list.component.html',
+  styleUrls: ['./post-list.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class PostListComponent implements OnInit {
   posts$: Observable<Post[]> = this.postService.getPosts();
 
   config = {
@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
   };
 
   searchParams = {
-    hitsPerPage: 2,
+    hitsPerPage: 1,
   };
 
   constructor(private postService: PostService) {}
