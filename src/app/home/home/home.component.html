@@ -9,6 +9,12 @@
       height="300"
     ></iframe>
   </div>
+  <div class="form">
+    <button mat-icon-button routerLink="/form" routerLinkActive="active">
+      <mat-icon>comment</mat-icon>
+    </button>
+  </div>
+  <div class="test" style="margin-bottom: 200px;"></div>
   <div>
     <ais-instantsearch [config]="config">
       <ais-configure [searchParameters]="searchParams"></ais-configure>
@@ -29,10 +35,5 @@
         </ng-template>
       </ais-infinite-hits>
     </ais-instantsearch>
-  </div>
-  <div class="form">
-    <button mat-icon-button routerLink="/form" routerLinkActive="active">
-      <mat-icon>comment</mat-icon>
-    </button>
   </div>
 </div>
