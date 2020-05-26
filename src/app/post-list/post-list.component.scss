@@ -1,0 +1,44 @@
+.card {
+  border-radius: 4px;
+  box-shadow: 0 0 3px #ccc;
+  &__cover {
+    padding-bottom: 52.5%;
+    background: #000;
+    display: block;
+    background: #000 center/cover;
+    background-image: url(#);
+  }
+  &__body {
+    padding: 16px;
+    display: flex;
+    align-items: center;
+  }
+  &__avatar {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background: #000;
+    margin-right: 16px;
+    background: #000 center/cover;
+    background-image: url(#);
+  }
+  &__title {
+    margin-bottom: 4px;
+  }
+  &__date {
+    color: rgba(black, 0.6);
+  }
+  &__content {
+    flex: 1;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  padding: 16px;
+  @media screen and (max-width: 470px) {
+    grid-template-columns: 1fr;
+  }
+}

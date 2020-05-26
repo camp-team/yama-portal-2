@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
   };
 
   searchParams = {
-    hitsPerPage: 2,
+    hitsPerPage: 4,
   };
 
   constructor(private postService: PostService) {}

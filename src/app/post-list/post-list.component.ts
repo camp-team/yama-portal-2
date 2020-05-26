@@ -23,7 +23,7 @@ export class PostListComponent implements OnInit {
   };
 
   searchParams = {
-    hitsPerPage: 1,
+    hitsPerPage: 6,
   };
 
   constructor(private postService: PostService) {}
