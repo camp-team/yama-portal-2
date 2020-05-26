@@ -1,6 +1,24 @@
 <header>
+  <mat-toolbar class="toolbar">
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <p class="sidenav__app-name">Logo</p>
+    <button *ngIf="user$ | async" (click)="logout()" mat-button>
+      Logout
+    </button>
+    <button *ngIf="!(user$ | async)" (click)="login()" mat-button>
+      Login
+    </button>
+  </mat-toolbar>
   <mat-sidenav-container class="sidenav">
-    <mat-sidenav #sidenav mode="over">
+    <mat-sidenav
+      #sidenav
+      fixedInViewport
+      fixedTopGap="56"
+      mode="side"
+      [opened]="!opened"
+    >
       <mat-nav-list>
         <a routerLink="" routerLinkActive="active" mat-list-item>ホーム</a>
         <a mat-list-item>プロフィール</a>
@@ -22,19 +40,7 @@
     </mat-sidenav>
 
     <mat-sidenav-content>
-      <mat-toolbar>
-        <button mat-icon-button (click)="sidenav.toggle()">
-          <mat-icon>menu</mat-icon>
-        </button>
-        <p class="sidenav__app-name">Logo</p>
-        <button *ngIf="user$ | async" (click)="logout()" mat-button>
-          Logout
-        </button>
-        <button *ngIf="!(user$ | async)" (click)="login()" mat-button>
-          Login
-        </button>
-      </mat-toolbar>
+      <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </header>
-<router-outlet></router-outlet>
