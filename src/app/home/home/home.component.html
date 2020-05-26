@@ -1,47 +1,45 @@
 <div class="home">
-  <div class="home__mountain-name">
-    <h1>天城山</h1>
-  </div>
-  <div class="home__map">
-    <iframe
-      src="https://www.google.com/maps/d/embed?mid=1-Uov2ANGKaYKUV207hf7LgPu6XZFnwzp"
-      width="100%"
-      height="300"
-    ></iframe>
-  </div>
-  <div class="home__form">
-    <button mat-icon-button routerLink="/form" routerLinkActive="active">
-      <mat-icon>comment</mat-icon>
-    </button>
+  <div class="home__sticky">
+    <div class="home__mountain-name">
+      <h1>天城山</h1>
+    </div>
+    <div class="home__map">
+      <iframe
+        src="https://www.google.com/maps/d/embed?mid=1-Uov2ANGKaYKUV207hf7LgPu6XZFnwzp"
+        width="100%"
+        height="300"
+      ></iframe>
+    </div>
+    <div class="home__form">
+      <button mat-icon-button routerLink="/form" routerLinkActive="active">
+        <mat-icon class="home__form__button">comment</mat-icon>
+      </button>
+    </div>
   </div>
 
-  <div class="home__timeLine">
-    <ais-instantsearch [config]="config">
-      <ais-configure [searchParameters]="searchParams"></ais-configure>
-      <ais-search-box></ais-search-box>
+  <ais-instantsearch [config]="config">
+    <ais-configure [searchParameters]="searchParams"></ais-configure>
+    <ais-search-box class="home__search"></ais-search-box>
 
-      <ais-infinite-hits>
-        <ng-template
-          let-hits="hits"
-          let-results="results"
-          let-refine="showMore"
-        >
-          <div class="glid">
-            <div *ngFor="let hit of hits" class="card">
-              <!-- <feature class="card__cover"></feature> -->
-              <div class="card__body">
-                <figure class="card__avatar"></figure>
-                <p class="card__label">{{ hit.label }}</p>
-                <p class="card__content">{{ hit.content }}</p>
-                <p class="card__date">
-                  {{ hit.createdAt | date: 'yyyy/MM/dd HH:mm' }}
-                </p>
-              </div>
+    <!-- 投稿内容が検索バーとかぶってしまうのを防ぐためのもの -->
+    <div class="margin">""</div>
+
+    <ais-infinite-hits>
+      <ng-template let-hits="hits" let-results="results" let-refine="showMore">
+        <div class="glid">
+          <div *ngFor="let hit of hits" class="card">
+            <div class="card__body">
+              <figure class="card__avatar"></figure>
+              <p class="card__label">{{ hit.label }}</p>
+              <p class="card__content">{{ hit.content }}</p>
+              <p class="card__date">
+                {{ hit.createdAt | date: 'yyyy/MM/dd HH:mm' }}
+              </p>
             </div>
           </div>
-          <div appVisible (Visible)="refine()">checkpoint</div>
-        </ng-template>
-      </ais-infinite-hits>
-    </ais-instantsearch>
-  </div>
+        </div>
+        <div appVisible (Visible)="refine()">checkpoint</div>
+      </ng-template>
+    </ais-infinite-hits>
+  </ais-instantsearch>
 </div>

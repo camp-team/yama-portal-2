@@ -1,16 +1,45 @@
+h1 {
+  margin: 0;
+}
 .home {
   text-align: center;
+  &__sticky {
+    position: sticky;
+    top: 56px;
+    z-index: 1;
+  }
+  &__mountain-name {
+    background-color: white;
+    margin: 0;
+    padding: 0;
+  }
+  &__form {
+    position: fixed;
+    top: 702px;
+    bottom: auto;
+    left: 258px;
+    right: auto;
+    &__button {
+      font-size: 64px;
+    }
+  }
+  &__search {
+    display: block;
+    position: sticky;
+    top: 408px;
+    z-index: 0;
+  }
+}
+
+// 投稿内容が検索バーとかぶってしまうのを防ぐためのもの
+.margin {
+  display: inline-block;
+  width: 100%;
+  height: 29.9px;
 }
 .card {
   border-radius: 4px;
   box-shadow: 0 0 3px #ccc;
-  &__cover {
-    padding-bottom: 52.5%;
-    background: #000;
-    display: block;
-    background: #000 center/cover;
-    background-image: url(#);
-  }
   &__body {
     padding: 16px;
     display: flex;
@@ -39,7 +68,6 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
   padding: 16px;
   @media screen and (max-width: 470px) {
     grid-template-columns: 1fr;
