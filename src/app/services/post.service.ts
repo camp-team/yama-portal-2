@@ -66,9 +66,12 @@ export class PostService {
   }
 
   async uploadImage(id: string, files: File[]): Promise<string[]> {
-    if (!files) {
+    console.log(files);
+    console.log(files[0] === null);
+    if (files[0] === null) {
       console.log('test');
       const urls = [null];
+      return urls;
     } else {
       console.log('test2');
       return Promise.all(
