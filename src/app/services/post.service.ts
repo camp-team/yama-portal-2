@@ -22,23 +22,6 @@ export class PostService {
     private storage: AngularFireStorage
   ) {}
 
-  // createPost(post: Omit<Post, 'id' | 'createdAt' | 'userId'>) {
-  //   const id = this.db.createId();
-  //   return this.db
-  //     .doc<Post>(`posts/${id}`)
-  //     .set({
-  //       id,
-  //       createdAt: firestore.Timestamp.now(),
-  //       userId: this.authService.userId,
-  //       ...post,
-  //     })
-  //     .then(() => {
-  //       this.snackBar.open('投稿しました', null, {
-  //         duration: 2000,
-  //       });
-  //       this.router.navigateByUrl('/');
-  //     });
-  // }
   async createPost(
     post: Omit<Post, 'id' | 'createdAt' | 'userId'>,
     images: {
@@ -66,14 +49,10 @@ export class PostService {
   }
 
   async uploadImage(id: string, files: File[]): Promise<string[]> {
-    console.log(files);
-    console.log(files[0] === null);
     if (files[0] === null) {
-      console.log('test');
       const urls = [null];
       return urls;
     } else {
-      console.log('test2');
       return Promise.all(
         files.map((file, index) => {
           const ref = this.storage.ref(`posts/${id}-${index}`);
