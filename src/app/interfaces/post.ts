@@ -3,6 +3,7 @@ import { firestore } from 'firebase';
 export interface Post {
   id: string;
   userId: string;
+  imageURL: string;
   label: string;
   content: string;
   public: boolean;

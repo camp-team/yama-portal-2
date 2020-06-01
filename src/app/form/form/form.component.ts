@@ -9,6 +9,18 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./form.component.scss'],
 })
 export class FormComponent implements OnInit {
+  images: {
+    imageURL: File;
+  } = {
+    imageURL: null,
+  };
+
+  srcs: {
+    imageURL: File;
+  } = {
+    imageURL: null,
+  };
+
   form = this.fb.group({
     label: [
       '',
@@ -29,8 +41,26 @@ export class FormComponent implements OnInit {
     return this.form.get('content') as FormControl;
   }
 
+  convertImage(file: File, type: string) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      this.srcs[type] = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  setImage(event, type: string) {
+    if (event.target.files.length) {
+      this.images[type] = event.target.files[0];
+      this.convertImage(this.images[type], type);
+    } else {
+      console.log('setImage');
+    }
+    console.log(type);
+  }
+
   submit() {
     const formData = this.form.value;
-    this.postService.createPost(this.form.value);
+    this.postService.createPost(this.form.value, this.images);
   }
 }

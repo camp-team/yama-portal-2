@@ -14,6 +14,11 @@
       <mat-radio-button value="water">水場</mat-radio-button>
       <mat-radio-button value="rest">休憩ポイント</mat-radio-button>
     </mat-radio-group>
+    <input
+      type="file"
+      (change)="setImage($event, 'imageURL')"
+      accept=".png, .img, .jpeg"
+    />
     <mat-form-field>
       <mat-label>Textarea</mat-label>
       <textarea

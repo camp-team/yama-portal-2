@@ -14,6 +14,7 @@ export const addRecord = functions
     const data = snap.data() as {
       id: string;
       userId: string;
+      imageURL: string;
       label: string;
       content: string;
       public: boolean;

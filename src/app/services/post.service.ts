@@ -7,6 +7,8 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { firestore } from 'firebase';
 import { AuthService } from './auth.service';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { async } from '@angular/core/testing';
 
 @Injectable({
   providedIn: 'root',
@@ -16,15 +18,24 @@ export class PostService {
     private db: AngularFirestore,
     private snackBar: MatSnackBar,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private storage: AngularFireStorage
   ) {}
 
-  createPost(post: Omit<Post, 'id' | 'createdAt' | 'userId'>) {
+  async createPost(
+    post: Omit<Post, 'id' | 'createdAt' | 'userId'>,
+    images: {
+      imageURL: File;
+    }
+  ) {
     const id = this.db.createId();
+    const urls = await this.uploadImage(id, Object.values(images));
+    const [imageURL] = urls;
     return this.db
       .doc<Post>(`posts/${id}`)
       .set({
         id,
+        imageURL,
         createdAt: firestore.Timestamp.now(),
         userId: this.authService.userId,
         ...post,
@@ -35,6 +46,26 @@ export class PostService {
         });
         this.router.navigateByUrl('/');
       });
+  }
+
+  async uploadImage(id: string, files: File[]): Promise<string[]> {
+    if (files[0] === null) {
+      const urls = [null];
+      return urls;
+    } else {
+      return Promise.all(
+        files.map((file, index) => {
+          const ref = this.storage.ref(`posts/${id}-${index}`);
+          return ref.put(file);
+        })
+      ).then(async (tasks) => {
+        const urls = [];
+        for (const task of tasks) {
+          urls.push(await task.ref.getDownloadURL());
+        }
+        return urls;
+      });
+    }
   }
 
   getPost(): Observable<Post[]> {
