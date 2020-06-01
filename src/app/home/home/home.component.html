@@ -28,6 +28,7 @@
       <ng-template let-hits="hits" let-results="results" let-refine="showMore">
         <div class="glid">
           <div *ngFor="let hit of hits" class="card">
+            <img src="{{ hit.imageURL }}" alt="" class="card__image" />
             <div class="card__body">
               <figure class="card__avatar"></figure>
               <p class="card__label">{{ hit.label }}</p>
