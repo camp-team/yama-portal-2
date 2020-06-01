@@ -3,7 +3,7 @@
     <button mat-icon-button (click)="sidenav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
-    <p class="sidenav__app-name">Logo</p>
+    <a routerLink="/" class="sidenav__app-name" mat-button>Logo</a>
     <button *ngIf="user$ | async" (click)="logout()" mat-button>
       Logout
     </button>
