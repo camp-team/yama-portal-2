@@ -29,7 +29,7 @@
         <div class="glid">
           <div *ngFor="let hit of hits" class="card">
             <img
-              *ngIf="{{ hit.imageURL }}"
+              *ngIf="hit.imageURL"
               src="{{ hit.imageURL }}"
               alt=""
               class="card__image"
