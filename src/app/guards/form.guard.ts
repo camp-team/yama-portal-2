@@ -5,14 +5,15 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { FormComponent } from '../form/form/form.component';
 
 @Injectable({
   providedIn: 'root',
 })
-export class FormGuard implements CanDeactivate<unknown> {
+export class FormGuard implements CanDeactivate<FormComponent> {
   canDeactivate(
-    component: unknown,
+    component: FormComponent,
     currentRoute: ActivatedRouteSnapshot,
     currentState: RouterStateSnapshot,
     nextState?: RouterStateSnapshot
@@ -21,6 +22,13 @@ export class FormGuard implements CanDeactivate<unknown> {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return true;
+    if (component.form.pristine || component.isComplete) {
+      return true;
+    }
+    const confirmation = window.confirm(
+      '作業中の内容が失われますがよろしいですか？'
+    );
+
+    return of(confirmation);
   }
 }

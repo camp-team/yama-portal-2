@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { PostService } from 'src/app/services/post.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./form.component.scss'],
 })
 export class FormComponent implements OnInit {
+  isComplete: boolean;
   images: {
     imageURL: File;
   } = {
@@ -60,7 +61,16 @@ export class FormComponent implements OnInit {
   }
 
   submit() {
-    const formData = this.form.value;
-    this.postService.createPost(this.form.value, this.images);
+    this.postService.createPost(this.form.value, this.images).then(() => {
+      this.isComplete = true;
+    });
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: any) {
+    if (this.form.dirty) {
+      $event.preventDefault();
+      $event.returnValue = '';
+    }
   }
 }
