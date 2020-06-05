@@ -21,7 +21,8 @@ export class AppComponent {
   }
 
   login() {
-    this.authService.login();
+    this.authService.Googlelogin();
+    console.log(this.user$);
   }
 
   logout() {
