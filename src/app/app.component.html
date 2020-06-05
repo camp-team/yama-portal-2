@@ -4,12 +4,12 @@
       <mat-icon>menu</mat-icon>
     </button>
     <a routerLink="/" class="sidenav__app-name" mat-button>Logo</a>
-    <button *ngIf="user$ | async" (click)="logout()" mat-button>
-      Logout
-    </button>
-    <button *ngIf="!(user$ | async)" (click)="login()" mat-button>
-      Login
-    </button>
+    <div *ngIf="user$ | async as user; else loginArea">
+      <button mat-button (click)="logout()">Logout</button>
+    </div>
+    <ng-template #loginArea>
+      <button mat-button routerLink="/Login">Login</button>
+    </ng-template>
   </mat-toolbar>
   <mat-sidenav-container class="sidenav">
     <mat-sidenav

@@ -20,10 +20,6 @@ export class AppComponent {
     this.drawerService.isOpen$.subscribe((opened) => (this.opened = opened));
   }
 
-  login() {
-    this.authService.login();
-  }
-
   logout() {
     this.authService.logout();
   }
