@@ -35,13 +35,6 @@ export class AuthService {
     });
   }
 
-  // login() {
-  //   this.afAuth.signInWithPopup(new auth.GoogleAuthProvider()).then(() => {
-  //     this.snackBar.open('ログインしました', null, {
-  //       duration: 2000,
-  //     });
-  //   });
-  // }
   GoogleLogin() {
     const provider = new auth.GoogleAuthProvider();
     provider.setCustomParameters({ prompt: 'select_account' });
@@ -55,10 +48,8 @@ export class AuthService {
       })
       .catch((error) => {
         switch (error.code) {
-          case 'auth/email-already-in-use':
-            alert(
-              '同じメールアドレスで複数のアカウントを作成することはできません'
-            );
+          case 'auth/account-exists-with-different-credential':
+            alert('同じメールアドレスで複数のアカウントは作成できません');
             break;
           case 'auth/invalid-email':
             alert('メールアドレスが不正です');
@@ -79,11 +70,10 @@ export class AuthService {
         this.router.navigateByUrl('/');
       })
       .catch((error) => {
+        console.log(error.code);
         switch (error.code) {
-          case 'auth/email-already-in-use':
-            alert(
-              '同じメールアドレスで複数のアカウントを作成することはできません'
-            );
+          case 'auth/account-exists-with-different-credential':
+            alert('同じメールアドレスで複数のアカウントは作成できません');
             break;
           case 'auth/invalid-email':
             alert('メールアドレスが不正です');
@@ -105,10 +95,8 @@ export class AuthService {
       })
       .catch((error) => {
         switch (error.code) {
-          case 'auth/email-already-in-use':
-            alert(
-              '同じメールアドレスで複数のアカウントを作成することはできません'
-            );
+          case 'auth/account-exists-with-different-credential':
+            alert('同じメールアドレスで複数のアカウントは作成できません');
             break;
           case 'auth/invalid-email':
             alert('メールアドレスが不正です');
