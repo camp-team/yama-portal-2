@@ -35,7 +35,7 @@ export class AuthService {
     });
   }
 
-  GoogleLogin() {
+  googleLogin() {
     const provider = new auth.GoogleAuthProvider();
     provider.setCustomParameters({ prompt: 'select_account' });
     this.afAuth
@@ -58,7 +58,7 @@ export class AuthService {
       });
   }
 
-  FacebookLogin() {
+  facebookLogin() {
     const provider = new auth.FacebookAuthProvider();
     provider.setCustomParameters({ prompt: 'select_account' });
     this.afAuth
@@ -82,7 +82,7 @@ export class AuthService {
       });
   }
 
-  TwitterLogin() {
+  twitterLogin() {
     const provider = new auth.TwitterAuthProvider();
     provider.setCustomParameters({ prompt: 'select_account' });
     this.afAuth

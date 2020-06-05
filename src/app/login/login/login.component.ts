@@ -17,16 +17,16 @@ export class LoginComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private authService: AuthService) {}
 
-  GoogleLogin() {
-    this.authService.GoogleLogin();
+  googleLogin() {
+    this.authService.googleLogin();
   }
 
-  FacebookLogin() {
-    this.authService.FacebookLogin();
+  facebookLogin() {
+    this.authService.facebookLogin();
   }
 
-  TwitterLogin() {
-    this.authService.TwitterLogin();
+  twitterLogin() {
+    this.authService.twitterLogin();
   }
 
   register() {
