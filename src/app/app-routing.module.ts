@@ -31,6 +31,12 @@ const routes: Routes = [
       import('./post-list/post-list.module').then((m) => m.PostListModule),
   },
   {
+    path: 'Login',
+    loadChildren: () =>
+      import('./login/login.module').then((m) => m.LoginModule),
+  },
+
+  {
     path: '**',
     component: NotFoundComponent,
   },
