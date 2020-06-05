@@ -1,1 +1,30 @@
-<p>login works!</p>
+<div class="container">
+  <button mat-button (click)="GoogleLogin()">Googleでログイン</button>
+  <button mat-button (click)="FacebookLogin()">Facebookでログイン</button>
+  <button mat-button (click)="TwitterLogin()">Twitterでログイン</button>
+
+  <form [formGroup]="form">
+    <p>メールアドレス</p>
+    <input type="email" formControlName="email" required autocomplete="email" />
+    <p>パスワード</p>
+    <input
+      type="password"
+      formControlName="password"
+      required
+      autocomplete="current-password"
+    />
+    <button type="button" (click)="register()" [disabled]="form.invalid">
+      新規作成
+    </button>
+    <button type="button" (click)="emailLogin()" [disabled]="form.invalid">
+      login
+    </button>
+    <button
+      type="button"
+      (click)="resetPassword()"
+      [disabled]="form.get('email').invalid"
+    >
+      reset password
+    </button>
+  </form>
+</div>

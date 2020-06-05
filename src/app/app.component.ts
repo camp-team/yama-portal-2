@@ -20,11 +20,6 @@ export class AppComponent {
     this.drawerService.isOpen$.subscribe((opened) => (this.opened = opened));
   }
 
-  login() {
-    this.authService.Googlelogin();
-    console.log(this.user$);
-  }
-
   logout() {
     this.authService.logout();
   }

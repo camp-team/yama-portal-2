@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Validators, FormBuilder, FormControl } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -6,7 +8,42 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  constructor() {}
+  form = this.fb.group({
+    email: ['', [Validators.email, Validators.required]],
+    password: ['', [Validators.required, Validators.minLength(6)]],
+  });
+
+  user$ = this.authService.afUser$;
+
+  constructor(private fb: FormBuilder, private authService: AuthService) {}
+
+  GoogleLogin() {
+    this.authService.GoogleLogin();
+  }
+
+  FacebookLogin() {
+    this.authService.FacebookLogin();
+  }
+
+  TwitterLogin() {
+    this.authService.TwitterLogin();
+  }
+
+  register() {
+    this.authService.createUser(this.form.value);
+  }
+
+  emailLogin() {
+    this.authService.emailLogin(this.form.value);
+  }
+
+  logout() {
+    this.authService.logout();
+  }
+
+  resetPassword() {
+    this.authService.resetPassword(this.form.value.email);
+  }
 
   ngOnInit(): void {}
 }

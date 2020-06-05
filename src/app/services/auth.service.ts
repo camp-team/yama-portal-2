@@ -42,30 +42,142 @@ export class AuthService {
   //     });
   //   });
   // }
-  Googlelogin() {
+  GoogleLogin() {
     const provider = new auth.GoogleAuthProvider();
     provider.setCustomParameters({ prompt: 'select_account' });
-    this.afAuth.signInWithPopup(provider).then(() => {
-      this.snackBar.open('ログインしました', null, {
-        duration: 2000,
+    this.afAuth
+      .signInWithPopup(provider)
+      .then(() => {
+        this.snackBar.open('ログインしました', null, {
+          duration: 2000,
+        });
+        this.router.navigateByUrl('/');
+      })
+      .catch((error) => {
+        switch (error.code) {
+          case 'auth/email-already-in-use':
+            alert(
+              '同じメールアドレスで複数のアカウントを作成することはできません'
+            );
+            break;
+          case 'auth/invalid-email':
+            alert('メールアドレスが不正です');
+            break;
+        }
       });
-    });
   }
 
   FacebookLogin() {
-    return this.afAuth.signInWithPopup(
-      new auth.FacebookAuthProvider().setCustomParameters({
-        prompt: 'select_account',
+    const provider = new auth.FacebookAuthProvider();
+    provider.setCustomParameters({ prompt: 'select_account' });
+    this.afAuth
+      .signInWithPopup(provider)
+      .then(() => {
+        this.snackBar.open('ログインしました', null, {
+          duration: 2000,
+        });
+        this.router.navigateByUrl('/');
       })
-    );
+      .catch((error) => {
+        switch (error.code) {
+          case 'auth/email-already-in-use':
+            alert(
+              '同じメールアドレスで複数のアカウントを作成することはできません'
+            );
+            break;
+          case 'auth/invalid-email':
+            alert('メールアドレスが不正です');
+            break;
+        }
+      });
   }
 
   TwitterLogin() {
-    return this.afAuth.signInWithPopup(
-      new auth.TwitterAuthProvider().setCustomParameters({
-        prompt: 'select_account',
+    const provider = new auth.TwitterAuthProvider();
+    provider.setCustomParameters({ prompt: 'select_account' });
+    this.afAuth
+      .signInWithPopup(provider)
+      .then(() => {
+        this.snackBar.open('ログインしました', null, {
+          duration: 2000,
+        });
+        this.router.navigateByUrl('/');
       })
-    );
+      .catch((error) => {
+        switch (error.code) {
+          case 'auth/email-already-in-use':
+            alert(
+              '同じメールアドレスで複数のアカウントを作成することはできません'
+            );
+            break;
+          case 'auth/invalid-email':
+            alert('メールアドレスが不正です');
+            break;
+        }
+      });
+  }
+
+  createUser(params: { email: string; password: string }) {
+    this.afAuth
+      .createUserWithEmailAndPassword(params.email, params.password)
+      .then((result) => {
+        result.user.sendEmailVerification();
+        this.snackBar.open('ログインしました', null, {
+          duration: 2000,
+        });
+        this.router.navigateByUrl('/');
+      })
+      .catch((error) => {
+        switch (error.code) {
+          case 'auth/email-already-in-use':
+            alert('このアドレスは既に登録されています。');
+            break;
+          case 'auth/invalid-email':
+            alert('メールアドレスが不正です');
+            break;
+        }
+      });
+  }
+
+  emailLogin(params: { email: string; password: string }) {
+    this.afAuth
+      .signInWithEmailAndPassword(params.email, params.password)
+      .then(() => {
+        this.snackBar.open('ログインしました', null, {
+          duration: 2000,
+        });
+        this.router.navigateByUrl('/');
+      })
+      .catch((error) => {
+        switch (error.code) {
+          case 'auth/user-not-found':
+            alert('このメールアドレスのユーザーは見つかりません');
+            break;
+          case 'auth/wrong-password':
+            alert('パスワードが間違っています');
+            break;
+          case 'auth/invalid-email':
+            alert('メールアドレスが不正です');
+            break;
+        }
+      });
+  }
+
+  resetPassword(email: string) {
+    this.afAuth.sendPasswordResetEmail(email).catch((error) => {
+      console.log(error.code);
+      switch (error.code) {
+        case 'auth/user-not-found':
+          alert('このメールアドレスのユーザーは見つかりません');
+          break;
+        case 'auth/wrong-password':
+          alert('パスワードが間違っています');
+          break;
+        case 'auth/invalid-email':
+          alert('メールアドレスが不正です');
+          break;
+      }
+    });
   }
 
   logout() {
