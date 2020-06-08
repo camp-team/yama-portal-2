@@ -1,0 +1,42 @@
+.wrap {
+  max-width: 400px;
+  padding: 0 24px;
+  margin: 76px auto;
+  box-sizing: border-box;
+}
+
+button {
+  color: #fff;
+  width: 100%;
+  border-radius: 30px;
+  margin-bottom: 12px;
+}
+
+.loginButton {
+  &__icon {
+    position: absolute;
+    top: 6px;
+    left: 16px;
+  }
+  &__google {
+    color: rgba(black, 0.6);
+  }
+  &__facebook {
+    background-color: #3b5998;
+  }
+  &__twitter {
+    background-color: #2daae1;
+  }
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.emailForm {
+  width: 100%;
+}
+
+.passwordForm {
+  width: 100%;
+}
