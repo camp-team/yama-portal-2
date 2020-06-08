@@ -1,12 +1,47 @@
-<div class="container">
-  <button mat-raised-button (click)="googleLogin()">
-    Googleでログイン
-  </button>
-  <button mat-raised-button (click)="facebookLogin()">
-    Facebookでログイン
-  </button>
-  <button mat-raised-button (click)="twitterLogin()">Twitterでログイン</button>
-
+<div class="wrap">
+  <div class="loginButton">
+    <button
+      mat-raised-button
+      (click)="googleLogin()"
+      class="loginButton__google"
+    >
+      <span class="loginButton__icon"
+        ><img
+          src="/assets/images/google-icon.svg"
+          alt=""
+          width="20"
+          height="20"
+      /></span>
+      <span> Googleでログイン</span>
+    </button>
+    <button
+      mat-raised-button
+      (click)="facebookLogin()"
+      class="loginButton__facebook"
+    >
+      <span class="loginButton__icon"
+        ><img
+          src="/assets/images/facebook-icon.svg"
+          alt=""
+          width="20"
+          height="20"
+      /></span>
+      <span> Facebookでログイン</span>
+    </button>
+    <button
+      mat-raised-button
+      (click)="twitterLogin()"
+      class="loginButton__twitter"
+    >
+      <span class="loginButton__icon"
+        ><img src="/assets/images/twitter-3.svg" alt="" width="20" height="20"
+      /></span>
+      <span>
+        Twitterでログイン
+      </span>
+    </button>
+  </div>
+  <mat-divider></mat-divider>
   <form [formGroup]="form">
     <mat-form-field>
       <mat-label>メールアドレス</mat-label>
@@ -16,9 +51,10 @@
         formControlName="email"
         required
         autocomplete="email"
+        class="emailForm"
       />
       <mat-error *ngIf="emailControl.hasError('email')"
-        >メールアドレスを入力してください</mat-error
+        >有効なメールアドレスを入力してください</mat-error
       >
       <mat-error *ngIf="emailControl.hasError('required')"
         >必須入力です</mat-error
@@ -32,6 +68,7 @@
         formControlName="password"
         required
         autocomplete="current-password"
+        class="passwordForm"
       />
       <mat-error *ngIf="passwordControl.hasError('required')"
         >必須入力です</mat-error
@@ -47,7 +84,7 @@
       (click)="register()"
       [disabled]="form.invalid"
     >
-      新規作成
+      メールアドレスで新規作成
     </button>
     <button
       mat-raised-button
@@ -56,7 +93,7 @@
       (click)="emailLogin()"
       [disabled]="form.invalid"
     >
-      login
+      メールアドレスでログイン
     </button>
     <button
       mat-raised-button
@@ -65,7 +102,7 @@
       (click)="resetPassword()"
       [disabled]="form.get('email').invalid"
     >
-      reset password
+      パスワードをリセット
     </button>
   </form>
 </div>
