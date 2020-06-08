@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { GuestGuard } from './guards/guest.guard';
 
 const routes: Routes = [
   {
@@ -34,6 +35,8 @@ const routes: Routes = [
     path: 'Login',
     loadChildren: () =>
       import('./login/login.module').then((m) => m.LoginModule),
+    canLoad: [GuestGuard],
+    canActivate: [GuestGuard],
   },
 
   {
