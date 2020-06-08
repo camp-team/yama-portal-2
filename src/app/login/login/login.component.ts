@@ -17,6 +17,13 @@ export class LoginComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private authService: AuthService) {}
 
+  get emailControl() {
+    return this.form.get('email') as FormControl;
+  }
+  get passwordControl() {
+    return this.form.get('password') as FormControl;
+  }
+
   googleLogin() {
     this.authService.googleLogin();
   }
