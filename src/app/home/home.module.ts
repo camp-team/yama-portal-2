@@ -6,9 +6,18 @@ import { HomeComponent } from './home/home.component';
 import { MatIconModule } from '@angular/material/icon';
 import { NgAisModule } from 'angular-instantsearch';
 import { VisibleDirective } from '../post-list/visible.directive';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [HomeComponent, VisibleDirective],
-  imports: [CommonModule, HomeRoutingModule, MatIconModule, NgAisModule],
+  imports: [
+    CommonModule,
+    HomeRoutingModule,
+    MatIconModule,
+    NgAisModule,
+    MatButtonModule,
+    MatCardModule,
+  ],
 })
 export class HomeModule {}

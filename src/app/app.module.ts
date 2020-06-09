@@ -20,7 +20,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NgAisModule } from 'angular-instantsearch';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
 import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
@@ -46,7 +45,6 @@ import { NotFoundComponent } from './not-found/not-found.component';
     MatSnackBarModule,
     NgAisModule.forRoot(),
     MatButtonModule,
-    MatCardModule,
   ],
   providers: [{ provide: REGION, useValue: 'asia-northeast1' }],
   bootstrap: [AppComponent],
