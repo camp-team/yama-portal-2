@@ -36,13 +36,14 @@
               <mat-card-title>UserName</mat-card-title>
               <mat-card-subtitle>{{ hit.label }}</mat-card-subtitle>
             </mat-card-header>
-            <img
-              matCardImage
-              *ngIf="hit.imageURL"
-              src="{{ hit.imageURL }}"
-              class="card__image"
-              alt="image"
-            />
+            <a href="{{ hit.imageURL }}">
+              <div
+                *ngIf="hit.imageURL"
+                [style.background-image]="'url(' + hit.imageURL + ')'"
+                class="card__image"
+                alt="image"
+              ></div>
+            </a>
             <mat-card-content class="card__body">
               <p class="card__content">{{ hit.content }}</p>
               <p class="card__date">
@@ -56,20 +57,3 @@
     </ais-infinite-hits>
   </ais-instantsearch>
 </div>
-<!-- <mat-card>
-    <mat-card-header>
-        <mat-card-title>Title</mat-card-title>
-        <mat-card-subtitle>Subtitle</mat-card-subtitle>
-    </mat-card-header>
-    <img matCardImage src="Card wide image source">
-    <mat-card-content>
-        Text content
-    </mat-card-content>
-    <mat-card-actions align="start">
-        <button mat-button (click)="onAction1">Action1</button>
-
-    </mat-card-actions>
-    <mat-card-footer>
-        Footer
-    </mat-card-footer>
-</mat-card> -->
