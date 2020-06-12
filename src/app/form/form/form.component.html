@@ -10,24 +10,31 @@
     <mat-form-field>
       <mat-label>投稿の種類</mat-label>
       <mat-select formControlName="label" required>
-        <mat-option value="denger">危険箇所</mat-option>
-        <mat-option value="viewPoint">絶景ポイント</mat-option>
-        <mat-option value="toilet">お手洗い</mat-option>
-        <mat-option value="water">水場</mat-option>
-        <mat-option value="rest">休憩ポイント</mat-option>
-        <mat-option value="other">その他</mat-option>
+        <mat-option value="denger"
+          ><mat-icon>warning</mat-icon>危険箇所</mat-option
+        >
+        <mat-option value="viewPoint"
+          ><mat-icon>panorama</mat-icon>絶景ポイント</mat-option
+        >
+        <mat-option value="toilet"><mat-icon>wc</mat-icon>お手洗い</mat-option>
+        <mat-option value="water"
+          ><mat-icon>invert_colors</mat-icon>水場</mat-option
+        >
+        <mat-option value="rest"
+          ><mat-icon>nature_people</mat-icon>休憩ポイント</mat-option
+        >
+        <mat-option value="other"
+          ><mat-icon>texture</mat-icon>その他</mat-option
+        >
       </mat-select>
       <mat-error *ngIf="labelControl.hasError('required')"
         >選択してください</mat-error
       >
     </mat-form-field>
-    <input
-      type="file"
-      (change)="setImage($event, 'imageURL')"
-      accept=".png, .img, .jpeg"
-    />
+
+    <!--  -->
     <mat-form-field>
-      <mat-label>Textarea</mat-label>
+      <mat-label>文字を入力してください</mat-label>
       <textarea
         matTextareaAutosize
         type="text"
@@ -43,6 +50,20 @@
       >
     </mat-form-field>
     <mat-slide-toggle formControlName="public">公開</mat-slide-toggle>
+    <!-- <div>
+      <img *ngIf="imageURL[0]" [src]="imageURL[0]" alt="" />
+    </div> -->
+    <div class="upload" (click)="imageInput.click()">
+      <input
+        type="file"
+        style="display: none;"
+        (change)="setImage($event, 'imageURL')"
+        accept=".png, .img, .jpeg"
+        #imageInput
+      />
+      <mat-icon>insert_photo</mat-icon>
+      <p>画像をアップロード</p>
+    </div>
     <button mat-raised-button color="primary" [disabled]="form.invalid">
       投稿
     </button>
