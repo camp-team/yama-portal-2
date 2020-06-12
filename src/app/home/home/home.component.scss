@@ -11,8 +11,8 @@ img {
   margin: 56px auto;
   box-sizing: border-box;
   @media screen and (max-width: 500px) {
-    max-width: 1024px;
-    padding: 0;
+    max-width: 500px;
+    padding: 0 8px;
     margin: 56px auto;
     box-sizing: border-box;
   }
@@ -60,7 +60,7 @@ img {
   &__search {
     display: block;
     position: sticky;
-    top: 368px;
+    top: 308px;
     z-index: 100;
   }
 }
