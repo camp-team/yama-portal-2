@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class FormComponent implements OnInit {
   isComplete: boolean;
+  isChecked = true;
   images: {
     imageURL: File;
   } = {
