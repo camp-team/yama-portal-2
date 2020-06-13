@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class FormComponent implements OnInit {
   isComplete: boolean;
+  isChecked = true;
   images: {
     imageURL: File;
   } = {
@@ -40,6 +41,10 @@ export class FormComponent implements OnInit {
 
   get contentControl(): FormControl {
     return this.form.get('content') as FormControl;
+  }
+
+  get labelControl(): FormControl {
+    return this.form.get('label') as FormControl;
   }
 
   convertImage(file: File, type: string) {

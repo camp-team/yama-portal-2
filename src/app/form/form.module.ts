@@ -9,6 +9,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [FormComponent],
@@ -22,6 +24,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatRadioModule,
     MatSlideToggleModule,
     MatButtonModule,
+    MatSelectModule,
+    MatIconModule,
   ],
 })
 export class FormModule {}

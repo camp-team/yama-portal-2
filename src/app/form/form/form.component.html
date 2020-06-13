@@ -6,22 +6,34 @@
       height="300"
     ></iframe>
   </div>
-  <form [formGroup]="form" class="form__form" (ngSubmit)="submit()">
-    <mat-radio-group formControlName="label">
-      <mat-radio-button value="denger">危険箇所</mat-radio-button>
-      <mat-radio-button value="viewPoint">絶景ポイント</mat-radio-button>
-      <mat-radio-button value="toilet">お手洗い</mat-radio-button>
-      <mat-radio-button value="water">水場</mat-radio-button>
-      <mat-radio-button value="rest">休憩ポイント</mat-radio-button>
-      <mat-radio-button value="other">その他</mat-radio-button>
-    </mat-radio-group>
-    <input
-      type="file"
-      (change)="setImage($event, 'imageURL')"
-      accept=".png, .img, .jpeg"
-    />
+
+  <form [formGroup]="form" class="form__body" (ngSubmit)="submit()">
+    <mat-slide-toggle
+      formControlName="public"
+      [(ngModel)]="isChecked"
+      color="primary"
+      class="form__public"
+      ><div *ngIf="isChecked; then thenBlock; else elseBlock"></div>
+      <ng-template #thenBlock>公開</ng-template>
+      <ng-template #elseBlock>非公開</ng-template></mat-slide-toggle
+    >
     <mat-form-field>
-      <mat-label>Textarea</mat-label>
+      <mat-label>投稿の種類</mat-label>
+      <mat-select formControlName="label" required>
+        <mat-option value="denger">危険箇所</mat-option>
+        <mat-option value="viewPoint">絶景ポイント</mat-option>
+        <mat-option value="toilet">お手洗い</mat-option>
+        <mat-option value="water">水場</mat-option>
+        <mat-option value="rest">休憩ポイント</mat-option>
+        <mat-option value="other">その他</mat-option>
+      </mat-select>
+      <mat-error *ngIf="labelControl.hasError('required')"
+        >選択してください</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>文字を入力してください</mat-label>
       <textarea
         matTextareaAutosize
         type="text"
@@ -36,8 +48,24 @@
         >長すぎます</mat-error
       >
     </mat-form-field>
-    <mat-slide-toggle formControlName="public">公開</mat-slide-toggle>
-    <button mat-raised-button color="primary" [disabled]="form.invalid">
+
+    <div class="form__upload" (click)="imageInput.click()">
+      <input
+        type="file"
+        style="display: none;"
+        (change)="setImage($event, 'imageURL')"
+        accept=".png, .img, .jpeg"
+        #imageInput
+      />
+      <mat-icon>insert_photo</mat-icon>
+      <p>画像をアップロード</p>
+    </div>
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="form.invalid"
+      class="form__button"
+    >
       投稿
     </button>
   </form>

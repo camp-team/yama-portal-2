@@ -1,3 +1,30 @@
 mat-form-field {
   width: 100%;
 }
+.form {
+  max-width: 1024px;
+  padding: 0 24px;
+  margin: 56px auto;
+  box-sizing: border-box;
+  @media screen and (max-width: 500px) {
+    max-width: 1024px;
+    padding: 0 8px;
+    margin: 56px auto;
+    box-sizing: border-box;
+  }
+  &__upload {
+    background-color: rgb(245, 245, 245);
+    cursor: pointer;
+    text-align: center;
+    padding: 36px;
+    border-width: 1px;
+    border-style: dashed;
+    border-color: rgb(204, 204, 204);
+    font-size: 13px;
+    margin-bottom: 24px;
+    p {
+      margin: 0;
+      color: rgba(black, 0.6);
+    }
+  }
+}
