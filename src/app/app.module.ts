@@ -21,6 +21,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NgAisModule } from 'angular-instantsearch';
 import { MatButtonModule } from '@angular/material/button';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [AppComponent, NotFoundComponent],
@@ -45,6 +46,9 @@ import { NotFoundComponent } from './not-found/not-found.component';
     MatSnackBarModule,
     NgAisModule.forRoot(),
     MatButtonModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+    }),
   ],
   providers: [{ provide: REGION, useValue: 'asia-northeast1' }],
   bootstrap: [AppComponent],
