@@ -51,7 +51,7 @@ export class PostService {
       const urls = null;
       return urls;
     } else {
-      const result = await this.storage.ref(`codeCards/${id}`).put(file);
+      const result = await this.storage.ref(`posts/${id}`).put(file);
       return result.ref.getDownloadURL();
     }
   }
