@@ -1,10 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  CanDeactivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-  UrlTree,
-} from '@angular/router';
+import { CanDeactivate } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { FormComponent } from '../form/form/form.component';
 
@@ -12,17 +7,10 @@ import { FormComponent } from '../form/form/form.component';
   providedIn: 'root',
 })
 export class FormGuard implements CanDeactivate<FormComponent> {
-  canDeactivate(
-    component: FormComponent,
-    currentRoute: ActivatedRouteSnapshot,
-    currentState: RouterStateSnapshot,
-    nextState?: RouterStateSnapshot
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
-    if (component.form.pristine || component.isComplete) {
+  canDeactivate(component: FormComponent): Observable<boolean> | boolean {
+    console.log('[pristine]' + component.form.pristine);
+    console.log('[valid]' + component.form.valid);
+    if (component.form.pristine || component.form.valid) {
       return true;
     }
     const confirmation = window.confirm(
