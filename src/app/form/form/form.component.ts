@@ -2,7 +2,8 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { PostService } from 'src/app/services/post.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ImageCropperDialogComponent } from 'src/app/image-cropper-dialog/image-cropper-dialog.component';
+// import { ImageCropperDialogComponent } from 'src/app/image-cropper-dialog/image-cropper-dialog.component';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-form',
@@ -14,6 +15,8 @@ export class FormComponent implements OnInit {
   isChecked = true;
   imageURL: string | ArrayBuffer;
   file: File;
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
 
   form = this.fb.group({
     label: [
@@ -58,10 +61,24 @@ export class FormComponent implements OnInit {
     }
   }
 
-  openCropperDialog() {
-    this.dialog.open(ImageCropperDialogComponent);
+  // openCropperDialog() {
+  //   this.dialog.open(ImageCropperDialogComponent);
+  // }
+  fileChangeEvent(event: any): void {
+    this.imageChangedEvent = event;
   }
-
+  imageCropped(event: ImageCroppedEvent) {
+    this.croppedImage = event.base64;
+  }
+  imageLoaded() {
+    // show cropper
+  }
+  cropperReady() {
+    // cropper ready
+  }
+  loadImageFailed() {
+    // show message
+  }
   submit() {
     if (this.file) {
       this.postService.createPost(this.form.value, this.file).then(() => {

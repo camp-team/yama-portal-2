@@ -67,14 +67,28 @@
       [src]="imageURL"
       alt="image"
     />
-    <button
+    <!-- <button
       *ngIf="imageURL"
       type="button"
       mat-flat-button
       (click)="openCropperDialog()"
     >
       画像を編集
-    </button>
+    </button> -->
+    <input type="file" (change)="fileChangeEvent($event)" />
+
+    <image-cropper
+      [imageChangedEvent]="imageChangedEvent"
+      [maintainAspectRatio]="true"
+      [aspectRatio]="4 / 3"
+      format="png"
+      (imageCropped)="imageCropped($event)"
+      (imageLoaded)="imageLoaded()"
+      (cropperReady)="cropperReady()"
+      (loadImageFailed)="loadImageFailed()"
+    ></image-cropper>
+
+    <img [src]="croppedImage" />
 
     <button
       mat-raised-button
