@@ -24,13 +24,11 @@ export class PostService {
 
   async createPost(
     post: Omit<Post, 'id' | 'createdAt' | 'userId'>,
-    images: {
-      imageURL: File;
-    }
+    file: Blob
   ) {
     const id = this.db.createId();
-    const urls = await this.uploadImage(id, Object.values(images));
-    const [imageURL] = urls;
+    const urls = await this.uploadImage(id, file);
+    const imageURL = urls;
     return this.db
       .doc<Post>(`posts/${id}`)
       .set({
@@ -48,23 +46,13 @@ export class PostService {
       });
   }
 
-  async uploadImage(id: string, files: File[]): Promise<string[]> {
-    if (files[0] === null) {
-      const urls = [null];
+  async uploadImage(id: string, file: Blob): Promise<string> {
+    if (file === null) {
+      const urls = null;
       return urls;
     } else {
-      return Promise.all(
-        files.map((file, index) => {
-          const ref = this.storage.ref(`posts/${id}-${index}`);
-          return ref.put(file);
-        })
-      ).then(async (tasks) => {
-        const urls = [];
-        for (const task of tasks) {
-          urls.push(await task.ref.getDownloadURL());
-        }
-        return urls;
-      });
+      const result = await this.storage.ref(`posts/${id}`).put(file);
+      return result.ref.getDownloadURL();
     }
   }
 

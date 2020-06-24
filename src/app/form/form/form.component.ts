@@ -1,7 +1,8 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { PostService } from 'src/app/services/post.service';
-import { AuthService } from 'src/app/services/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ImageCroppedEvent, base64ToFile } from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-form',
@@ -11,17 +12,9 @@ import { AuthService } from 'src/app/services/auth.service';
 export class FormComponent implements OnInit {
   isComplete: boolean;
   isChecked = true;
-  images: {
-    imageURL: File;
-  } = {
-    imageURL: null,
-  };
-
-  srcs: {
-    imageURL: File;
-  } = {
-    imageURL: null,
-  };
+  imageURL: string | ArrayBuffer;
+  file: File;
+  croppedImage: string = null;
 
   form = this.fb.group({
     label: [
@@ -35,7 +28,11 @@ export class FormComponent implements OnInit {
     public: [true],
   });
 
-  constructor(private fb: FormBuilder, private postService: PostService) {}
+  constructor(
+    private fb: FormBuilder,
+    private postService: PostService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {}
 
@@ -47,28 +44,37 @@ export class FormComponent implements OnInit {
     return this.form.get('label') as FormControl;
   }
 
-  convertImage(file: File, type: string) {
+  convertImage(file: File) {
     const reader = new FileReader();
     reader.onload = (e) => {
-      this.srcs[type] = e.target.result;
+      this.imageURL = e.target.result;
     };
     reader.readAsDataURL(file);
   }
 
-  setImage(event, type: string) {
+  setImage(event) {
     if (event.target.files.length) {
-      this.images[type] = event.target.files[0];
-      this.convertImage(this.images[type], type);
-    } else {
-      console.log('setImage');
+      this.file = event.target.files[0];
+      this.convertImage(this.file);
     }
-    console.log(type);
+  }
+
+  imageCropped(event: ImageCroppedEvent) {
+    this.croppedImage = event.base64;
   }
 
   submit() {
-    this.postService.createPost(this.form.value, this.images).then(() => {
-      this.isComplete = true;
-    });
+    if (this.croppedImage) {
+      const croppedFile: Blob = base64ToFile(this.croppedImage);
+      this.postService.createPost(this.form.value, croppedFile).then(() => {
+        this.isComplete = true;
+      });
+    } else {
+      const croppedFile = null;
+      this.postService.createPost(this.form.value, croppedFile).then(() => {
+        this.isComplete = true;
+      });
+    }
   }
 
   @HostListener('window:beforeunload', ['$event'])

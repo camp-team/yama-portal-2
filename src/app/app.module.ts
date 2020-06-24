@@ -22,6 +22,7 @@ import { NgAisModule } from 'angular-instantsearch';
 import { MatButtonModule } from '@angular/material/button';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [AppComponent, NotFoundComponent],
@@ -46,6 +47,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     MatSnackBarModule,
     NgAisModule.forRoot(),
     MatButtonModule,
+    MatDialogModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
     }),
