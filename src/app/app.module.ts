@@ -22,12 +22,10 @@ import { NgAisModule } from 'angular-instantsearch';
 import { MatButtonModule } from '@angular/material/button';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { ImageCropperDialogComponent } from './image-cropper-dialog/image-cropper-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { ImageCropperModule } from 'ngx-image-cropper';
 
 @NgModule({
-  declarations: [AppComponent, NotFoundComponent, ImageCropperDialogComponent],
+  declarations: [AppComponent, NotFoundComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -53,10 +51,8 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
     }),
-    ImageCropperModule,
   ],
   providers: [{ provide: REGION, useValue: 'asia-northeast1' }],
   bootstrap: [AppComponent],
-  entryComponents: [ImageCropperDialogComponent],
 })
 export class AppModule {}

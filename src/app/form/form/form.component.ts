@@ -2,7 +2,6 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { PostService } from 'src/app/services/post.service';
 import { MatDialog } from '@angular/material/dialog';
-// import { ImageCropperDialogComponent } from 'src/app/image-cropper-dialog/image-cropper-dialog.component';
 import { ImageCroppedEvent, base64ToFile } from 'ngx-image-cropper';
 
 @Component({
@@ -65,16 +64,13 @@ export class FormComponent implements OnInit {
   }
 
   submit() {
-    console.log('[submit0]' + this.croppedImage);
     if (this.croppedImage) {
       const croppedFile: Blob = base64ToFile(this.croppedImage);
-      console.log('[submit1]' + croppedFile);
       this.postService.createPost(this.form.value, croppedFile).then(() => {
         this.isComplete = true;
       });
     } else {
       const croppedFile = null;
-      console.log('[submit2]' + croppedFile);
       this.postService.createPost(this.form.value, croppedFile).then(() => {
         this.isComplete = true;
       });

@@ -47,7 +47,6 @@ export class PostService {
   }
 
   async uploadImage(id: string, file: Blob): Promise<string> {
-    console.log('[upload]' + file);
     if (file === null) {
       const urls = null;
       return urls;
