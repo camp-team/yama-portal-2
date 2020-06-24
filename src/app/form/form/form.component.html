@@ -40,6 +40,7 @@
         formControlName="content"
         placeholder="test"
         matInput
+        required
       ></textarea>
       <mat-error *ngIf="contentControl.hasError('required')"
         >必須入力です</mat-error
@@ -66,6 +67,15 @@
       [src]="imageURL"
       alt="image"
     />
+    <button
+      *ngIf="imageURL"
+      type="button"
+      mat-flat-button
+      (click)="openCropperDialog()"
+    >
+      画像を編集
+    </button>
+
     <button
       mat-raised-button
       color="primary"

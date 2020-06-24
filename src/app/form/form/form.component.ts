@@ -1,7 +1,8 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { PostService } from 'src/app/services/post.service';
-import { AuthService } from 'src/app/services/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ImageCropperDialogComponent } from 'src/app/image-cropper-dialog/image-cropper-dialog.component';
 
 @Component({
   selector: 'app-form',
@@ -26,7 +27,11 @@ export class FormComponent implements OnInit {
     public: [true],
   });
 
-  constructor(private fb: FormBuilder, private postService: PostService) {}
+  constructor(
+    private fb: FormBuilder,
+    private postService: PostService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {}
 
@@ -51,6 +56,10 @@ export class FormComponent implements OnInit {
       this.file = event.target.files[0];
       this.convertImage(this.file);
     }
+  }
+
+  openCropperDialog() {
+    this.dialog.open(ImageCropperDialogComponent);
   }
 
   submit() {
