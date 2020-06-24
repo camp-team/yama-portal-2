@@ -49,7 +49,7 @@
         >長すぎます</mat-error
       >
     </mat-form-field>
-    <div></div>
+
     <input
       type="file"
       style="display: none;"
@@ -57,38 +57,29 @@
       accept=".png, .img, .jpeg"
       #imageInput
     />
+
     <div *ngIf="!imageURL" class="form__upload" (click)="imageInput.click()">
       <mat-icon>insert_photo</mat-icon>
       <p>画像をアップロード</p>
     </div>
+
     <img
       *ngIf="imageURL"
       (click)="imageInput.click()"
-      [src]="imageURL"
+      [src]="croppedImage"
       alt="image"
     />
-    <!-- <button
-      *ngIf="imageURL"
-      type="button"
-      mat-flat-button
-      (click)="openCropperDialog()"
-    >
-      画像を編集
-    </button> -->
-    <input type="file" (change)="fileChangeEvent($event)" />
 
     <image-cropper
-      [imageChangedEvent]="imageChangedEvent"
+      *ngIf="imageURL"
+      [imageBase64]="imageURL"
+      resizeToWidth="400"
+      resizeToHeight="400"
       [maintainAspectRatio]="true"
       [aspectRatio]="4 / 3"
       format="png"
       (imageCropped)="imageCropped($event)"
-      (imageLoaded)="imageLoaded()"
-      (cropperReady)="cropperReady()"
-      (loadImageFailed)="loadImageFailed()"
     ></image-cropper>
-
-    <img [src]="croppedImage" />
 
     <button
       mat-raised-button

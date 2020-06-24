@@ -3,7 +3,7 @@ import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { PostService } from 'src/app/services/post.service';
 import { MatDialog } from '@angular/material/dialog';
 // import { ImageCropperDialogComponent } from 'src/app/image-cropper-dialog/image-cropper-dialog.component';
-import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { ImageCroppedEvent, base64ToFile } from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-form',
@@ -15,8 +15,7 @@ export class FormComponent implements OnInit {
   isChecked = true;
   imageURL: string | ArrayBuffer;
   file: File;
-  imageChangedEvent: any = '';
-  croppedImage: any = '';
+  croppedImage: string = null;
 
   form = this.fb.group({
     label: [
@@ -61,32 +60,22 @@ export class FormComponent implements OnInit {
     }
   }
 
-  // openCropperDialog() {
-  //   this.dialog.open(ImageCropperDialogComponent);
-  // }
-  fileChangeEvent(event: any): void {
-    this.imageChangedEvent = event;
-  }
   imageCropped(event: ImageCroppedEvent) {
     this.croppedImage = event.base64;
   }
-  imageLoaded() {
-    // show cropper
-  }
-  cropperReady() {
-    // cropper ready
-  }
-  loadImageFailed() {
-    // show message
-  }
+
   submit() {
-    if (this.file) {
-      this.postService.createPost(this.form.value, this.file).then(() => {
+    console.log('[submit0]' + this.croppedImage);
+    if (this.croppedImage) {
+      const croppedFile: Blob = base64ToFile(this.croppedImage);
+      console.log('[submit1]' + croppedFile);
+      this.postService.createPost(this.form.value, croppedFile).then(() => {
         this.isComplete = true;
       });
     } else {
-      const file = null;
-      this.postService.createPost(this.form.value, file).then(() => {
+      const croppedFile = null;
+      console.log('[submit2]' + croppedFile);
+      this.postService.createPost(this.form.value, croppedFile).then(() => {
         this.isComplete = true;
       });
     }

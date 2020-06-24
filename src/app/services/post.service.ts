@@ -24,7 +24,7 @@ export class PostService {
 
   async createPost(
     post: Omit<Post, 'id' | 'createdAt' | 'userId'>,
-    file: File
+    file: Blob
   ) {
     const id = this.db.createId();
     const urls = await this.uploadImage(id, file);
@@ -46,7 +46,8 @@ export class PostService {
       });
   }
 
-  async uploadImage(id: string, file: File): Promise<string> {
+  async uploadImage(id: string, file: Blob): Promise<string> {
+    console.log('[upload]' + file);
     if (file === null) {
       const urls = null;
       return urls;
