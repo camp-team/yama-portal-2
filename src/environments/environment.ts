@@ -4,6 +4,10 @@
 
 export const environment = {
   production: false,
+  algolia: {
+    appId: 'YTCNWA1M3V',
+    searchKey: '266d4f34268aad279908ca35f27a5250',
+  },
   firebase: {
     apiKey: 'AIzaSyDDtE-uIhnFyjwkfXoPttqfmr-89zBvPOM',
     authDomain: 'yama-portal.firebaseapp.com',
