@@ -17,6 +17,7 @@ export class Algolia {
     return Object.entries(data).reduce((obj, [key, value]) => {
       if (value instanceof admin.firestore.Timestamp) {
         obj[key] = value.toMillis();
+        console.log('[transformDate]' + obj[key]);
       }
       return obj;
     }, data);
@@ -28,22 +29,23 @@ export class Algolia {
    * @param index インデックス名
    * @param data 追加するデータ
    * @param idKey IDが含まれるキー名(デフォルトは'id')
-   * @param largeContentKey 巨大なデータが含まれるキー名
+   * @param largeConcentKey 巨大なデータが含まれるキー名
    */
   private addDistributedRecords(
     index: SearchIndex,
     data: any,
-    idKey: string,
-    largeContentKey: string
+    isKey: string,
+    largeConcentKey: string
   ) {
+    console.log('addDistributedRecords');
     const reg = new RegExp(`[\\s\\S]{1,${this.maxContentLength}}`, 'gm');
-    const records = data[largeContentKey]
+    const records = data[largeConcentKey]
       .match(reg)
       .map((largeData: any, i: number) => {
         return {
           ...data,
-          objectID: data[idKey] + '-' + i,
-          [largeContentKey]: largeData,
+          objectID: data[isKey] + '-' + i,
+          [largeConcentKey]: largeData,
         };
       });
 
@@ -56,15 +58,15 @@ export class Algolia {
    * @param param.indexName レコード名
    * @param param.data 追加するデータ
    * @param param.isUpdate 追加(false) or 更新(true)
-   * @param param.idKey idのキー名(デフォルトは'id'(変更する))
-   * @param param.largeContentKey 巨大なデータが含まれるキー名
+   * @param param.idKey idのキー名(デフォルトは'id')
+   * @param param.largeConcentKey 巨大なデータが含まれるキー名
    */
   async saveRecord(param: {
     indexName: string;
     data: any;
     isUpdate?: boolean;
     idKey?: string;
-    largeContentKey?: string;
+    largeConcentKey?: string;
   }) {
     const index = client.initIndex(param.indexName);
     const item = this.transformDate(param.data);
@@ -75,15 +77,15 @@ export class Algolia {
     }
 
     if (
-      param.largeContentKey &&
-      item[param.largeContentKey] &&
-      item[param.largeContentKey].length > this.maxContentLength
+      param.largeConcentKey &&
+      item[param.largeConcentKey] &&
+      item[param.largeConcentKey].length > this.maxContentLength
     ) {
       return this.addDistributedRecords(
         index,
         item,
         idKey,
-        param.largeContentKey
+        param.largeConcentKey
       );
     } else {
       item.objectID = item[idKey];
@@ -96,7 +98,7 @@ export class Algolia {
    *
    * @param indexName 削除対象のインデックス名
    * @param id 削除対象のid
-   * @param idKey idのキー名(デフォルトは'id'(変更する))
+   * @param idKey idのキー名(デフォルトは'id')
    */
   removeRecord(indexName: string, id: string, idKey: string = 'id') {
     const index = client.initIndex(indexName);
