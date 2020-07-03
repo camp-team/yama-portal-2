@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Post } from 'src/app/interfaces/post';
 import { PostService } from 'src/app/services/post.service';
+import { SearchService } from 'src/app/services/search.service';
 const algoliasearch = require('algoliasearch/lite');
+import { SearchIndex } from 'algoliasearch/lite';
 
 const searchClient = algoliasearch(
   'YTCNWA1M3V',
@@ -16,6 +18,13 @@ const searchClient = algoliasearch(
 })
 export class HomeComponent implements OnInit {
   posts$: Observable<Post[]> = this.postService.getPosts();
+  index: SearchIndex = this.searchService.index.item;
+
+  // 検索結果の格納プロパティ
+  result: {
+    nbHits: number; // ヒット件数
+    hits: any[]; // 結果のリスト
+  };
 
   config = {
     indexName: 'posts',
@@ -26,7 +35,19 @@ export class HomeComponent implements OnInit {
     hitsPerPage: 4,
   };
 
-  constructor(private postService: PostService) {}
+  constructor(
+    private postService: PostService,
+    private searchService: SearchService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit() {
+    this.search('aaa');
+  }
+
+  private search(query: string) {
+    this.index.search(query).then((result) => {
+      // 検索結果を格納
+      this.result = result;
+    });
+  }
 }
