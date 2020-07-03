@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { Post } from 'src/app/interfaces/post';
 import { PostService } from 'src/app/services/post.service';
 import { SearchService } from 'src/app/services/search.service';
-const algoliasearch = require('algoliasearch/lite');
+import algoliasearch from 'algoliasearch/lite';
 import { SearchIndex } from 'algoliasearch/lite';
 
 const searchClient = algoliasearch(
@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.search('aaa');
+    this.search('a');
   }
 
   private search(query: string) {
