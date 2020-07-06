@@ -15,7 +15,7 @@ export class SearchService {
   // インデックスリスト
   index = {
     // アイテムインデックス
-    label: searchClient.initIndex('label'),
+    posts: searchClient.initIndex('posts'),
   };
   searchControl: FormControl = new FormControl('');
 

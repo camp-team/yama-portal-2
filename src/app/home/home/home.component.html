@@ -23,12 +23,12 @@
     </div>
   </div>
 
-  <!-- <h2>検索結果一覧 ヒット件数: {{ result?.nbHits }}</h2>
+  <h2>検索結果一覧 ヒット件数: {{ result?.nbHits }}</h2>
   <ul>
-    <li *ngFor="let hit of result?.hits">{{ hit.title }}</li>
-  </ul> -->
+    <li *ngFor="let hit of result?.hits">{{ hit.label }}</li>
+  </ul>
 
-  <ais-instantsearch [config]="config">
+  <!-- <ais-instantsearch [config]="config">
     <div class="timeLine">
       <ais-configure [searchParameters]="searchParams"></ais-configure>
       <ais-search-box class="timeLine__search"></ais-search-box>
@@ -66,5 +66,5 @@
         </ng-template>
       </ais-infinite-hits>
     </div>
-  </ais-instantsearch>
+  </ais-instantsearch> -->
 </div>
