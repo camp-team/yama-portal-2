@@ -18,13 +18,13 @@ const searchClient = algoliasearch(
 })
 export class HomeComponent implements OnInit {
   posts$: Observable<Post[]> = this.postService.getPosts();
-  index: SearchIndex = this.searchService.index.item;
+  // index: SearchIndex = this.searchService.index.label;
 
-  // 検索結果の格納プロパティ
-  result: {
-    nbHits: number; // ヒット件数
-    hits: any[]; // 結果のリスト
-  };
+  // // 検索結果の格納プロパティ
+  // result: {
+  //   nbHits: number; // ヒット件数
+  //   hits: any[]; // 結果のリスト
+  // };
 
   config = {
     indexName: 'posts',
@@ -41,13 +41,15 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.search('a');
+    // this.search('denger');
+    // console.log(this.search);
   }
 
-  private search(query: string) {
-    this.index.search(query).then((result) => {
-      // 検索結果を格納
-      this.result = result;
-    });
-  }
+  // private search(query: string) {
+  //   this.index.search(query).then((result) => {
+  //     // 検索結果を格納
+  //     this.result = result;
+  //     console.log(this.result);
+  //   });
+  // }
 }
