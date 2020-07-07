@@ -5,6 +5,9 @@ import { PostService } from 'src/app/services/post.service';
 import { SearchService } from 'src/app/services/search.service';
 import algoliasearch from 'algoliasearch/lite';
 import { SearchIndex } from 'algoliasearch/lite';
+import { FormControl } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
 
 const searchClient = algoliasearch(
   'YTCNWA1M3V',
@@ -19,6 +22,7 @@ const searchClient = algoliasearch(
 export class HomeComponent implements OnInit {
   // posts$: Observable<Post[]> = this.postService.getPosts();
   index: SearchIndex = this.searchService.index.posts;
+  postId$: Observable<any>;
 
   // 検索結果の格納プロパティ
   result: {
@@ -37,19 +41,35 @@ export class HomeComponent implements OnInit {
 
   constructor(
     // private postService: PostService,
-    private searchService: SearchService
+    public searchService: SearchService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.search('denger');
-    console.log(this.search);
+    this.route.queryParamMap.subscribe((param) => {
+      const searchQuery = param.get('searchQuery');
+      // 検索キーワードに初期値をセット
+      this.searchService.searchControl.patchValue(searchQuery, {
+        emitEvent: false, // 重要
+      });
+      this.search(searchQuery);
+    });
   }
 
   private search(query: string) {
     this.index.search(query).then((result) => {
       // 検索結果を格納
       this.result = result;
-      console.log(this.result);
+    });
+  }
+
+  routeSearch(searchQuery: string) {
+    this.router.navigate([], {
+      queryParamsHandling: 'merge',
+      queryParams: {
+        searchQuery,
+      },
     });
   }
 }

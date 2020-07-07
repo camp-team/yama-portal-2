@@ -8,6 +8,7 @@ import { VisibleDirective } from '../post-list/visible.directive';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [HomeComponent, VisibleDirective],
@@ -19,6 +20,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     MatButtonModule,
     MatCardModule,
     InfiniteScrollModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
 })
 export class HomeModule {}
