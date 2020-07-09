@@ -17,7 +17,6 @@ export class SearchService {
     // アイテムインデックス
     posts: searchClient.initIndex('posts'),
   };
-  searchControl: FormControl = new FormControl('');
 
   constructor() {}
 }

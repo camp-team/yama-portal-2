@@ -24,15 +24,12 @@
   </div>
 
   <h2>検索結果一覧 ヒット件数: {{ result?.nbHits }}</h2>
-  <form
-    class="search"
-    (ngSubmit)="routeSearch(searchService.searchControl.value)"
-  >
+  <form class="search" (ngSubmit)="routeSearch(searchControl.value)">
     <input
       class="search__input"
       type="text"
       placeholder="Search"
-      [formControl]="searchService.searchControl"
+      [formControl]="searchControl"
     />
     <button class="search__button">
       <mat-icon>search</mat-icon>
@@ -40,7 +37,13 @@
   </form>
 
   <div class="timeLine">
-    <div class="glid">
+    <div
+      class="glid"
+      infiniteScroll
+      [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="50"
+      (scrolled)="addSearch()"
+    >
       <mat-card *ngFor="let hit of result?.hits" class="card">
         <mat-card-header>
           <div mat-card-avatar class="card__avatar"></div>
@@ -64,7 +67,9 @@
       </mat-card>
     </div>
   </div>
-  <!-- <ais-instantsearch [config]="config">
+</div>
+
+<!-- <ais-instantsearch [config]="config">
     <div class="timeLine">
       <ais-configure [searchParameters]="searchParams"></ais-configure>
       <ais-search-box class="timeLine__search"></ais-search-box>
@@ -103,4 +108,3 @@
       </ais-infinite-hits>
     </div>
   </ais-instantsearch> -->
-</div>

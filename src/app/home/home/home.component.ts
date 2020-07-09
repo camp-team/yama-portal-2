@@ -22,7 +22,12 @@ const searchClient = algoliasearch(
 export class HomeComponent implements OnInit {
   // posts$: Observable<Post[]> = this.postService.getPosts();
   index: SearchIndex = this.searchService.index.posts;
-  postId$: Observable<any>;
+  searchControl: FormControl = new FormControl('');
+  page: 0; // ページを管理するプロパティ
+  items = []; // リストを保持
+  maxPage: number;
+  loading: boolean;
+  requestOptions: any = {};
 
   // 検索結果の格納プロパティ
   result: {
@@ -44,21 +49,25 @@ export class HomeComponent implements OnInit {
     public searchService: SearchService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
-
-  ngOnInit() {
+  ) {
     this.route.queryParamMap.subscribe((param) => {
       const searchQuery = param.get('searchQuery');
-      // 検索キーワードに初期値をセット
-      this.searchService.searchControl.patchValue(searchQuery, {
-        emitEvent: false, // 重要
-      });
+      // // 検索キーワードに初期値をセット
+      // this.searchService.searchControl.patchValue(searchQuery, {
+      //   emitEvent: false, // 重要
+      // });
       this.search(searchQuery);
     });
   }
 
-  private search(query: string) {
-    this.index.search(query).then((result) => {
+  ngOnInit() {}
+
+  search(query: string) {
+    const searchOptions = {
+      page: 0, // 何ページ目の結果を取得するか
+      hitsPerPage: 4, // 1ページあたり何件取得するか
+    };
+    this.index.search(query, searchOptions).then((result) => {
       // 検索結果を格納
       this.result = result;
     });
@@ -71,5 +80,23 @@ export class HomeComponent implements OnInit {
         searchQuery,
       },
     });
+  }
+
+  addSearch() {
+    console.log('check1');
+    if (!this.maxPage || (this.maxPage > this.page && !this.loading)) {
+      this.page++;
+      this.loading = true; // ローディング開始
+      this.searchService.index.posts
+        .search('', {
+          page: this.page,
+        })
+        .then((result) => {
+          this.maxPage = result.nbPages; // 最大ページ数を保持
+          this.items.push(...result.hits); // 結果リストに追加取得分を追加
+          this.loading = false; // ローディング終了
+          console.log('check2');
+        });
+    }
   }
 }
