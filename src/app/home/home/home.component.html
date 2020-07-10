@@ -23,43 +23,46 @@
     </div>
   </div>
 
-  <ais-instantsearch [config]="config">
-    <div class="timeLine">
-      <ais-configure [searchParameters]="searchParams"></ais-configure>
-      <ais-search-box class="timeLine__search"></ais-search-box>
+  <form class="search" (ngSubmit)="routeSearch(searchControl.value)">
+    <input
+      class="search__input"
+      type="text"
+      placeholder="Search"
+      [formControl]="searchControl"
+    />
+    <button class="search__button">
+      <mat-icon>search</mat-icon>
+    </button>
+  </form>
 
-      <ais-infinite-hits>
-        <ng-template
-          let-hits="hits"
-          let-results="results"
-          let-refine="showMore"
-        >
-          <div class="glid">
-            <mat-card *ngFor="let hit of hits" class="card">
-              <mat-card-header>
-                <div mat-card-avatar class="card__avatar"></div>
-                <mat-card-title>UserName</mat-card-title>
-                <mat-card-subtitle>{{ hit.label }}</mat-card-subtitle>
-              </mat-card-header>
-              <a href="{{ hit.imageURL }}">
-                <div
-                  *ngIf="hit.imageURL"
-                  [style.background-image]="'url(' + hit.imageURL + ')'"
-                  class="card__image"
-                  alt="image"
-                ></div>
-              </a>
-              <mat-card-content class="card__body">
-                <p class="card__content">{{ hit.content }}</p>
-                <p class="card__date">
-                  {{ hit.createdAt | date: 'yyyy/MM/dd HH:mm' }}
-                </p>
-              </mat-card-content>
-            </mat-card>
-          </div>
-          <div appVisible (Visible)="refine()"></div>
-        </ng-template>
-      </ais-infinite-hits>
-    </div>
-  </ais-instantsearch>
+  <div class="timeLine">
+    <mat-card *ngFor="let item of items" class="card">
+      <mat-card-header>
+        <div mat-card-avatar class="card__avatar"></div>
+        <mat-card-title>UserName</mat-card-title>
+        <mat-card-subtitle>{{ item.label }}</mat-card-subtitle>
+      </mat-card-header>
+      <a href="{{ item.imageURL }}">
+        <div
+          *ngIf="item.imageURL"
+          [style.background-image]="'url(' + item.imageURL + ')'"
+          class="card__image"
+          alt="image"
+        ></div>
+      </a>
+      <mat-card-content class="card__body">
+        <p class="card__content">{{ item.content }}</p>
+        <p class="card__date">
+          {{ item.createdAt | date: 'yyyy/MM/dd HH:mm' }}
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="200"
+    [infiniteScrollContainer]="uiService.scrollWrapperElement"
+    (scrolled)="addSearch()"
+  ></div>
 </div>

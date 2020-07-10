@@ -45,7 +45,6 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatRippleModule,
     MatSidenavModule,
     MatSnackBarModule,
-    NgAisModule.forRoot(),
     MatButtonModule,
     MatDialogModule,
     ServiceWorkerModule.register('ngsw-worker.js', {

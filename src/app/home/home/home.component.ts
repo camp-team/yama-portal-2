@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Post } from 'src/app/interfaces/post';
-import { PostService } from 'src/app/services/post.service';
-const algoliasearch = require('algoliasearch/lite');
-
-const searchClient = algoliasearch(
-  'YTCNWA1M3V',
-  '266d4f34268aad279908ca35f27a5250'
-);
+import { SearchService } from 'src/app/services/search.service';
+import { SearchIndex } from 'algoliasearch/lite';
+import { FormControl } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { UiService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-home',
@@ -15,18 +11,68 @@ const searchClient = algoliasearch(
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  posts$: Observable<Post[]> = this.postService.getPosts();
+  index: SearchIndex = this.searchService.index.posts;
+  searchControl: FormControl = new FormControl('');
+  page: 0;
+  items = [];
+  maxPage: number;
+  loading: boolean;
+  requestOptions: any = {};
+  searchQuery: string;
 
-  config = {
-    indexName: 'posts',
-    searchClient,
-  };
+  constructor(
+    public searchService: SearchService,
+    private router: Router,
+    private route: ActivatedRoute,
+    public uiService: UiService
+  ) {
+    this.route.queryParamMap.subscribe((param) => {
+      this.searchQuery = param.get('searchQuery') || '';
+      this.requestOptions = {
+        page: 0,
+        hitsPerPage: 6,
+      };
+      this.search();
+    });
+  }
 
-  searchParams = {
-    hitsPerPage: 4,
-  };
+  ngOnInit() {}
 
-  constructor(private postService: PostService) {}
+  search() {
+    this.items = new Array();
+    const searchOptions = {
+      ...this.requestOptions,
+    };
+    this.index.search(this.searchQuery, searchOptions).then((result) => {
+      this.maxPage = result.nbPages;
+      this.items.push(...result.hits);
+      this.loading = false;
+    });
+  }
 
-  ngOnInit(): void {}
+  routeSearch(searchQuery: string) {
+    this.router.navigate([], {
+      queryParamsHandling: 'merge',
+      queryParams: {
+        searchQuery,
+      },
+    });
+  }
+
+  addSearch() {
+    if (
+      !this.maxPage ||
+      (this.maxPage > this.requestOptions.page && !this.loading)
+    ) {
+      this.requestOptions.page++;
+      const searchOptions = {
+        ...this.requestOptions,
+      };
+      this.index.search(this.searchQuery, searchOptions).then((result) => {
+        this.maxPage = result.nbPages;
+        this.items.push(...result.hits);
+        this.loading = false;
+      });
+    }
+  }
 }
