@@ -39,6 +39,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {}
 
   search() {
+    this.items = new Array();
     const searchOptions = {
       ...this.requestOptions,
     };
@@ -64,7 +65,14 @@ export class HomeComponent implements OnInit {
       (this.maxPage > this.requestOptions.page && !this.loading)
     ) {
       this.requestOptions.page++;
-      this.search();
+      const searchOptions = {
+        ...this.requestOptions,
+      };
+      this.index.search(this.searchQuery, searchOptions).then((result) => {
+        this.maxPage = result.nbPages;
+        this.items.push(...result.hits);
+        this.loading = false;
+      });
     }
   }
 }
