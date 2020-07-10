@@ -29,21 +29,13 @@ export class HomeComponent implements OnInit {
   maxPage: number;
   loading: boolean;
   requestOptions: any = {};
+  searchQuery: string;
 
   // 検索結果の格納プロパティ
   result: {
     nbHits: number; // ヒット件数
     hits: any[]; // 結果のリスト
   };
-
-  // config = {
-  //   indexName: 'posts',
-  //   searchClient,
-  // };
-
-  // searchParams = {
-  //   hitsPerPage: 4,
-  // };
 
   constructor(
     // private postService: PostService,
@@ -53,25 +45,32 @@ export class HomeComponent implements OnInit {
     public uiService: UiService
   ) {
     this.route.queryParamMap.subscribe((param) => {
-      const searchQuery = param.get('searchQuery');
+      this.searchQuery = param.get('searchQuery') || '';
+      this.requestOptions = {
+        page: 0,
+        hitsPerPage: 6,
+      };
       // // 検索キーワードに初期値をセット
       // this.searchService.searchControl.patchValue(searchQuery, {
       //   emitEvent: false, // 重要
       // });
-      this.search(searchQuery);
+      this.search();
     });
   }
 
   ngOnInit() {}
 
-  search(query: string) {
+  search() {
     const searchOptions = {
-      page: 0, // 何ページ目の結果を取得するか
-      hitsPerPage: 8, // 1ページあたり何件取得するか
+      ...this.requestOptions,
     };
-    this.index.search(query, searchOptions).then((result) => {
+    this.index.search(this.searchQuery, searchOptions).then((result) => {
       // 検索結果を格納
-      this.result = result;
+      this.maxPage = result.nbPages; // 最大ページ数を保持
+      this.items.push(...result.hits); // 結果リストに追加取得分を追加
+      this.loading = false; // ローディング終了
+
+      console.log(this.items);
     });
   }
 
@@ -86,19 +85,12 @@ export class HomeComponent implements OnInit {
 
   addSearch() {
     console.log('check1');
-    if (!this.maxPage || (this.maxPage > this.page && !this.loading)) {
-      this.page++;
-      this.loading = true; // ローディング開始
-      this.searchService.index.posts
-        .search('', {
-          page: this.page,
-        })
-        .then((result) => {
-          this.maxPage = result.nbPages; // 最大ページ数を保持
-          this.items.push(...result.hits); // 結果リストに追加取得分を追加
-          this.loading = false; // ローディング終了
-          console.log('check2');
-        });
+    if (
+      !this.maxPage ||
+      (this.maxPage > this.requestOptions.page && !this.loading)
+    ) {
+      this.requestOptions.page++;
+      this.search();
     }
   }
 

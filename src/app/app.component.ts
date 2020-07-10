@@ -29,7 +29,6 @@ export class AppComponent implements AfterViewInit {
   ) {
     this.drawerService.toggle();
     this.drawerService.isOpen$.subscribe((opened) => (this.opened = opened));
-    console.log('test');
   }
 
   logout() {
