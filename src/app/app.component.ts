@@ -37,6 +37,5 @@ export class AppComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.uiService.scrollWrapperElement = this.wrap.getElementRef().nativeElement;
-    console.log(this.uiService.scrollWrapperElement);
   }
 }
