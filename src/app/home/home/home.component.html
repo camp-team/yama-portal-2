@@ -37,35 +37,37 @@
   </form>
 
   <div class="timeLine">
-    <div
-      class="glid"
-      infiniteScroll
-      [infiniteScrollDistance]="2"
-      [infiniteScrollThrottle]="50"
-      (scrolled)="addSearch()"
-    >
-      <mat-card *ngFor="let hit of result?.hits" class="card">
-        <mat-card-header>
-          <div mat-card-avatar class="card__avatar"></div>
-          <mat-card-title>UserName</mat-card-title>
-          <mat-card-subtitle>{{ hit.label }}</mat-card-subtitle>
-        </mat-card-header>
-        <a href="{{ hit.imageURL }}">
-          <div
-            *ngIf="hit.imageURL"
-            [style.background-image]="'url(' + hit.imageURL + ')'"
-            class="card__image"
-            alt="image"
-          ></div>
-        </a>
-        <mat-card-content class="card__body">
-          <p class="card__content">{{ hit.content }}</p>
-          <p class="card__date">
-            {{ hit.createdAt | date: 'yyyy/MM/dd HH:mm' }}
-          </p>
-        </mat-card-content>
-      </mat-card>
-    </div>
+    <mat-card *ngFor="let hit of result?.hits" class="card">
+      <mat-card-header>
+        <div mat-card-avatar class="card__avatar"></div>
+        <mat-card-title>UserName</mat-card-title>
+        <mat-card-subtitle>{{ hit.label }}</mat-card-subtitle>
+      </mat-card-header>
+      <a href="{{ hit.imageURL }}">
+        <div
+          *ngIf="hit.imageURL"
+          [style.background-image]="'url(' + hit.imageURL + ')'"
+          class="card__image"
+          alt="image"
+        ></div>
+      </a>
+      <mat-card-content class="card__body">
+        <p class="card__content">{{ hit.content }}</p>
+        <p class="card__date">
+          {{ hit.createdAt | date: 'yyyy/MM/dd HH:mm' }}
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div
+    style="background-color: red;"
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="50"
+    [infiniteScrollContainer]="uiService.scrollWrapperElement"
+    (scrolled)="check()"
+  >
+    check
   </div>
 </div>
 

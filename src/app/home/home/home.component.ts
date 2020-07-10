@@ -8,6 +8,7 @@ import { SearchIndex } from 'algoliasearch/lite';
 import { FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
+import { UiService } from 'src/app/services/ui.service';
 
 const searchClient = algoliasearch(
   'YTCNWA1M3V',
@@ -48,7 +49,8 @@ export class HomeComponent implements OnInit {
     // private postService: PostService,
     public searchService: SearchService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public uiService: UiService
   ) {
     this.route.queryParamMap.subscribe((param) => {
       const searchQuery = param.get('searchQuery');
@@ -65,7 +67,7 @@ export class HomeComponent implements OnInit {
   search(query: string) {
     const searchOptions = {
       page: 0, // 何ページ目の結果を取得するか
-      hitsPerPage: 4, // 1ページあたり何件取得するか
+      hitsPerPage: 8, // 1ページあたり何件取得するか
     };
     this.index.search(query, searchOptions).then((result) => {
       // 検索結果を格納
@@ -98,5 +100,9 @@ export class HomeComponent implements OnInit {
           console.log('check2');
         });
     }
+  }
+
+  check() {
+    console.log('check');
   }
 }
