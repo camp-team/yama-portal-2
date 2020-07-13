@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
   searchControl: FormControl = new FormControl('');
   page: 0;
   posts: PostWithUser[] = [];
-  maxPage: number = 5;
+  maxPage = 5;
   loading: boolean;
   requestOptions: any = {};
   searchQuery: string;
@@ -47,10 +47,11 @@ export class HomeComponent implements OnInit {
     };
     this.searchService
       .getPostWithUser(this.searchQuery, searchOptions)
-      .then(async (result) => {
-        const items = await result.pipe(take(1)).toPromise();
-
-        this.posts.push(...items);
+      .then((result) => {
+        result
+          .pipe(take(1))
+          .toPromise()
+          .then((res) => this.posts.push(...res));
       })
       .finally(() => (this.loading = false));
   }
@@ -65,24 +66,7 @@ export class HomeComponent implements OnInit {
   }
 
   addSearch() {
-    console.log('add');
     this.requestOptions.page++;
     this.search();
   }
-
-  //   if (
-  //     !this.maxPage ||
-  //     (this.maxPage > this.requestOptions.page && !this.loading)
-  //   ) {
-  //     this.requestOptions.page++;
-  //     const searchOptions = {
-  //       ...this.requestOptions,
-  //     };
-  //     this.index.search(this.searchQuery, searchOptions).then((result) => {
-  //       this.maxPage = result.nbPages;
-  //       this.items.push(...result.hits);
-  //       this.loading = false;
-  //     });
-  //   }
-  // }
 }

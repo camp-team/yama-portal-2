@@ -7,7 +7,7 @@ import { UserService } from './user.service';
 import { Observable, of } from 'rxjs';
 import { User } from '../interfaces/user';
 import { combineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 
 const searchClient = algoliasearch(
   environment.algolia.appId,
@@ -31,18 +31,15 @@ export class SearchService {
     searchoptions
   ): Promise<Observable<PostWithUser[]>> {
     const result = await this.index.posts.search(searchQuery, searchoptions);
-    console.log(result);
     const posts = result.hits as any[];
     const maxPage: number = result.nbPages;
-    console.log(posts);
     if (posts.length) {
       const uids: string[] = posts.map((item: Post) => item.userId);
-      const uniquedUserIds = Array.from(new Set(uids));
+      const uniquedUserIds: string[] = Array.from(new Set(uids));
 
       const userObservables$: Observable<User>[] = uniquedUserIds.map((uid) =>
-        this.userService.getUserByUid(uid)
+        this.userService.getUserByUid(uid).pipe(filter((user) => Boolean(user)))
       );
-
       const users$: Observable<User[]> = combineLatest(userObservables$);
 
       return combineLatest([of(posts), users$]).pipe(
