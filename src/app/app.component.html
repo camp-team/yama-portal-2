@@ -21,8 +21,8 @@
     >
       <mat-nav-list>
         <a routerLink="" routerLinkActive="active" mat-list-item>ホーム</a>
-        <a mat-list-item>プロフィール</a>
-        <a mat-list-item>設定</a>
+        <a *ngIf="user$ | async" mat-list-item>プロフィール</a>
+        <a *ngIf="user$ | async" mat-list-item>設定</a>
       </mat-nav-list>
       <mat-divider></mat-divider>
       <mat-nav-list>

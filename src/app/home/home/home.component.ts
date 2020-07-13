@@ -4,6 +4,7 @@ import { SearchIndex } from 'algoliasearch/lite';
 import { FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UiService } from 'src/app/services/ui.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -19,12 +20,14 @@ export class HomeComponent implements OnInit {
   loading: boolean;
   requestOptions: any = {};
   searchQuery: string;
+  user$ = this.authService.afUser$;
 
   constructor(
     public searchService: SearchService,
     private router: Router,
     private route: ActivatedRoute,
-    public uiService: UiService
+    public uiService: UiService,
+    private authService: AuthService
   ) {
     this.route.queryParamMap.subscribe((param) => {
       this.searchQuery = param.get('searchQuery') || '';

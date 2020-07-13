@@ -11,7 +11,6 @@ import { AngularFirestore } from '@angular/fire/firestore';
   providedIn: 'root',
 })
 export class AuthService {
-  // afUser$: Observable<User> = this.afAuth.user; // 後で消去
   userId: string;
 
   afUser$: Observable<User> = this.afAuth.authState.pipe(
