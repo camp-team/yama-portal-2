@@ -4,6 +4,8 @@ import { SearchIndex } from 'algoliasearch/lite';
 import { FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UiService } from 'src/app/services/ui.service';
+import { take } from 'rxjs/operators';
+import { PostWithUser } from 'src/app/interfaces/post';
 
 @Component({
   selector: 'app-home',
@@ -14,8 +16,8 @@ export class HomeComponent implements OnInit {
   index: SearchIndex = this.searchService.index.posts;
   searchControl: FormControl = new FormControl('');
   page: 0;
-  items = [];
-  maxPage: number;
+  posts: PostWithUser[] = [];
+  maxPage: number = 5;
   loading: boolean;
   requestOptions: any = {};
   searchQuery: string;
@@ -39,15 +41,18 @@ export class HomeComponent implements OnInit {
   ngOnInit() {}
 
   search() {
-    this.items = new Array();
+    this.loading = true;
     const searchOptions = {
       ...this.requestOptions,
     };
-    this.index.search(this.searchQuery, searchOptions).then((result) => {
-      this.maxPage = result.nbPages;
-      this.items.push(...result.hits);
-      this.loading = false;
-    });
+    this.searchService
+      .getPostWithUser(this.searchQuery, searchOptions)
+      .then(async (result) => {
+        const items = await result.pipe(take(1)).toPromise();
+
+        this.posts.push(...items);
+      })
+      .finally(() => (this.loading = false));
   }
 
   routeSearch(searchQuery: string) {
@@ -60,19 +65,24 @@ export class HomeComponent implements OnInit {
   }
 
   addSearch() {
-    if (
-      !this.maxPage ||
-      (this.maxPage > this.requestOptions.page && !this.loading)
-    ) {
-      this.requestOptions.page++;
-      const searchOptions = {
-        ...this.requestOptions,
-      };
-      this.index.search(this.searchQuery, searchOptions).then((result) => {
-        this.maxPage = result.nbPages;
-        this.items.push(...result.hits);
-        this.loading = false;
-      });
-    }
+    console.log('add');
+    this.requestOptions.page++;
+    this.search();
   }
+
+  //   if (
+  //     !this.maxPage ||
+  //     (this.maxPage > this.requestOptions.page && !this.loading)
+  //   ) {
+  //     this.requestOptions.page++;
+  //     const searchOptions = {
+  //       ...this.requestOptions,
+  //     };
+  //     this.index.search(this.searchQuery, searchOptions).then((result) => {
+  //       this.maxPage = result.nbPages;
+  //       this.items.push(...result.hits);
+  //       this.loading = false;
+  //     });
+  //   }
+  // }
 }

@@ -11,12 +11,12 @@ import { AngularFirestore } from '@angular/fire/firestore';
   providedIn: 'root',
 })
 export class AuthService {
-  // afUser$: Observable<User> = this.afAuth.user; // 後で消去
   userId: string;
 
-  afUser$: Observable<User> = this.afAuth.authState.pipe(
+  user$: Observable<User> = this.afAuth.authState.pipe(
     switchMap((afUser) => {
       if (afUser) {
+        this.userId = afUser.uid;
         return this.db.doc<User>(`users/${afUser.uid}`).valueChanges();
       } else {
         return of(null);
@@ -29,11 +29,7 @@ export class AuthService {
     private afAuth: AngularFireAuth,
     private router: Router,
     private snackBar: MatSnackBar
-  ) {
-    this.afUser$.subscribe((user) => {
-      this.userId = user && user.uid;
-    });
-  }
+  ) {}
 
   googleLogin() {
     const provider = new auth.GoogleAuthProvider();

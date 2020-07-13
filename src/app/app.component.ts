@@ -19,7 +19,7 @@ export class AppComponent implements AfterViewInit {
   @ViewChild('wrap') private wrap: MatSidenavContent;
 
   title = 'yama-portal';
-  user$ = this.authService.afUser$;
+  user$ = this.authService.user$;
   opened: boolean;
 
   constructor(
