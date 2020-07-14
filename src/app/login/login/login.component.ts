@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
     password: ['', [Validators.required, Validators.minLength(6)]],
   });
 
-  user$ = this.authService.afUser$;
+  user$ = this.authService.user$;
 
   constructor(private fb: FormBuilder, private authService: AuthService) {}
 

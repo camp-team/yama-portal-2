@@ -4,6 +4,8 @@ import { SearchIndex } from 'algoliasearch/lite';
 import { FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UiService } from 'src/app/services/ui.service';
+import { take } from 'rxjs/operators';
+import { PostWithUser } from 'src/app/interfaces/post';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -15,12 +17,12 @@ export class HomeComponent implements OnInit {
   index: SearchIndex = this.searchService.index.posts;
   searchControl: FormControl = new FormControl('');
   page: 0;
-  items = [];
-  maxPage: number;
+  posts: PostWithUser[];
+  maxPage = 5;
   loading: boolean;
   requestOptions: any = {};
   searchQuery: string;
-  user$ = this.authService.afUser$;
+  user$ = this.authService.user$;
 
   constructor(
     public searchService: SearchService,
@@ -30,6 +32,7 @@ export class HomeComponent implements OnInit {
     private authService: AuthService
   ) {
     this.route.queryParamMap.subscribe((param) => {
+      this.posts = [];
       this.searchQuery = param.get('searchQuery') || '';
       this.requestOptions = {
         page: 0,
@@ -42,15 +45,19 @@ export class HomeComponent implements OnInit {
   ngOnInit() {}
 
   search() {
-    this.items = new Array();
+    this.loading = true;
     const searchOptions = {
       ...this.requestOptions,
     };
-    this.index.search(this.searchQuery, searchOptions).then((result) => {
-      this.maxPage = result.nbPages;
-      this.items.push(...result.hits);
-      this.loading = false;
-    });
+    this.searchService
+      .getPostWithUser(this.searchQuery, searchOptions)
+      .then((result) => {
+        result
+          .pipe(take(1))
+          .toPromise()
+          .then((res) => this.posts.push(...res));
+      })
+      .finally(() => (this.loading = false));
   }
 
   routeSearch(searchQuery: string) {
@@ -63,19 +70,7 @@ export class HomeComponent implements OnInit {
   }
 
   addSearch() {
-    if (
-      !this.maxPage ||
-      (this.maxPage > this.requestOptions.page && !this.loading)
-    ) {
-      this.requestOptions.page++;
-      const searchOptions = {
-        ...this.requestOptions,
-      };
-      this.index.search(this.searchQuery, searchOptions).then((result) => {
-        this.maxPage = result.nbPages;
-        this.items.push(...result.hits);
-        this.loading = false;
-      });
-    }
+    this.requestOptions.page++;
+    this.search();
   }
 }
