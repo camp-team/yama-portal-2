@@ -8,6 +8,9 @@
   bottom: 0;
   left: 0;
   right: 0;
+  &__list {
+    padding-top: 0;
+  }
   &__copyright {
     color: rgba(0, 0, 0, 0.38);
     font-size: 13px;
