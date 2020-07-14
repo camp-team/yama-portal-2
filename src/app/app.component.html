@@ -20,7 +20,7 @@
       mode="mobileQuery.matches ? 'over' : 'side'"
       [opened]="!opened"
     >
-      <mat-nav-list>
+      <mat-nav-list class="sidenav__list">
         <a routerLink="" routerLinkActive="active" mat-list-item>ホーム</a>
         <a *ngIf="user$ | async" mat-list-item>プロフィール</a>
         <a *ngIf="user$ | async" mat-list-item>設定</a>
