@@ -119,20 +119,6 @@ img {
     flex: 1;
   }
 }
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  padding: 16px;
-  @media screen and (max-width: 470px) {
-    grid-template-columns: 1fr;
-  }
-}
-.example-card {
-  max-width: 400px;
-}
-
-.example-header-image {
-  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-  background-size: cover;
+.loading {
+  margin: 40px auto;
 }
