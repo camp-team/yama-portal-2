@@ -10,7 +10,7 @@
         height="200"
       ></iframe>
     </div>
-    <div class="home__formLink">
+    <div *ngIf="user$ | async" class="home__formLink">
       <button
         mat-fab
         color="primary"

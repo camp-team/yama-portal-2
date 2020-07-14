@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UiService } from 'src/app/services/ui.service';
 import { take } from 'rxjs/operators';
 import { PostWithUser } from 'src/app/interfaces/post';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -21,12 +22,14 @@ export class HomeComponent implements OnInit {
   loading: boolean;
   requestOptions: any = {};
   searchQuery: string;
+  user$ = this.authService.user$;
 
   constructor(
     public searchService: SearchService,
     private router: Router,
     private route: ActivatedRoute,
-    public uiService: UiService
+    public uiService: UiService,
+    private authService: AuthService
   ) {
     this.route.queryParamMap.subscribe((param) => {
       this.posts = [];
