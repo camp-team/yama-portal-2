@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   index: SearchIndex = this.searchService.index.posts;
   searchControl: FormControl = new FormControl('');
   page: 0;
-  posts: PostWithUser[] = [];
+  posts: PostWithUser[];
   maxPage = 5;
   loading: boolean;
   requestOptions: any = {};
@@ -29,6 +29,7 @@ export class HomeComponent implements OnInit {
     public uiService: UiService
   ) {
     this.route.queryParamMap.subscribe((param) => {
+      this.posts = [];
       this.searchQuery = param.get('searchQuery') || '';
       this.requestOptions = {
         page: 0,
