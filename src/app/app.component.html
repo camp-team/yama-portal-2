@@ -11,12 +11,13 @@
       <button mat-button routerLink="/Login">Login</button>
     </ng-template>
   </mat-toolbar>
+
   <mat-sidenav-container class="sidenav">
     <mat-sidenav
       #sidenav
-      fixedInViewport
+      [fixedInViewport]="mobileQuery.matches"
       fixedTopGap="56"
-      mode="side"
+      mode="mobileQuery.matches ? 'over' : 'side'"
       [opened]="!opened"
     >
       <mat-nav-list>
