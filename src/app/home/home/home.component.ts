@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
   requestOptions: any = {};
   searchQuery: string;
   user$ = this.authService.user$;
+  private isInit = true;
 
   constructor(
     public searchService: SearchService,
@@ -49,15 +50,21 @@ export class HomeComponent implements OnInit {
     const searchOptions = {
       ...this.requestOptions,
     };
-    this.searchService
-      .getPostWithUser(this.searchQuery, searchOptions)
-      .then((result) => {
-        result
-          .pipe(take(1))
-          .toPromise()
-          .then((res) => this.posts.push(...res));
-      })
-      .finally(() => (this.loading = false));
+    setTimeout(
+      () => {
+        this.searchService
+          .getPostWithUser(this.searchQuery, searchOptions)
+          .then((result) => {
+            result
+              .pipe(take(1))
+              .toPromise()
+              .then((res) => this.posts.push(...res));
+            this.isInit = false;
+          })
+          .finally(() => (this.loading = false));
+      },
+      this.isInit ? 0 : 1000
+    );
   }
 
   routeSearch(searchQuery: string) {

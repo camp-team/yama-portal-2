@@ -65,8 +65,15 @@
   <div
     infiniteScroll
     [infiniteScrollDistance]="2"
-    [infiniteScrollThrottle]="200"
+    [infiniteScrollThrottle]="20"
     [infiniteScrollContainer]="uiService.scrollWrapperElement"
     (scrolled)="addSearch()"
   ></div>
+  <mat-progress-spinner
+    class="loading"
+    *ngIf="loading"
+    mode="indeterminate"
+    color="primary"
+    [diameter]="40"
+  ></mat-progress-spinner>
 </div>
