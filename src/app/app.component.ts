@@ -26,7 +26,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   user$ = this.authService.user$;
   opened: boolean;
 
-  private _mobileQueryListener: () => void;
+  private mobileQueryListener: () => void;
 
   constructor(
     private authService: AuthService,
@@ -38,11 +38,11 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     this.drawerService.toggle();
     this.drawerService.isOpen$.subscribe((opened) => (this.opened = opened));
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
-    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-    this.mobileQuery.addListener(this._mobileQueryListener);
+    this.mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this.mobileQueryListener);
   }
   ngOnDestroy(): void {
-    this.mobileQuery.removeListener(this._mobileQueryListener);
+    this.mobileQuery.removeListener(this.mobileQueryListener);
   }
 
   logout() {
