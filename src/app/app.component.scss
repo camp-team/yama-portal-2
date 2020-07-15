@@ -17,7 +17,11 @@
     padding: 16px;
   }
   &__app-name {
-    margin: 10px auto;
+    margin: 8px auto;
+    img {
+      width: 150px;
+      height: 150px;
+    }
   }
 }
 
