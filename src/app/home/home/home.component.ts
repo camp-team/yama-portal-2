@@ -7,7 +7,6 @@ import { UiService } from 'src/app/services/ui.service';
 import { take } from 'rxjs/operators';
 import { PostWithUser } from 'src/app/interfaces/post';
 import { AuthService } from 'src/app/services/auth.service';
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -24,6 +23,10 @@ export class HomeComponent implements OnInit {
   searchQuery: string;
   user$ = this.authService.user$;
   private isInit = true;
+  createdAtFilter: string;
+  tagFilter: string[];
+  categoriFilter: string[];
+  sort: string;
 
   constructor(
     public searchService: SearchService,
@@ -39,6 +42,7 @@ export class HomeComponent implements OnInit {
         page: 0,
         hitsPerPage: 6,
       };
+      this.categoriFilter = (param.get('categories') || '').split(',');
       this.search();
     });
   }
@@ -47,8 +51,12 @@ export class HomeComponent implements OnInit {
 
   search() {
     this.loading = true;
+    this.categoriFilter = this.categoriFilter.map(
+      (category) => `category:${category}`
+    );
     const searchOptions = {
       ...this.requestOptions,
+      facetFilters: this.categoriFilter,
     };
     setTimeout(
       () => {

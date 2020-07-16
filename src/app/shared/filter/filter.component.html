@@ -21,23 +21,9 @@
     <mat-selection-list
       (selectionChange)="buildQueryParameterByCategories($event)"
     >
-      <mat-list-option
-        *ngFor="let category of categories"
-        [value]="category.value"
-        >{{ category.name }}</mat-list-option
-      >
+      <mat-list-option *ngFor="let tag of tags" [value]="tag.value">{{
+        tag.value
+      }}</mat-list-option>
     </mat-selection-list>
   </div>
-
-  <!-- <div class="filter">
-    <p class="filter__title">SORT BY</p>
-    <mat-selection-list
-      (selectionChange)="buildQueryParameterBySort($event)"
-      [multiple]="false"
-    >
-      <mat-list-option value="views"> View Count</mat-list-option>
-      <mat-list-option value="likes"> Like Count</mat-list-option>
-      <mat-list-option value="comments"> Comment Count</mat-list-option>
-    </mat-selection-list>
-  </div> -->
 </div>

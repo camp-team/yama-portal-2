@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { SearchService } from 'src/app/services/search.service';
 import { FormControl } from '@angular/forms';
 import { MatSelectionListChange, MatListOption } from '@angular/material/list';
-import { Router, NavigationExtras } from '@angular/router';
+import { Router } from '@angular/router';
+import { CategoryService } from 'src/app/services/category.service';
+import { Category } from 'src/app/interfaces/category';
 
 @Component({
   selector: 'app-filter',
@@ -35,8 +37,8 @@ export class FilterComponent implements OnInit {
   }
 
   private buildTags() {
-    this.index.searchForFacetValues('tags', '').then((res) => {
-      this.tags = res.facetHits.slice(0, 4);
+    this.index.searchForFacetValues('category', '').then((res) => {
+      this.tags = res.facetHits;
     });
   }
 
@@ -82,14 +84,4 @@ export class FilterComponent implements OnInit {
       queryParamsHandling: 'merge',
     });
   }
-
-  // buildQueryParameterBySort(event: MatSelectionListChange) {
-  //   const key: MatListOption = event.source.selectedOptions.selected[0].value;
-  //   this.router.navigate([''], {
-  //     queryParams: {
-  //       sort: key,
-  //     },
-  //     queryParamsHandling: 'merge',
-  //   });
-  // }
 }
