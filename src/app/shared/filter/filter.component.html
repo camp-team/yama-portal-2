@@ -1,0 +1,43 @@
+<button (click)="toggle()" mat-icon-button>
+  <mat-icon>filter_list</mat-icon>
+</button>
+<div *ngIf="visible" class="grid">
+  <div class="filter">
+    <p class="filter__title">UPLOAD DATE</p>
+    <mat-selection-list
+      class="filter__list"
+      (selectionChange)="buildQueryParameterByCreatedAt($event)"
+      [multiple]="false"
+    >
+      <mat-list-option value="today">Today</mat-list-option>
+      <mat-list-option value="week">This Week</mat-list-option>
+      <mat-list-option value="month">This Month</mat-list-option>
+      <mat-list-option value="year">This Year</mat-list-option>
+    </mat-selection-list>
+  </div>
+
+  <div class="filter">
+    <p class="filter__title">CATEGORIES</p>
+    <mat-selection-list
+      (selectionChange)="buildQueryParameterByCategories($event)"
+    >
+      <mat-list-option
+        *ngFor="let category of categories"
+        [value]="category.value"
+        >{{ category.name }}</mat-list-option
+      >
+    </mat-selection-list>
+  </div>
+
+  <!-- <div class="filter">
+    <p class="filter__title">SORT BY</p>
+    <mat-selection-list
+      (selectionChange)="buildQueryParameterBySort($event)"
+      [multiple]="false"
+    >
+      <mat-list-option value="views"> View Count</mat-list-option>
+      <mat-list-option value="likes"> Like Count</mat-list-option>
+      <mat-list-option value="comments"> Comment Count</mat-list-option>
+    </mat-selection-list>
+  </div> -->
+</div>
