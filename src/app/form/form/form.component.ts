@@ -17,7 +17,7 @@ export class FormComponent implements OnInit {
   croppedImage: string = null;
 
   form = this.fb.group({
-    label: [
+    category: [
       '',
       [
         Validators.required,
@@ -40,8 +40,8 @@ export class FormComponent implements OnInit {
     return this.form.get('content') as FormControl;
   }
 
-  get labelControl(): FormControl {
-    return this.form.get('label') as FormControl;
+  get categoryControl(): FormControl {
+    return this.form.get('category') as FormControl;
   }
 
   convertImage(file: File) {
