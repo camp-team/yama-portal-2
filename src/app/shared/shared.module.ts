@@ -14,6 +14,7 @@ import { RouterModule } from '@angular/router';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [FilterComponent],
@@ -33,6 +34,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatExpansionModule,
     MatChipsModule,
     MatDialogModule,
+    MatRadioModule,
   ],
   exports: [FilterComponent],
 })

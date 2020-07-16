@@ -50,29 +50,31 @@ export class HomeComponent implements OnInit {
   ngOnInit() {}
 
   search() {
-    this.loading = true;
-    this.categoriFilter = this.categoriFilter.map(
-      (category) => `category:${category}`
-    );
-    const searchOptions = {
-      ...this.requestOptions,
-      facetFilters: this.categoriFilter,
-    };
-    setTimeout(
-      () => {
-        this.searchService
-          .getPostWithUser(this.searchQuery, searchOptions)
-          .then((result) => {
-            result
-              .pipe(take(1))
-              .toPromise()
-              .then((res) => this.posts.push(...res));
-            this.isInit = false;
-          })
-          .finally(() => (this.loading = false));
-      },
-      this.isInit ? 0 : 1000
-    );
+    if (!this.loading) {
+      this.loading = true;
+      this.categoriFilter = this.categoriFilter.map(
+        (category) => `category:${category}`
+      );
+      const searchOptions = {
+        ...this.requestOptions,
+        facetFilters: this.categoriFilter,
+      };
+      setTimeout(
+        () => {
+          this.searchService
+            .getPostWithUser(this.searchQuery, searchOptions)
+            .then((result) => {
+              result
+                .pipe(take(1))
+                .toPromise()
+                .then((res) => this.posts.push(...res));
+              this.isInit = false;
+            })
+            .finally(() => (this.loading = false));
+        },
+        this.isInit ? 0 : 1000
+      );
+    }
   }
 
   routeSearch(searchQuery: string) {

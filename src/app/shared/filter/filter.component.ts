@@ -5,6 +5,7 @@ import { MatSelectionListChange, MatListOption } from '@angular/material/list';
 import { Router } from '@angular/router';
 import { CategoryService } from 'src/app/services/category.service';
 import { Category } from 'src/app/interfaces/category';
+import { MatRadioChange } from '@angular/material/radio';
 
 @Component({
   selector: 'app-filter',
@@ -73,10 +74,9 @@ export class FilterComponent implements OnInit {
     });
   }
 
-  buildQueryParameterByCategories(event: MatSelectionListChange) {
-    const options: MatListOption[] = event.source.selectedOptions.selected;
-    const categoriesFilter =
-      options.map((option) => option.value).join(',') || null;
+  buildQueryParameterByCategories(event: MatRadioChange) {
+    const option = event.source.value;
+    const categoriesFilter = option || null;
     this.router.navigate([''], {
       queryParams: {
         categories: categoriesFilter,
