@@ -1,18 +1,16 @@
-.grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-}
 .filter {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  margin: 15px 0;
   &__title {
-    text-align: center;
     margin: 0;
     font-size: 14px;
     color: rgba(black, 0.6);
   }
-}
-.tag-option {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  &__radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+  }
 }
