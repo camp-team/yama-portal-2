@@ -1,13 +1,10 @@
 <button (click)="toggle()" mat-icon-button>
   <mat-icon>filter_list</mat-icon>
 </button>
-<div *ngIf="visible">
+<div *ngIf="visible" class="grid">
   <div class="filter">
-    <label id="filter__title">カテゴリー</label>
-    <mat-radio-group
-      aria-labelledby="filter__title"
-      (change)="buildQueryParameterByCategories($event)"
-    >
+    <p class="filter__title">カテゴリー</p>
+    <mat-radio-group (change)="buildQueryParameterByCategories($event)">
       <mat-radio-button
         class="radio-button"
         *ngFor="let tag of categories"
@@ -16,5 +13,16 @@
         {{ tag.value }}
       </mat-radio-button>
     </mat-radio-group>
+  </div>
+
+  <div class="filter">
+    <p class="filter__title">並び替え</p>
+    <mat-selection-list
+      (selectionChange)="buildQueryParameterBySort($event)"
+      [multiple]="false"
+    >
+      <mat-list-option value="Latest"> 最新順 </mat-list-option>
+      <mat-list-option value="Oldest"> 古い順 </mat-list-option>
+    </mat-selection-list>
   </div>
 </div>

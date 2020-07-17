@@ -18,19 +18,20 @@ const searchClient = algoliasearch(
   providedIn: 'root',
 })
 export class SearchService {
-  // インデックスリスト
   index = {
-    // アイテムインデックス
     posts: searchClient.initIndex('posts'),
+    Latest: searchClient.initIndex('Latest'),
+    Oldest: searchClient.initIndex('Oldest'),
   };
 
   constructor(private userService: UserService) {}
 
   async getPostWithUser(
     searchQuery,
-    searchoptions
+    searchoptions,
+    sortKey: string
   ): Promise<Observable<PostWithUser[]>> {
-    const result = await this.index.posts.search(searchQuery, searchoptions);
+    const result = await this.index[sortKey].search(searchQuery, searchoptions);
     const posts = result.hits as any[];
     const maxPage: number = result.nbPages;
     if (posts.length) {
