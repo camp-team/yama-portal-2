@@ -5,7 +5,7 @@ export interface Post {
   id: string;
   userId: string;
   imageURL: string;
-  label: string;
+  category: string;
   content: string;
   public: boolean;
   createdAt: firestore.Timestamp;

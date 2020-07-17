@@ -1,0 +1,16 @@
+.filter {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  margin: 15px 0;
+  &__title {
+    margin: 0;
+    font-size: 14px;
+    color: rgba(black, 0.6);
+  }
+  &__radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+  }
+}

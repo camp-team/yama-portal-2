@@ -7,7 +7,6 @@ import { UiService } from 'src/app/services/ui.service';
 import { take } from 'rxjs/operators';
 import { PostWithUser } from 'src/app/interfaces/post';
 import { AuthService } from 'src/app/services/auth.service';
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -24,6 +23,10 @@ export class HomeComponent implements OnInit {
   searchQuery: string;
   user$ = this.authService.user$;
   private isInit = true;
+  createdAtFilter: string;
+  tagFilter: string[];
+  categoriFilter: string[];
+  sort: string;
 
   constructor(
     public searchService: SearchService,
@@ -39,6 +42,7 @@ export class HomeComponent implements OnInit {
         page: 0,
         hitsPerPage: 6,
       };
+      this.categoriFilter = (param.get('categories') || '').split(',');
       this.search();
     });
   }
@@ -46,25 +50,31 @@ export class HomeComponent implements OnInit {
   ngOnInit() {}
 
   search() {
-    this.loading = true;
-    const searchOptions = {
-      ...this.requestOptions,
-    };
-    setTimeout(
-      () => {
-        this.searchService
-          .getPostWithUser(this.searchQuery, searchOptions)
-          .then((result) => {
-            result
-              .pipe(take(1))
-              .toPromise()
-              .then((res) => this.posts.push(...res));
-            this.isInit = false;
-          })
-          .finally(() => (this.loading = false));
-      },
-      this.isInit ? 0 : 1000
-    );
+    if (!this.loading) {
+      this.loading = true;
+      this.categoriFilter = this.categoriFilter.map(
+        (category) => `category:${category}`
+      );
+      const searchOptions = {
+        ...this.requestOptions,
+        facetFilters: this.categoriFilter,
+      };
+      setTimeout(
+        () => {
+          this.searchService
+            .getPostWithUser(this.searchQuery, searchOptions)
+            .then((result) => {
+              result
+                .pipe(take(1))
+                .toPromise()
+                .then((res) => this.posts.push(...res));
+              this.isInit = false;
+            })
+            .finally(() => (this.loading = false));
+        },
+        this.isInit ? 0 : 1000
+      );
+    }
   }
 
   routeSearch(searchQuery: string) {

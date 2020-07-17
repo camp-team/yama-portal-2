@@ -19,7 +19,7 @@
     >
     <mat-form-field>
       <mat-label>投稿の種類</mat-label>
-      <mat-select formControlName="label" required>
+      <mat-select formControlName="category" required>
         <mat-option value="denger">危険箇所</mat-option>
         <mat-option value="viewPoint">絶景ポイント</mat-option>
         <mat-option value="toilet">お手洗い</mat-option>
@@ -27,7 +27,7 @@
         <mat-option value="rest">休憩ポイント</mat-option>
         <mat-option value="other">その他</mat-option>
       </mat-select>
-      <mat-error *ngIf="labelControl.hasError('required')"
+      <mat-error *ngIf="categoryControl.hasError('required')"
         >選択してください</mat-error
       >
     </mat-form-field>

@@ -1,0 +1,20 @@
+<button (click)="toggle()" mat-icon-button>
+  <mat-icon>filter_list</mat-icon>
+</button>
+<div *ngIf="visible">
+  <div class="filter">
+    <label id="filter__title">カテゴリー</label>
+    <mat-radio-group
+      aria-labelledby="filter__title"
+      (change)="buildQueryParameterByCategories($event)"
+    >
+      <mat-radio-button
+        class="radio-button"
+        *ngFor="let tag of categories"
+        [value]="tag.value"
+      >
+        {{ tag.value }}
+      </mat-radio-button>
+    </mat-radio-group>
+  </div>
+</div>
