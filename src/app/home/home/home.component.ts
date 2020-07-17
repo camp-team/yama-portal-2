@@ -58,7 +58,7 @@ export class HomeComponent implements OnInit {
       );
       const searchOptions = {
         ...this.requestOptions,
-        facetFilters: this.categoriFilter,
+        facetFilters: [this.categoriFilter, 'public:true'],
       };
       setTimeout(
         () => {
