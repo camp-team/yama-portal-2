@@ -29,8 +29,9 @@ export class SearchService {
   async getPostWithUser(
     searchQuery,
     searchoptions,
-    sortKey: string = 'posts'
+    sortKey: string
   ): Promise<Observable<PostWithUser[]>> {
+    console.log(sortKey);
     const result = await this.index[sortKey].search(searchQuery, searchoptions);
     const posts = result.hits as any[];
     const maxPage: number = result.nbPages;
