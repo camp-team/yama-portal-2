@@ -43,6 +43,7 @@ export class HomeComponent implements OnInit {
         hitsPerPage: 6,
       };
       this.categoriFilter = (param.get('categories') || '').split(',');
+      this.sort = param.get('sort') || 'posts';
       this.search();
     });
   }
@@ -62,7 +63,7 @@ export class HomeComponent implements OnInit {
       setTimeout(
         () => {
           this.searchService
-            .getPostWithUser(this.searchQuery, searchOptions)
+            .getPostWithUser(this.searchQuery, searchOptions, this.sort)
             .then((result) => {
               result
                 .pipe(take(1))
