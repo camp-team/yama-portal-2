@@ -24,15 +24,7 @@ export class FilterComponent implements OnInit {
 
   constructor(private searchService: SearchService, private router: Router) {}
 
-  ngOnInit(): void {
-    this.buildCategories();
-  }
-
-  private buildCategories() {
-    this.index.searchForFacetValues('category', '').then((res) => {
-      this.categories = res.facetHits;
-    });
-  }
+  ngOnInit(): void {}
 
   toggle() {
     this.visible = !this.visible;

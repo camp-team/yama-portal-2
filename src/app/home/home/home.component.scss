@@ -33,6 +33,7 @@ img {
     right: 200px;
     height: 100px;
     width: 100px;
+    z-index: 200;
     @media screen and (max-width: 1500px) {
       position: fixed;
       bottom: 48px;
@@ -60,7 +61,6 @@ img {
   display: block;
   position: sticky;
   top: 308px;
-  z-index: 100;
   &__input {
     -webkit-appearance: none;
     -moz-appearance: none;

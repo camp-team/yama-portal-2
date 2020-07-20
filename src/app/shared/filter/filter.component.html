@@ -4,14 +4,31 @@
 <div *ngIf="visible" class="grid">
   <div class="filter">
     <p class="filter__title">カテゴリー</p>
-    <mat-radio-group (change)="buildQueryParameterByCategories($event)">
-      <mat-radio-button
-        class="radio-button"
-        *ngFor="let tag of categories"
-        [value]="tag.value"
+    <mat-radio-group
+      (change)="buildQueryParameterByCategories($event)"
+      class="filter__radio-group"
+    >
+      <mat-radio-button class="filter__radio-button" value="denger"
+        >危険箇所</mat-radio-button
       >
-        {{ tag.value }}
-      </mat-radio-button>
+      <mat-radio-button class="filter__radio-button" value="viewPoint"
+        >絶景ポイント</mat-radio-button
+      >
+      <mat-radio-button class="filter__radio-button" value="toilet"
+        >お手洗い</mat-radio-button
+      >
+      <mat-radio-button class="filter__radio-button" value="water"
+        >水場</mat-radio-button
+      >
+      <mat-radio-button class="filter__radio-button" value="rest"
+        >休憩ポイント</mat-radio-button
+      >
+      <mat-radio-button class="filter__radio-button" value="other"
+        >その他</mat-radio-button
+      >
+      <mat-radio-button class="filter__radio-button" value=""
+        >すべてのカテゴリー</mat-radio-button
+      >
     </mat-radio-group>
   </div>
 
