@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SearchService } from 'src/app/services/search.service';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MatRadioChange } from '@angular/material/radio';
+import { MatRadioChange, MatRadioGroup } from '@angular/material/radio';
 import { MatSelectionListChange, MatListOption } from '@angular/material/list';
 
 @Component({
@@ -19,6 +19,7 @@ export class FilterComponent implements OnInit {
     count: number;
     selected?: boolean;
   }[];
+  category: string = '';
 
   visible: boolean;
 

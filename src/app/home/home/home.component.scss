@@ -61,6 +61,7 @@ img {
   display: block;
   position: sticky;
   top: 308px;
+  z-index: 1;
   &__input {
     -webkit-appearance: none;
     -moz-appearance: none;
