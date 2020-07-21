@@ -38,6 +38,13 @@ const routes: Routes = [
     canLoad: [GuestGuard],
     canActivate: [GuestGuard],
   },
+  {
+    path: 'Profile',
+    loadChildren: () =>
+      import('./profile/profile.module').then((m) => m.ProfileModule),
+    canLoad: [AuthGuard],
+    canActivate: [AuthGuard],
+  },
 
   {
     path: '**',
