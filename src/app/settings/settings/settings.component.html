@@ -1,8 +1,31 @@
 <div class="container">
-  <p>profile works!</p>
-  <mat-tab-group animationDuration="0ms" class="tab-group">
-    <mat-tab label="プロフィール">Content 1</mat-tab>
-    <mat-tab label="決済情報">Content 2</mat-tab>
-    <mat-tab label="退会">Content 3</mat-tab>
-  </mat-tab-group>
+  <div class="settings">
+    <h1>設定</h1>
+    <mat-tab-group animationDuration="0ms" class="tab-group">
+      <mat-tab label="プロフィール">
+        <h2 class="title">プロフィール</h2>
+        <h3>名前の変更</h3>
+        <p>現在の名前</p>
+        <input type="text" />
+        <button mat-button (click)="onClick()">変更</button>
+        <h3>アバターの変更</h3>
+        <input type="file" />
+        <button mat-button (click)="onClick()">変更</button>
+        <button mat-button (click)="onClick()">キャンセル</button>
+      </mat-tab>
+      <mat-tab label="決済情報">
+        <h2 class="title">決済情報</h2>
+        <h3>クレジットカード</h3>
+        <p>
+          クレジットカードは世界的な決済サービスStripeによって厳重に保管されており、漏洩の心配はありません。
+        </p>
+        <button mat-button (click)="onClick()">カードを登録する</button>
+      </mat-tab>
+      <mat-tab label="退会">
+        <h2 class="title">退会</h2>
+        <p>退会するとすべてのデータが削除されます</p>
+        <button mat-button (click)="onClick()">退会する</button>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
 </div>

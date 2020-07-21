@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-settings',
@@ -6,11 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit {
-  constructor() {
+  constructor(userService: UserService, authService: AuthService) {}
+
+  ngOnInit(): void {
     console.log('check');
   }
 
-  ngOnInit(): void {
+  onClick() {
     console.log('check');
   }
 }
