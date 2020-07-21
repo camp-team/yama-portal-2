@@ -24,7 +24,13 @@
     >
       <mat-nav-list class="sidenav__list">
         <a routerLink="" routerLinkActive="active" mat-list-item>ホーム</a>
-        <a *ngIf="user$ | async" mat-list-item>プロフィール</a>
+        <a
+          *ngIf="user$ | async"
+          mat-list-item
+          routerLink="settings"
+          routerLinkActive="active"
+          >プロフィール</a
+        >
         <a *ngIf="user$ | async" mat-list-item>設定</a>
       </mat-nav-list>
       <mat-divider></mat-divider>

@@ -39,9 +39,9 @@ const routes: Routes = [
     canActivate: [GuestGuard],
   },
   {
-    path: 'Profile',
+    path: 'settings',
     loadChildren: () =>
-      import('./profile/profile.module').then((m) => m.ProfileModule),
+      import('./settings/settings.module').then((m) => m.SettingsModule),
     canLoad: [AuthGuard],
     canActivate: [AuthGuard],
   },
