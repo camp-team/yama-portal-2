@@ -4,6 +4,7 @@ import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatRadioChange, MatRadioGroup } from '@angular/material/radio';
 import { MatSelectionListChange, MatListOption } from '@angular/material/list';
+import { RadioService } from 'src/app/serces/radio.service';
 
 @Component({
   selector: 'app-filter',
@@ -19,11 +20,15 @@ export class FilterComponent implements OnInit {
     count: number;
     selected?: boolean;
   }[];
-  category: string = '';
+  category: string = null;
 
   visible: boolean;
 
-  constructor(private searchService: SearchService, private router: Router) {}
+  constructor(
+    private searchService: SearchService,
+    private router: Router,
+    public radioService: RadioService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -33,7 +38,7 @@ export class FilterComponent implements OnInit {
 
   buildQueryParameterByCategories(event: MatRadioChange) {
     const option = event.source.value;
-    const categoriesFilter = option || null;
+    const categoriesFilter = option;
     this.router.navigate([''], {
       queryParams: {
         categories: categoriesFilter,

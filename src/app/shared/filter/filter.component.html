@@ -8,6 +8,7 @@
       (change)="buildQueryParameterByCategories($event)"
       class="filter__radio-group"
       [(ngModel)]="category"
+      [formControl]="radioService.radioControl"
     >
       <mat-radio-button class="filter__radio-button" value="denger"
         >危険箇所</mat-radio-button
@@ -27,7 +28,7 @@
       <mat-radio-button class="filter__radio-button" value="other"
         >その他</mat-radio-button
       >
-      <mat-radio-button class="filter__radio-button" value="" checked
+      <mat-radio-button class="filter__radio-button" [value]="null"
         >すべてのカテゴリー</mat-radio-button
       >
     </mat-radio-group>

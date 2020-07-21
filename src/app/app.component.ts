@@ -12,6 +12,8 @@ import { DrawerService } from './services/drawer.service';
 import { UiService } from './services/ui.service';
 import { MatSidenav, MatSidenavContent } from '@angular/material/sidenav';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { RadioService } from './serces/radio.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -33,7 +35,9 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     private drawerService: DrawerService,
     private uiService: UiService,
     private changeDetectorRef: ChangeDetectorRef,
-    private media: MediaMatcher
+    private media: MediaMatcher,
+    private radioService: RadioService,
+    private router: Router
   ) {
     this.drawerService.toggle();
     this.drawerService.isOpen$.subscribe((opened) => (this.opened = opened));
@@ -41,6 +45,11 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     this.mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this.mobileQueryListener);
   }
+  navigate() {
+    this.radioService.radioControl.patchValue(null);
+    this.router.navigateByUrl('/');
+  }
+
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this.mobileQueryListener);
   }
