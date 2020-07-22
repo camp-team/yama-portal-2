@@ -1,30 +1,98 @@
-<div class="container">
+<div class="container" *ngIf="user$ | async as user">
   <div class="settings">
     <h1>設定</h1>
     <mat-tab-group animationDuration="0ms" class="tab-group">
-      <mat-tab label="プロフィール">
+      <mat-tab class="mat-tab" label="プロフィール">
         <h2 class="title">プロフィール</h2>
         <h3>名前の変更</h3>
-        <p>現在の名前</p>
-        <input type="text" />
-        <button mat-button (click)="onClick()">変更</button>
+        <p>現在の名前: {{ user.name }}</p>
+        <mat-form-field>
+          <input
+            type="text"
+            matInput
+            autocomplete="off"
+            placeholder="「{{ user.name }}」から変更"
+            [formControl]="nameForm"
+            required
+          />
+          <mat-error *ngIf="nameForm.hasError('required')"
+            >必須入力です</mat-error
+          >
+          <mat-error *ngIf="nameForm.hasError('maxlength')"
+            >最大文字数を超えてます</mat-error
+          >
+        </mat-form-field>
+        <button
+          mat-flat-button
+          color="primary"
+          [disabled]="nameForm.invalid"
+          (click)="chengeUserName()"
+        >
+          更新する
+        </button>
         <h3>アバターの変更</h3>
-        <input type="file" />
-        <button mat-button (click)="onClick()">変更</button>
-        <button mat-button (click)="onClick()">キャンセル</button>
+        <label class="avater">
+          <img
+            class="avater__image"
+            [src]="croppedImage ? croppedImage : user.avaterURL"
+            alt=""
+          />
+          <input
+            type="file"
+            accept="image/jpeg, image/png"
+            style="display: none;"
+            (change)="fileChengeEvent($event)"
+            #selectedImage
+          />
+        </label>
+
+        <image-cropper
+          [imageChangedEvent]="imageChengedEvent"
+          [maintainAspectRatio]="true"
+          [aspectRatio]="1 / 1"
+          resizeToWidth="400"
+          resizeToHeight="400"
+          format="png"
+          (imageCropped)="imageCropped($event)"
+          (loadImageFailed)="loadImageFailed(selectedImage)"
+          [class.active]="imageChengedEvent"
+          width="300px"
+          height="300px"
+        ></image-cropper>
+        <button
+          mat-flat-button
+          color="primary"
+          [disabled]="!imageChengedEvent"
+          (click)="chengeUserAvater(selectedImage)"
+        >
+          更新する
+        </button>
+        <button
+          mat-stroked-button
+          color="primary"
+          *ngIf="imageChengedEvent"
+          (click)="resetImage(selectedImage)"
+          class="reset-btn"
+        >
+          キャンセル
+        </button>
       </mat-tab>
-      <mat-tab label="決済情報">
+      <mat-tab class="mat-tab" label="決済情報">
         <h2 class="title">決済情報</h2>
         <h3>クレジットカード</h3>
         <p>
           クレジットカードは世界的な決済サービスStripeによって厳重に保管されており、漏洩の心配はありません。
         </p>
-        <button mat-button (click)="onClick()">カードを登録する</button>
+        <button mat-raised-button color="primary" (click)="onClick()">
+          カードを登録する
+        </button>
       </mat-tab>
-      <mat-tab label="退会">
+      <mat-tab class="mat-tab" label="退会">
         <h2 class="title">退会</h2>
         <p>退会するとすべてのデータが削除されます</p>
-        <button mat-button (click)="onClick()">退会する</button>
+        <button mat-raised-button color="primary" (click)="onClick()">
+          退会する
+        </button>
       </mat-tab>
     </mat-tab-group>
   </div>
