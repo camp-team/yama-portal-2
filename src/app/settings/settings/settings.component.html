@@ -11,7 +11,7 @@
             type="text"
             matInput
             autocomplete="off"
-            placeholder="「{{ user.name }}」から変更"
+            placeholder="新しい名前"
             [formControl]="nameForm"
             required
           />
@@ -27,6 +27,7 @@
           color="primary"
           [disabled]="nameForm.invalid"
           (click)="chengeUserName()"
+          class="button"
         >
           更新する
         </button>

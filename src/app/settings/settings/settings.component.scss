@@ -5,15 +5,17 @@
   text-align: center;
 }
 .avater {
-  width: 120px;
-  height: 120px;
+  width: 160px;
   display: block;
   margin: 0 auto 16px;
   &__image {
     border-radius: 50%;
   }
 }
-
+.button {
+  margin: 24px auto 0;
+  display: block;
+}
 image-cropper {
   display: none;
 }
