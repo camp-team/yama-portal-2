@@ -38,6 +38,13 @@ const routes: Routes = [
     canLoad: [GuestGuard],
     canActivate: [GuestGuard],
   },
+  {
+    path: 'settings',
+    loadChildren: () =>
+      import('./settings/settings.module').then((m) => m.SettingsModule),
+    canLoad: [AuthGuard],
+    canActivate: [AuthGuard],
+  },
 
   {
     path: '**',

@@ -3,7 +3,7 @@
     <button mat-icon-button (click)="sidenav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
-    <a routerLink="/" class="sidenav__app-name"
+    <a class="sidenav__app-name" (click)="navigate()"
       ><img src="/assets/images/YAMAPATH.png" alt=""
     /></a>
     <div *ngIf="user$ | async as user; else loginArea">
@@ -24,8 +24,13 @@
     >
       <mat-nav-list class="sidenav__list">
         <a routerLink="" routerLinkActive="active" mat-list-item>ホーム</a>
-        <a *ngIf="user$ | async" mat-list-item>プロフィール</a>
-        <a *ngIf="user$ | async" mat-list-item>設定</a>
+        <a
+          *ngIf="user$ | async"
+          mat-list-item
+          routerLink="settings"
+          routerLinkActive="active"
+          >設定</a
+        >
       </mat-nav-list>
       <mat-divider></mat-divider>
       <mat-nav-list>

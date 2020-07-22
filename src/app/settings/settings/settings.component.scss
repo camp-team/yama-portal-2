@@ -1,0 +1,27 @@
+.settings {
+  text-align: center;
+}
+.mat-tab {
+  text-align: center;
+}
+.avater {
+  width: 160px;
+  display: block;
+  margin: 0 auto 16px;
+  &__image {
+    border-radius: 50%;
+  }
+}
+.button {
+  margin: 24px auto 0;
+  display: block;
+}
+image-cropper {
+  display: none;
+}
+
+image-cropper.active {
+  display: block;
+  width: 300px;
+  margin: 0 auto 16px;
+}
