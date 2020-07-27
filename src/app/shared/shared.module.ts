@@ -16,6 +16,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
 import { ImageChangeDialogComponent } from './image-change-dialog/image-change-dialog.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 @NgModule({
   declarations: [FilterComponent, ImageChangeDialogComponent],
@@ -36,6 +37,7 @@ import { ImageChangeDialogComponent } from './image-change-dialog/image-change-d
     MatChipsModule,
     MatDialogModule,
     MatRadioModule,
+    ImageCropperModule,
   ],
   exports: [FilterComponent],
 })
