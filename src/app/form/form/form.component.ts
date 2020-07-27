@@ -70,6 +70,7 @@ export class FormComponent implements OnInit {
 
   deleteImage() {
     this.imageFile = null;
+    this.file = null;
   }
 
   @HostListener('window:beforeunload', ['$event'])

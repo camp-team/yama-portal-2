@@ -42,21 +42,4 @@ export class ImageUploadDialogComponent implements OnInit {
     const file: Blob = base64ToFile(this.croppedImage);
     this.dialogRef.close(file);
   }
-
-  chengeUserAvater(selectedImage): Promise<void> {
-    return this.userService
-      .changeUserAvater(this.uid, this.croppedImage)
-      .then(() => {
-        this.snackBar.open('変更されました', null, {
-          duration: 3000,
-        });
-        selectedImage.value = '';
-        this.imageChengedEvent = '';
-      })
-      .catch(() => {
-        this.snackBar.open('変更に失敗しました', null, {
-          duration: 3000,
-        });
-      });
-  }
 }
