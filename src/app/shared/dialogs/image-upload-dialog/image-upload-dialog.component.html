@@ -9,7 +9,7 @@
   <input
     type="file"
     accept="image/jpeg, image/png"
-    (change)="fileChengeEvent($event)"
+    (change)="changeFileEvent($event)"
     #selectedImage
   />
   <image-cropper
@@ -19,8 +19,8 @@
     resizeToWidth="400"
     resizeToHeight="400"
     format="png"
-    (imageCropped)="imageCropped($event)"
-    (loadImageFailed)="loadImageFailed(selectedImage)"
+    (imageCropped)="croppeImage($event)"
+    (loadImageFailed)="failedLoadImage(selectedImage)"
     [class.active]="imageChengedEvent"
     width="300px"
     height="300px"

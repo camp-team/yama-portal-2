@@ -22,13 +22,13 @@ export class ImageUploadDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
-  fileChengeEvent(event: any): void {
+  changeFileEvent(event: any): void {
     this.imageChengedEvent = event;
   }
-  imageCropped(event: ImageCroppedEvent): void {
+  croppeImage(event: ImageCroppedEvent): void {
     this.croppedImage = event.base64;
   }
-  loadImageFailed(selectedImage): void {
+  failedLoadImage(selectedImage): void {
     alert('画像の読み込みに失敗しました');
     selectedImage.value = '';
     this.imageChengedEvent = '';
