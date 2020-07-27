@@ -60,7 +60,6 @@ export class HomeComponent implements OnInit {
       ...this.requestOptions,
       facetFilters: [this.categoriFilter, 'public:true'],
     };
-    console.log(searchOptions);
     setTimeout(() => {
       this.searchService
         .getPostWithUser(
@@ -88,7 +87,6 @@ export class HomeComponent implements OnInit {
 
   addSearch() {
     this.requestOptions.page++;
-    console.log(this.requestOptions.page);
     this.search();
   }
 }
