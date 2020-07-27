@@ -23,8 +23,15 @@
       [opened]="!opened"
     >
       <mat-nav-list class="sidenav__list">
-        <a routerLink="" routerLinkActive="active" mat-list-item>ホーム</a>
         <a
+          (click)="sidenav.toggle()"
+          routerLink=""
+          routerLinkActive="active"
+          mat-list-item
+          >ホーム</a
+        >
+        <a
+          (click)="sidenav.toggle()"
           *ngIf="user$ | async"
           mat-list-item
           routerLink="settings"
@@ -34,10 +41,18 @@
       </mat-nav-list>
       <mat-divider></mat-divider>
       <mat-nav-list>
-        <a routerLink="/terms" routerLinkActive="active" mat-list-item
+        <a
+          (click)="sidenav.toggle()"
+          routerLink="/terms"
+          routerLinkActive="active"
+          mat-list-item
           >利用規約</a
         >
-        <a routerLink="/legal" routerLinkActive="active" mat-list-item
+        <a
+          (click)="sidenav.toggle()"
+          routerLink="/legal"
+          routerLinkActive="active"
+          mat-list-item
           >特定商取引法に基づく表記</a
         >
       </mat-nav-list>

@@ -15,9 +15,16 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { ImageUploadDialogComponent } from './dialogs/image-upload-dialog/image-upload-dialog.component';
+import { UserAvaterComponent } from './dialogs/user-avatar/user-avater.component';
 
 @NgModule({
-  declarations: [FilterComponent],
+  declarations: [
+    FilterComponent,
+    UserAvaterComponent,
+    ImageUploadDialogComponent,
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -35,6 +42,7 @@ import { MatRadioModule } from '@angular/material/radio';
     MatChipsModule,
     MatDialogModule,
     MatRadioModule,
+    ImageCropperModule,
   ],
   exports: [FilterComponent],
 })

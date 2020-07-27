@@ -38,44 +38,13 @@
             [src]="croppedImage ? croppedImage : user.avaterURL"
             alt=""
           />
-          <input
-            type="file"
-            accept="image/jpeg, image/png"
-            style="display: none;"
-            (change)="fileChengeEvent($event)"
-            #selectedImage
-          />
         </label>
-
-        <image-cropper
-          [imageChangedEvent]="imageChengedEvent"
-          [maintainAspectRatio]="true"
-          [aspectRatio]="1 / 1"
-          resizeToWidth="400"
-          resizeToHeight="400"
-          format="png"
-          (imageCropped)="imageCropped($event)"
-          (loadImageFailed)="loadImageFailed(selectedImage)"
-          [class.active]="imageChengedEvent"
-          width="300px"
-          height="300px"
-        ></image-cropper>
         <button
           mat-flat-button
           color="primary"
-          [disabled]="!imageChengedEvent"
-          (click)="chengeUserAvater(selectedImage)"
+          (click)="openUserAvaterDialog()"
         >
-          更新する
-        </button>
-        <button
-          mat-stroked-button
-          color="primary"
-          *ngIf="imageChengedEvent"
-          (click)="resetImage(selectedImage)"
-          class="reset-btn"
-        >
-          キャンセル
+          アバターを変更する
         </button>
       </mat-tab>
       <mat-tab class="mat-tab" label="決済情報">
@@ -84,14 +53,14 @@
         <p>
           クレジットカードは世界的な決済サービスStripeによって厳重に保管されており、漏洩の心配はありません。
         </p>
-        <button mat-raised-button color="primary" (click)="onClick()">
+        <button mat-raised-button color="primary">
           カードを登録する
         </button>
       </mat-tab>
       <mat-tab class="mat-tab" label="退会">
         <h2 class="title">退会</h2>
         <p>退会するとすべてのデータが削除されます</p>
-        <button mat-raised-button color="primary" (click)="onClick()">
+        <button mat-raised-button color="primary">
           退会する
         </button>
       </mat-tab>
