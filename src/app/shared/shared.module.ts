@@ -15,9 +15,10 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
+import { ImageChangeDialogComponent } from './image-change-dialog/image-change-dialog.component';
 
 @NgModule({
-  declarations: [FilterComponent],
+  declarations: [FilterComponent, ImageChangeDialogComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

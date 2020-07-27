@@ -5,7 +5,9 @@ import { Observable } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
 import { FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ImageCroppedEvent, Dimensions } from 'ngx-image-cropper';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { MatDialog } from '@angular/material/dialog';
+import { ImageChangeDialogComponent } from 'src/app/shared/image-change-dialog/image-change-dialog.component';
 
 @Component({
   selector: 'app-settings',
@@ -25,7 +27,8 @@ export class SettingsComponent implements OnInit {
   constructor(
     private userService: UserService,
     private authService: AuthService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -85,5 +88,9 @@ export class SettingsComponent implements OnInit {
           duration: 3000,
         });
       });
+  }
+
+  openImageChangeDialog() {
+    this.dialog.open(ImageChangeDialogComponent);
   }
 }
