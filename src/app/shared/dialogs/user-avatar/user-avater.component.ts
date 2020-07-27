@@ -20,7 +20,7 @@ export class UserAvaterComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
-  fileEventChange(event: any): void {
+  changeFileEvent(event: any): void {
     this.imageChangedEvent = event;
   }
   croppeImage(event: ImageCroppedEvent): void {
