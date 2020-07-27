@@ -53,9 +53,16 @@ export class FormComponent implements OnInit {
   }
 
   submit() {
-    this.postService.createPost(this.form.value, this.file).then(() => {
-      this.isComplete = true;
-    });
+    if (this.file) {
+      this.postService.createPost(this.form.value, this.file).then(() => {
+        this.isComplete = true;
+      });
+    } else {
+      const file = null;
+      this.postService.createPost(this.form.value, file).then(() => {
+        this.isComplete = true;
+      });
+    }
   }
 
   openImageUploadDialog() {
