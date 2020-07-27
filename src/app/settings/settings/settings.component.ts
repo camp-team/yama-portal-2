@@ -34,10 +34,6 @@ export class SettingsComponent implements OnInit {
     console.log('check');
   }
 
-  onClick() {
-    console.log('check');
-  }
-
   chengeUserName(): Promise<void> {
     const newUserName = this.nameForm.value;
     return this.userService
