@@ -13,7 +13,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class ImageUploadDialogComponent implements OnInit {
   uid: string = this.authService.userId;
   imageChengedEvent: any = '';
-  croppedImage: string = '';
+  croppedImage: string | '' = '';
   constructor(
     private userService: UserService,
     private snackBar: MatSnackBar,
@@ -38,7 +38,7 @@ export class ImageUploadDialogComponent implements OnInit {
     this.imageChengedEvent = '';
     this.croppedImage = '';
   }
-  action() {
+  addImage() {
     const file: Blob = base64ToFile(this.croppedImage);
     this.dialogRef.close(file);
   }
