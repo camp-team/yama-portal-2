@@ -2,7 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { PostService } from 'src/app/services/post.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ImageCroppedEvent, base64ToFile } from 'ngx-image-cropper';
+import { ImageUploadDialogComponent } from 'src/app/shared/image-upload-dialog/image-upload-dialog.component';
 
 @Component({
   selector: 'app-form',
@@ -12,7 +12,7 @@ import { ImageCroppedEvent, base64ToFile } from 'ngx-image-cropper';
 export class FormComponent implements OnInit {
   isComplete: boolean;
   isChecked = true;
-  imageURL: string | ArrayBuffer;
+  imageFile: string | ArrayBuffer;
   file: File;
   croppedImage: string = null;
 
@@ -47,34 +47,29 @@ export class FormComponent implements OnInit {
   convertImage(file: File) {
     const reader = new FileReader();
     reader.onload = (e) => {
-      this.imageURL = e.target.result;
+      this.imageFile = e.target.result;
     };
     reader.readAsDataURL(file);
   }
 
-  setImage(event) {
-    if (event.target.files.length) {
-      this.file = event.target.files[0];
-      this.convertImage(this.file);
-    }
-  }
-
-  imageCropped(event: ImageCroppedEvent) {
-    this.croppedImage = event.base64;
-  }
-
   submit() {
-    if (this.croppedImage) {
-      const croppedFile: Blob = base64ToFile(this.croppedImage);
-      this.postService.createPost(this.form.value, croppedFile).then(() => {
-        this.isComplete = true;
-      });
-    } else {
-      const croppedFile = null;
-      this.postService.createPost(this.form.value, croppedFile).then(() => {
-        this.isComplete = true;
-      });
-    }
+    this.postService.createPost(this.form.value, this.file).then(() => {
+      this.isComplete = true;
+    });
+  }
+
+  openImageUploadDialog() {
+    const dialogRef = this.dialog.open(ImageUploadDialogComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.file = result;
+        this.convertImage(this.file);
+      }
+    });
+  }
+
+  deleteImage() {
+    this.imageFile = null;
   }
 
   @HostListener('window:beforeunload', ['$event'])

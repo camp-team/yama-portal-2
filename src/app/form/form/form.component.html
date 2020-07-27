@@ -50,36 +50,26 @@
       >
     </mat-form-field>
 
-    <input
-      type="file"
-      style="display: none;"
-      (change)="setImage($event)"
-      accept=".png, .img, .jpeg"
-      #imageInput
-    />
+    <img *ngIf="imageFile" [src]="imageFile" alt="image" />
+    <button
+      *ngIf="!imageFile"
+      type="button"
+      mat-flat-button
+      color="primary"
+      (click)="openImageUploadDialog()"
+    >
+      写真を追加する
+    </button>
 
-    <div *ngIf="!imageURL" class="form__upload" (click)="imageInput.click()">
-      <mat-icon>insert_photo</mat-icon>
-      <p>画像をアップロード</p>
-    </div>
-
-    <img
-      *ngIf="imageURL"
-      (click)="imageInput.click()"
-      [src]="croppedImage"
-      alt="image"
-    />
-
-    <image-cropper
-      *ngIf="imageURL"
-      [imageBase64]="imageURL"
-      resizeToWidth="400"
-      resizeToHeight="400"
-      [maintainAspectRatio]="true"
-      [aspectRatio]="4 / 3"
-      format="png"
-      (imageCropped)="imageCropped($event)"
-    ></image-cropper>
+    <button
+      *ngIf="imageFile"
+      mat-flat-button
+      color="warn"
+      (click)="deleteImage()"
+      class="image__del-btn"
+    >
+      写真を削除
+    </button>
 
     <button
       mat-raised-button
