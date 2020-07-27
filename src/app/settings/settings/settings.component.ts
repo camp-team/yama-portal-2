@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
 import { FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { MatDialog } from '@angular/material/dialog';
 import { ImageChangeDialogComponent } from 'src/app/shared/image-change-dialog/image-change-dialog.component';
 
@@ -48,40 +47,6 @@ export class SettingsComponent implements OnInit {
           duration: 3000,
         });
         this.nameForm.reset();
-      })
-      .catch(() => {
-        this.snackBar.open('変更に失敗しました', null, {
-          duration: 3000,
-        });
-      });
-  }
-
-  fileChengeEvent(event: any): void {
-    this.imageChengedEvent = event;
-  }
-  imageCropped(event: ImageCroppedEvent): void {
-    this.croppedImage = event.base64;
-  }
-  loadImageFailed(selectedImage): void {
-    alert('画像の読み込みに失敗しました');
-    selectedImage.value = '';
-    this.imageChengedEvent = '';
-  }
-  resetImage(selectedImage): void {
-    selectedImage.value = '';
-    this.imageChengedEvent = '';
-    this.croppedImage = '';
-  }
-
-  chengeUserAvater(selectedImage): Promise<void> {
-    return this.userService
-      .changeUserAvater(this.uid, this.croppedImage)
-      .then(() => {
-        this.snackBar.open('変更されました', null, {
-          duration: 3000,
-        });
-        selectedImage.value = '';
-        this.imageChengedEvent = '';
       })
       .catch(() => {
         this.snackBar.open('変更に失敗しました', null, {
