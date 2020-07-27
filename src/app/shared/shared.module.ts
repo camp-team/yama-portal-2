@@ -17,9 +17,14 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
 import { ImageChangeDialogComponent } from './image-change-dialog/image-change-dialog.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { ImageUploadDialogComponent } from './image-upload-dialog/image-upload-dialog.component';
 
 @NgModule({
-  declarations: [FilterComponent, ImageChangeDialogComponent],
+  declarations: [
+    FilterComponent,
+    ImageChangeDialogComponent,
+    ImageUploadDialogComponent,
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
