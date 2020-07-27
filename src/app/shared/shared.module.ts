@@ -15,14 +15,14 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
-import { ImageChangeDialogComponent } from './image-change-dialog/image-change-dialog.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
-import { ImageUploadDialogComponent } from './image-upload-dialog/image-upload-dialog.component';
+import { ImageUploadDialogComponent } from './dialogs/image-upload-dialog/image-upload-dialog.component';
+import { UserAvaterComponent } from './dialogs/user-avatar/user-avater.component';
 
 @NgModule({
   declarations: [
     FilterComponent,
-    ImageChangeDialogComponent,
+    UserAvaterComponent,
     ImageUploadDialogComponent,
   ],
   imports: [

@@ -5,11 +5,11 @@ import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-image-change-dialog',
-  templateUrl: './image-change-dialog.component.html',
-  styleUrls: ['./image-change-dialog.component.scss'],
+  selector: 'app-user-avater',
+  templateUrl: './user-avater.component.html',
+  styleUrls: ['./user-avater.component.scss'],
 })
-export class ImageChangeDialogComponent implements OnInit {
+export class UserAvaterComponent implements OnInit {
   uid: string = this.authService.userId;
   imageChengedEvent: any = '';
   croppedImage: any = '';

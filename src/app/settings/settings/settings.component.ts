@@ -6,7 +6,7 @@ import { User } from 'src/app/interfaces/user';
 import { FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
-import { ImageChangeDialogComponent } from 'src/app/shared/image-change-dialog/image-change-dialog.component';
+import { UserAvaterComponent } from 'src/app/shared/dialogs/user-avatar/user-avater.component';
 
 @Component({
   selector: 'app-settings',
@@ -51,7 +51,7 @@ export class SettingsComponent implements OnInit {
       });
   }
 
-  openImageChangeDialog() {
-    this.dialog.open(ImageChangeDialogComponent);
+  openUserAvaterDialog() {
+    this.dialog.open(UserAvaterComponent);
   }
 }

@@ -2,7 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { PostService } from 'src/app/services/post.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ImageUploadDialogComponent } from 'src/app/shared/image-upload-dialog/image-upload-dialog.component';
+import { ImageUploadDialogComponent } from 'src/app/shared/dialogs/image-upload-dialog/image-upload-dialog.component';
 
 @Component({
   selector: 'app-form',

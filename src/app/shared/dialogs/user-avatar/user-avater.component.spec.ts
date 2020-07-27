@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ImageChangeDialogComponent } from './image-change-dialog.component';
+import { UserAvaterComponent } from './user-avater.component';
 
-describe('ImageChangeDialogComponent', () => {
-  let component: ImageChangeDialogComponent;
-  let fixture: ComponentFixture<ImageChangeDialogComponent>;
+describe('UserAvaterComponent', () => {
+  let component: UserAvaterComponent;
+  let fixture: ComponentFixture<UserAvaterComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ImageChangeDialogComponent],
+      declarations: [UserAvaterComponent],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ImageChangeDialogComponent);
+    fixture = TestBed.createComponent(UserAvaterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
