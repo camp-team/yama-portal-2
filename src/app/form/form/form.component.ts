@@ -13,7 +13,7 @@ export class FormComponent implements OnInit {
   isComplete: boolean;
   isChecked = true;
   imageFile: string | ArrayBuffer;
-  file: File;
+  file: File | null = null;
   croppedImage: string = null;
 
   form = this.fb.group({
@@ -53,16 +53,9 @@ export class FormComponent implements OnInit {
   }
 
   submit() {
-    if (this.file) {
-      this.postService.createPost(this.form.value, this.file).then(() => {
-        this.isComplete = true;
-      });
-    } else {
-      const file = null;
-      this.postService.createPost(this.form.value, file).then(() => {
-        this.isComplete = true;
-      });
-    }
+    this.postService.createPost(this.form.value, this.file).then(() => {
+      this.isComplete = true;
+    });
   }
 
   openImageUploadDialog() {
