@@ -1,7 +1,11 @@
-<h1 matDialogTitle>画像を編集</h1>
+<h1 matDialogTitle *ngIf="!imageChengedEvent; else selected">
+  画像を選択してください
+</h1>
+<ng-template #selected>
+  <h1 matDialogTitle>画像の編集</h1>
+</ng-template>
 
 <mat-dialog-content>
-  <h2 *ngIf="!imageChengedEvent">画像を選択してください</h2>
   <input
     type="file"
     accept="image/jpeg, image/png"
