@@ -45,37 +45,36 @@ export class HomeComponent implements OnInit {
       this.categoriFilter = (param.get('categories') || '').split(',');
       this.sort = param.get('sort') || 'posts';
       this.search();
+      this.isInit = false;
     });
   }
 
   ngOnInit() {}
 
   search() {
-    if (!this.loading) {
-      this.loading = true;
-      this.categoriFilter = this.categoriFilter.map(
-        (category) => `category:${category}`
-      );
-      const searchOptions = {
-        ...this.requestOptions,
-        facetFilters: [this.categoriFilter, 'public:true'],
-      };
-      setTimeout(
-        () => {
-          this.searchService
-            .getPostWithUser(this.searchQuery, searchOptions, this.sort)
-            .then((result) => {
-              result
-                .pipe(take(1))
-                .toPromise()
-                .then((res) => this.posts.push(...res));
-              this.isInit = false;
-            })
-            .finally(() => (this.loading = false));
-        },
-        this.isInit ? 0 : 1000
-      );
-    }
+    this.loading = true;
+    this.categoriFilter = this.categoriFilter.map(
+      (category) => `category:${category}`
+    );
+    const searchOptions = {
+      ...this.requestOptions,
+      facetFilters: [this.categoriFilter, 'public:true'],
+    };
+    console.log(searchOptions);
+    setTimeout(() => {
+      this.searchService
+        .getPostWithUser(
+          this.searchQuery,
+          searchOptions,
+          this.sort,
+          this.isInit
+        )
+        .then(async (result) => {
+          const items = await result.pipe(take(1)).toPromise();
+          this.posts.push(...items);
+        })
+        .finally(() => (this.loading = false));
+    });
   }
 
   routeSearch(searchQuery: string) {
@@ -89,6 +88,7 @@ export class HomeComponent implements OnInit {
 
   addSearch() {
     this.requestOptions.page++;
+    console.log(this.requestOptions.page);
     this.search();
   }
 }

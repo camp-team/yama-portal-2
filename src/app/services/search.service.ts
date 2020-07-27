@@ -7,7 +7,7 @@ import { UserService } from './user.service';
 import { Observable, of } from 'rxjs';
 import { User } from '../interfaces/user';
 import { combineLatest } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
+import { map, filter, delay } from 'rxjs/operators';
 
 const searchClient = algoliasearch(
   environment.algolia.appId,
@@ -29,7 +29,8 @@ export class SearchService {
   async getPostWithUser(
     searchQuery,
     searchoptions,
-    sortKey: string
+    sortKey: string,
+    isInit: boolean
   ): Promise<Observable<PostWithUser[]>> {
     const result = await this.index[sortKey].search(searchQuery, searchoptions);
     const posts = result.hits as any[];
@@ -51,7 +52,8 @@ export class SearchService {
               user: users.find((user) => item.userId === user.uid),
             };
           });
-        })
+        }),
+        delay(isInit ? 0 : 1000)
       );
     } else {
       return of([]);
