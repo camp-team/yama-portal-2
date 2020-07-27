@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class UserAvaterComponent implements OnInit {
   uid: string = this.authService.userId;
-  imageChengedEvent: any = '';
+  imageChangedEvent: any = '';
   croppedImage: any = '';
   constructor(
     private userService: UserService,
@@ -20,24 +20,24 @@ export class UserAvaterComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
-  fileChengeEvent(event: any): void {
-    this.imageChengedEvent = event;
+  fileEventChange(event: any): void {
+    this.imageChangedEvent = event;
   }
-  imageCropped(event: ImageCroppedEvent): void {
+  croppeImage(event: ImageCroppedEvent): void {
     this.croppedImage = event.base64;
   }
-  loadImageFailed(selectedImage): void {
+  failedLoadImage(selectedImage): void {
     alert('画像の読み込みに失敗しました');
     selectedImage.value = '';
-    this.imageChengedEvent = '';
+    this.imageChangedEvent = '';
   }
   resetImage(selectedImage): void {
     selectedImage.value = '';
-    this.imageChengedEvent = '';
+    this.imageChangedEvent = '';
     this.croppedImage = '';
   }
 
-  chengeUserAvater(selectedImage): Promise<void> {
+  changeUserAvater(selectedImage): Promise<void> {
     return this.userService
       .changeUserAvater(this.uid, this.croppedImage)
       .then(() => {
@@ -45,7 +45,7 @@ export class UserAvaterComponent implements OnInit {
           duration: 3000,
         });
         selectedImage.value = '';
-        this.imageChengedEvent = '';
+        this.imageChangedEvent = '';
       })
       .catch(() => {
         this.snackBar.open('変更に失敗しました', null, {
