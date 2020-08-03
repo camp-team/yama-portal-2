@@ -36,8 +36,12 @@ export const countDownLiked = functions
     const eventId = context.eventId;
     const should = await shouldEventRun(eventId);
     const id = context.params.id;
+    const userId = context.params.userId;
+    console.log('postId: ' + id);
+    console.log('userId: ' + userId);
 
     if (should) {
+      await db.doc(`users/${userId}/likedPosts/${id}`).delete();
       const snapShot = await db.doc(`posts/${id}`).get();
       if (snapShot.exists) {
         await snapShot.ref.update(
@@ -47,7 +51,6 @@ export const countDownLiked = functions
       } else {
         console.log(`User: does not exist.`);
       }
-
       return markEventTried(eventId);
     } else {
       return true;
