@@ -3,6 +3,8 @@ import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { PostService } from 'src/app/services/post.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ImageUploadDialogComponent } from 'src/app/shared/dialogs/image-upload-dialog/image-upload-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form',
@@ -31,6 +33,8 @@ export class FormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private postService: PostService,
+    private snackBar: MatSnackBar,
+    private router: Router,
     private dialog: MatDialog
   ) {}
 
@@ -53,9 +57,17 @@ export class FormComponent implements OnInit {
   }
 
   submit() {
-    this.postService.createPost(this.form.value, this.file).then(() => {
-      this.isComplete = true;
-    });
+    this.postService
+      .createPost(this.form.value, this.file)
+      .then(() => {
+        this.isComplete = true;
+      })
+      .then(() => {
+        this.snackBar.open('投稿しました', null, {
+          duration: 2000,
+        });
+        this.router.navigateByUrl('/');
+      });
   }
 
   openImageUploadDialog() {
