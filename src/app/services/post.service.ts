@@ -1,23 +1,22 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Input } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Post } from '../interfaces/post';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { map, switchMap, first } from 'rxjs/operators';
+import { Observable, combineLatest } from 'rxjs';
 import { firestore } from 'firebase';
 import { AuthService } from './auth.service';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { async } from '@angular/core/testing';
+
+import { User } from '../interfaces/user';
+import { LikedPostDocument } from '../interfaces/liked-post-document';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PostService {
+  @Input() post: Post;
   constructor(
     private db: AngularFirestore,
-    private snackBar: MatSnackBar,
-    private router: Router,
     private authService: AuthService,
     private storage: AngularFireStorage
   ) {}
@@ -29,21 +28,16 @@ export class PostService {
     const id = this.db.createId();
     const urls = await this.uploadImage(id, file);
     const imageURL = urls;
-    return this.db
-      .doc<Post>(`posts/${id}`)
-      .set({
-        id,
-        imageURL,
-        createdAt: firestore.Timestamp.now(),
-        userId: this.authService.userId,
-        ...post,
-      })
-      .then(() => {
-        this.snackBar.open('投稿しました', null, {
-          duration: 2000,
-        });
-        this.router.navigateByUrl('/');
-      });
+    const newValue: Post = {
+      id,
+      imageURL,
+      createdAt: firestore.Timestamp.now(),
+      userId: this.authService.userId,
+      likeCount: 0,
+      ...post,
+    };
+    await this.db.doc<Post>(`posts/${id}`).set(newValue);
+    return newValue;
   }
 
   async uploadImage(id: string, file: Blob): Promise<string> {
@@ -74,5 +68,53 @@ export class PostService {
 
   updatePost(post: Post) {
     return this.db.doc<Post>(`posts/${post.id}`).update(post);
+  }
+
+  likePost(post: Post, userId: string): Promise<void[]> {
+    return Promise.all([
+      this.db.doc(`posts/${post.id}/likedUserIds/${userId}`).set({ userId }),
+      this.db
+        .doc(`users/${userId}/likedPosts/${post.id}`)
+        .set({ postId: post.id }),
+    ]);
+  }
+
+  unlikePost(postId: string, userId: string): Promise<void[]> {
+    return Promise.all([
+      this.db.doc(`posts/${postId}/likedUserIds/${userId}`).delete(),
+      this.db.doc(`users/${userId}/likedposts/${postId}`).delete(),
+    ]);
+  }
+
+  async isLiked(uid: string, postId: string): Promise<boolean> {
+    if (uid === undefined) {
+      return false;
+    }
+    if (postId === undefined) {
+      return false;
+    }
+    const likedpostIds: string[] = await this.db
+      .collection<LikedPostDocument>(`users/${uid}/likedPosts`)
+      .valueChanges()
+      .pipe(
+        first(),
+        map((posts) => posts.map((post) => post.postId))
+      )
+      .toPromise();
+    console.log(likedpostIds);
+    return likedpostIds.includes(postId);
+  }
+
+  getLikedUserIds(postId: string): Observable<any[]> {
+    return this.db
+      .collection<User>(`posts/${postId}/likedUserIds`)
+      .valueChanges()
+      .pipe(
+        switchMap((users) => {
+          return combineLatest(
+            users.map((user) => this.db.doc(`users/${user.uid}`).valueChanges())
+          );
+        })
+      );
   }
 }

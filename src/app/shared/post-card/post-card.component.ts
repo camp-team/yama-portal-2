@@ -33,7 +33,7 @@ export class PostCardComponent implements OnInit {
   }
   async likePost(post: PostWithUser): Promise<void[]> {
     this.isProcessing = true;
-    const user: User = await this.userService.passUserWhenRequiredForm();
+    const user: User = await this.userService.filterGetUserWithSnapShot();
     if (user === null) {
       this.isProcessing = false;
       return;
@@ -52,8 +52,4 @@ export class PostCardComponent implements OnInit {
     this.isLiked = false;
     return this.postService.unlikePost(postId, uid);
   }
-
-  // isLiked(id: string): boolean {
-  //   return this.likedPostIds?.includes(id);
-  // }
 }
