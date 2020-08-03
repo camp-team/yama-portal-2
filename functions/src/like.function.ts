@@ -13,7 +13,6 @@ export const countUpLiked = functions
     const should = await shouldEventRun(eventId);
     if (should) {
       const postSnapShot = await db.doc(`posts/${id}`).get();
-      console.log(postSnapShot);
 
       if (postSnapShot.exists) {
         await postSnapShot.ref.update(
