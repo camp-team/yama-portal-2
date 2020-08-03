@@ -101,7 +101,6 @@ export class PostService {
         map((posts) => posts.map((post) => post.postId))
       )
       .toPromise();
-    console.log(likedpostIds);
     return likedpostIds.includes(postId);
   }
 

@@ -15,9 +15,7 @@ export class UserService {
     private db: AngularFirestore,
     private storage: AngularFireStorage,
     private afAuth: AngularFireAuth
-  ) {
-    console.log(this.uid);
-  }
+  ) {}
   uid: string;
   user$: Observable<User> = this.afAuth.authState.pipe(
     switchMap((user) => {
