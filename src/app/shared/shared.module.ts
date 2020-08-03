@@ -18,12 +18,14 @@ import { MatRadioModule } from '@angular/material/radio';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ImageUploadDialogComponent } from './dialogs/image-upload-dialog/image-upload-dialog.component';
 import { UserAvaterComponent } from './dialogs/user-avatar/user-avater.component';
+import { PostCardComponent } from './post-card/post-card.component';
 
 @NgModule({
   declarations: [
     FilterComponent,
     UserAvaterComponent,
     ImageUploadDialogComponent,
+    PostCardComponent,
   ],
   imports: [
     CommonModule,
@@ -44,6 +46,6 @@ import { UserAvaterComponent } from './dialogs/user-avatar/user-avater.component
     MatRadioModule,
     ImageCropperModule,
   ],
-  exports: [FilterComponent],
+  exports: [FilterComponent, PostCardComponent],
 })
 export class SharedModule {}

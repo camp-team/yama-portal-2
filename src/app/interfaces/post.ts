@@ -8,6 +8,7 @@ export interface Post {
   category: string;
   content: string;
   public: boolean;
+  likeCount: number;
   createdAt: firestore.Timestamp;
 }
 

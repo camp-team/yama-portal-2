@@ -6,7 +6,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UiService } from 'src/app/services/ui.service';
 import { take } from 'rxjs/operators';
 import { PostWithUser } from 'src/app/interfaces/post';
-import { AuthService } from 'src/app/services/auth.service';
+
+import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/interfaces/user';
+import { Observable } from 'rxjs';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -21,7 +25,8 @@ export class HomeComponent implements OnInit {
   loading: boolean;
   requestOptions: any = {};
   searchQuery: string;
-  user$ = this.authService.user$;
+  user$: Observable<User> = this.userService.user$;
+
   private isInit = true;
   createdAtFilter: string;
   tagFilter: string[];
@@ -33,7 +38,7 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     public uiService: UiService,
-    private authService: AuthService
+    private userService: UserService
   ) {
     this.route.queryParamMap.subscribe((param) => {
       this.posts = [];
