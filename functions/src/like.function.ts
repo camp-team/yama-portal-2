@@ -37,8 +37,6 @@ export const countDownLiked = functions
     const should = await shouldEventRun(eventId);
     const id = context.params.id;
     const userId = context.params.userId;
-    console.log('postId: ' + id);
-    console.log('userId: ' + userId);
 
     if (should) {
       await db.doc(`users/${userId}/likedPosts/${id}`).delete();
