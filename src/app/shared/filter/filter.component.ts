@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatRadioChange, MatRadioGroup } from '@angular/material/radio';
 import { MatSelectionListChange, MatListOption } from '@angular/material/list';
-import { RadioService } from 'src/app/serces/radio.service';
+import { RadioService } from 'src/app/services/radio.service';
 
 @Component({
   selector: 'app-filter',
