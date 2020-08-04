@@ -29,7 +29,6 @@ export class HomeComponent implements OnInit {
 
   private isInit = true;
   createdAtFilter: string;
-  tagFilter: string[];
   categoriFilter: string[];
   sort: string;
 
@@ -58,12 +57,12 @@ export class HomeComponent implements OnInit {
 
   search() {
     this.loading = true;
-    this.categoriFilter = this.categoriFilter.map(
+    const categoriFilter = this.categoriFilter.map(
       (category) => `category:${category}`
     );
     const searchOptions = {
       ...this.requestOptions,
-      facetFilters: [this.categoriFilter, 'public:true'],
+      facetFilters: [categoriFilter, 'public:true'],
     };
     setTimeout(() => {
       this.searchService
