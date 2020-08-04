@@ -29,12 +29,10 @@ export class SearchService {
   async getPostWithUser(
     searchQuery,
     searchoptions,
-    sortKey: string,
-    isInit: boolean
+    sortKey: string
   ): Promise<Observable<PostWithUser[]>> {
     const result = await this.index[sortKey].search(searchQuery, searchoptions);
     const posts = result.hits as any[];
-    const maxPage: number = result.nbPages;
     if (posts.length) {
       const uids: string[] = posts.map((item: Post) => item.userId);
       const uniquedUserIds: string[] = Array.from(new Set(uids));
@@ -52,8 +50,7 @@ export class SearchService {
               user: users.find((user) => item.userId === user.uid),
             };
           });
-        }),
-        delay(isInit ? 0 : 1000)
+        })
       );
     } else {
       return of([]);

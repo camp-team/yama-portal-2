@@ -64,20 +64,18 @@ export class HomeComponent implements OnInit {
       ...this.requestOptions,
       facetFilters: [categoriFilter, 'public:true'],
     };
-    setTimeout(() => {
-      this.searchService
-        .getPostWithUser(
-          this.searchQuery,
-          searchOptions,
-          this.sort,
-          this.isInit
-        )
-        .then(async (result) => {
-          const items = await result.pipe(take(1)).toPromise();
-          this.posts.push(...items);
-        })
-        .finally(() => (this.loading = false));
-    });
+    setTimeout(
+      () => {
+        this.searchService
+          .getPostWithUser(this.searchQuery, searchOptions, this.sort)
+          .then(async (result) => {
+            const items = await result.pipe(take(1)).toPromise();
+            this.posts.push(...items);
+          })
+          .finally(() => (this.loading = false));
+      },
+      this.isInit ? 0 : 500
+    );
   }
 
   routeSearch(searchQuery: string) {
