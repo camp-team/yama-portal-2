@@ -56,26 +56,30 @@ export class HomeComponent implements OnInit {
   ngOnInit() {}
 
   search() {
-    this.loading = true;
-    const categoriFilter = this.categoriFilter.map(
-      (category) => `category:${category}`
-    );
-    const searchOptions = {
-      ...this.requestOptions,
-      facetFilters: [categoriFilter, 'public:true'],
-    };
-    setTimeout(
-      () => {
-        this.searchService
-          .getPostWithUser(this.searchQuery, searchOptions, this.sort)
-          .then(async (result) => {
-            const items = await result.pipe(take(1)).toPromise();
-            this.posts.push(...items);
-          })
-          .finally(() => (this.loading = false));
-      },
-      this.isInit ? 0 : 500
-    );
+    if (!this.loading) {
+      this.loading = true;
+      const categoriFilter = this.categoriFilter.map(
+        (category) => `category:${category}`
+      );
+      const searchOptions = {
+        ...this.requestOptions,
+        facetFilters: [categoriFilter, 'public:true'],
+      };
+
+      setTimeout(
+        () => {
+          this.searchService
+            .getPostWithUser(this.searchQuery, searchOptions, this.sort)
+            .then(async (result) => {
+              const items = await result.pipe(take(1)).toPromise();
+              this.posts.push(...items);
+            })
+            .finally(() => (this.loading = false))
+            .then();
+        },
+        this.isInit ? 0 : 500
+      );
+    }
   }
 
   routeSearch(searchQuery: string) {
@@ -88,7 +92,9 @@ export class HomeComponent implements OnInit {
   }
 
   addSearch() {
-    this.requestOptions.page++;
-    this.search();
+    if (!this.loading) {
+      this.requestOptions.page++;
+      this.search();
+    }
   }
 }
