@@ -10,6 +10,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SharedModule } from '../shared/shared.module';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 @NgModule({
   declarations: [HomeComponent],
@@ -25,6 +26,7 @@ import { SharedModule } from '../shared/shared.module';
     ReactiveFormsModule,
     MatProgressSpinnerModule,
     SharedModule,
+    GoogleMapsModule,
   ],
 })
 export class HomeModule {}
