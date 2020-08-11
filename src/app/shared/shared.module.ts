@@ -19,6 +19,8 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { ImageUploadDialogComponent } from './dialogs/image-upload-dialog/image-upload-dialog.component';
 import { UserAvaterComponent } from './dialogs/user-avatar/user-avater.component';
 import { PostCardComponent } from './post-card/post-card.component';
+import { GoogleMapSmallComponent } from './google-map-small/google-map-small.component';
+import { GoogleMapLargeComponent } from './google-map-large/google-map-large.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import { PostCardComponent } from './post-card/post-card.component';
     UserAvaterComponent,
     ImageUploadDialogComponent,
     PostCardComponent,
+    GoogleMapSmallComponent,
+    GoogleMapLargeComponent,
   ],
   imports: [
     CommonModule,
