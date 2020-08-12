@@ -1,1 +1,21 @@
-<p>google-map-small works!</p>
+<google-map
+  height="200px"
+  width="100%"
+  [center]="center"
+  [zoom]="zoom"
+  [options]="options"
+  mapTypeId="terrain"
+  class="map"
+>
+  <map-marker
+    #markerElem
+    *ngIf="currentPosition"
+    [position]="currentPosition"
+    [options]="currentPositionMarkerOption"
+    (mapClick)="onCurrentPositionMarkerClick(markerElem)"
+  >
+  </map-marker>
+  <a routerLink="/map" href="" class="map__largeLink">
+    <img src="assets/icons/fullscreen-black-18dp.svg" alt="" />
+  </a>
+</google-map>

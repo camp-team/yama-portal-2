@@ -4,20 +4,7 @@
       <h1>天城山</h1>
     </div>
     <div class="home__map">
-      <google-map
-        height="200px"
-        width="100%"
-        [center]="center"
-        [zoom]="zoom"
-        [options]="options"
-      >
-        <map-marker
-          *ngIf="currentPosition"
-          [position]="currentPosition"
-          [options]="currentPositionMarkerOption"
-        >
-        </map-marker>
-      </google-map>
+      <app-google-map-small></app-google-map-small>
     </div>
     <div *ngIf="user$ | async" class="home__formLink">
       <button

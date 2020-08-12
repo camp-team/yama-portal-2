@@ -21,6 +21,8 @@ import { UserAvaterComponent } from './dialogs/user-avatar/user-avater.component
 import { PostCardComponent } from './post-card/post-card.component';
 import { GoogleMapSmallComponent } from './google-map-small/google-map-small.component';
 import { GoogleMapLargeComponent } from './google-map-large/google-map-large.component';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { SharedRoutingModule } from './shared-routing.module';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,7 @@ import { GoogleMapLargeComponent } from './google-map-large/google-map-large.com
   ],
   imports: [
     CommonModule,
+    SharedRoutingModule,
     ReactiveFormsModule,
     FormsModule,
     MatInputModule,
@@ -49,7 +52,13 @@ import { GoogleMapLargeComponent } from './google-map-large/google-map-large.com
     MatDialogModule,
     MatRadioModule,
     ImageCropperModule,
+    GoogleMapsModule,
   ],
-  exports: [FilterComponent, PostCardComponent],
+  exports: [
+    FilterComponent,
+    PostCardComponent,
+    GoogleMapSmallComponent,
+    GoogleMapSmallComponent,
+  ],
 })
 export class SharedModule {}
