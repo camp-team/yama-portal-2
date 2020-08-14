@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [FormComponent],
@@ -28,6 +29,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     MatSelectModule,
     MatIconModule,
     ImageCropperModule,
+    SharedModule,
   ],
 })
 export class FormModule {}
