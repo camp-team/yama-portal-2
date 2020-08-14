@@ -8,14 +8,10 @@
   class="map"
 >
   <map-marker
-    #markerElem
     *ngIf="currentPosition"
     [position]="currentPosition"
     [options]="currentPositionMarkerOption"
-    (mapClick)="onCurrentPositionMarkerClick(markerElem)"
+    (mapClick)="onCurrentPositionMarkerClick()"
   >
   </map-marker>
-  <a routerLink="/map" href="" class="map__largeLink">
-    <img src="assets/icons/fullscreen-black-18dp.svg" alt="" />
-  </a>
 </google-map>
