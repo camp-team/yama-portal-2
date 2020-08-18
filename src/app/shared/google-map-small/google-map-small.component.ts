@@ -1,5 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MapMarker, GoogleMap } from '@angular/google-maps';
+import { MapMarker, GoogleMap, MapInfoWindow } from '@angular/google-maps';
+import { GoogleMapService } from 'src/app/services/google-map.service';
+import { PostService } from 'src/app/services/post.service';
+import { Observable } from 'rxjs';
+import { Post } from 'src/app/interfaces/post';
 
 @Component({
   selector: 'app-google-map-small',
@@ -8,6 +12,7 @@ import { MapMarker, GoogleMap } from '@angular/google-maps';
 })
 export class GoogleMapSmallComponent implements OnInit {
   @ViewChild(GoogleMap, { static: false }) map: google.maps.Map;
+  @ViewChild(MapInfoWindow) infoWindow: MapInfoWindow;
   zoom = 14;
   center: google.maps.LatLngLiteral = {
     lat: 34.863439,
@@ -24,7 +29,14 @@ export class GoogleMapSmallComponent implements OnInit {
   currentPosition: google.maps.LatLngLiteral;
   // 現在位置マーカーのオプション
   currentPositionMarkerOption = { draggable: false };
-  constructor() {}
+
+  posts$: Observable<Post[]> = this.postService.getPosts();
+  markerOptions = { draggable: false };
+
+  constructor(
+    private googleMapService: GoogleMapService,
+    private postService: PostService
+  ) {}
 
   ngOnInit(): void {
     if (navigator.geolocation) {
@@ -118,5 +130,75 @@ export class GoogleMapSmallComponent implements OnInit {
   // 現在位置マーカーがクリックされた時のハンドラー
   onCurrentPositionMarkerClick() {
     this.map.panTo(this.currentPosition);
+  }
+
+  openInfoWindow(marker: MapMarker) {
+    this.infoWindow.open(marker);
+  }
+
+  changeMarkerIcons(category: string) {
+    switch (category) {
+      case 'denger': {
+        const markerOptions: google.maps.MarkerOptions = {
+          icon: {
+            url: 'assets/icons/denger.svg',
+            scaledSize: new google.maps.Size(48, 48),
+          },
+        };
+        return markerOptions;
+        break;
+      }
+      case 'viewPoint': {
+        const markerOptions: google.maps.MarkerOptions = {
+          icon: {
+            url: 'assets/icons/camera.svg',
+            scaledSize: new google.maps.Size(48, 48),
+          },
+        };
+        return markerOptions;
+        break;
+      }
+      case 'toilet': {
+        const markerOptions: google.maps.MarkerOptions = {
+          icon: {
+            url: 'assets/icons/wc.svg',
+            scaledSize: new google.maps.Size(48, 48),
+          },
+        };
+        return markerOptions;
+        break;
+      }
+      case 'water': {
+        const markerOptions: google.maps.MarkerOptions = {
+          icon: {
+            url: 'assets/icons/water.svg',
+            scaledSize: new google.maps.Size(48, 48),
+          },
+        };
+        return markerOptions;
+        break;
+      }
+      case 'rest': {
+        const markerOptions: google.maps.MarkerOptions = {
+          icon: {
+            url: 'assets/icons/rest.svg',
+            scaledSize: new google.maps.Size(48, 48),
+          },
+        };
+        return markerOptions;
+        break;
+      }
+      case 'other': {
+        const markerOptions: google.maps.MarkerOptions = {
+          icon: {
+            url: 'assets/icons/other.svg',
+            scaledSize: new google.maps.Size(48, 48),
+          },
+        };
+        return markerOptions;
+        break;
+      }
+      default:
+    }
   }
 }

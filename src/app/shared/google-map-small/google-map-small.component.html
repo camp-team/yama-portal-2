@@ -14,4 +14,11 @@
     (mapClick)="onCurrentPositionMarkerClick()"
   >
   </map-marker>
+  <map-marker
+    #marker="mapMarker"
+    *ngFor="let posts of posts$ | async"
+    [position]="posts.currentPosition"
+    [options]="changeMarkerIcons(posts.category)"
+    (mapClick)="openInfoWindow(marker)"
+  ></map-marker>
 </google-map>
