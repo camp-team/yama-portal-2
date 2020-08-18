@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MapMarker, GoogleMap, MapInfoWindow } from '@angular/google-maps';
-import { GoogleMapService } from 'src/app/services/google-map.service';
 import { PostService } from 'src/app/services/post.service';
 import { Observable } from 'rxjs';
 import { Post } from 'src/app/interfaces/post';
@@ -33,10 +32,7 @@ export class GoogleMapSmallComponent implements OnInit {
   posts$: Observable<Post[]> = this.postService.getPosts();
   markerOptions = { draggable: false };
 
-  constructor(
-    private googleMapService: GoogleMapService,
-    private postService: PostService
-  ) {}
+  constructor(private postService: PostService) {}
 
   ngOnInit(): void {
     if (navigator.geolocation) {
