@@ -32,26 +32,6 @@ export class HomeComponent implements OnInit {
   categoriFilter: string[];
   sort: string;
 
-  zoom = 16;
-  center: google.maps.LatLngLiteral = {
-    lat: 34.863439,
-    lng: 139.001569,
-  };
-  // 地図のオプション
-  options: google.maps.MapOptions = {
-    disableDefaultUI: true,
-  };
-
-  // 現在位置マーカーの座標
-  currentPosition: google.maps.LatLngLiteral;
-  // 現在位置マーカーのオプション
-  currentPositionMarkerOption: google.maps.MarkerOptions = {
-    icon: {
-      url: 'assets/icons/place-black-18dp/2x/baseline_place_black_18dp.png',
-      scaledSize: new google.maps.Size(32, 32),
-    },
-  };
-
   constructor(
     public searchService: SearchService,
     private router: Router,
@@ -59,15 +39,6 @@ export class HomeComponent implements OnInit {
     public uiService: UiService,
     private userService: UserService
   ) {
-    // 現在位置を取得する。
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.currentPosition = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        };
-      });
-    }
     this.route.queryParamMap.subscribe((param) => {
       this.posts = [];
       this.searchQuery = param.get('searchQuery') || '';
