@@ -23,7 +23,8 @@ export class PostService {
 
   async createPost(
     post: Omit<Post, 'id' | 'createdAt' | 'userId'>,
-    file: Blob
+    file: Blob,
+    currentPosition: google.maps.LatLngLiteral
   ) {
     const id = this.db.createId();
     const urls = await this.uploadImage(id, file);
@@ -31,6 +32,7 @@ export class PostService {
     const newValue: Post = {
       id,
       imageURL,
+      currentPosition,
       createdAt: firestore.Timestamp.now(),
       userId: this.authService.userId,
       likeCount: 0,

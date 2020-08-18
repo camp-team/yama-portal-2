@@ -17,6 +17,7 @@ export class FormComponent implements OnInit {
   imageFile: string | ArrayBuffer;
   file: File | null = null;
   croppedImage: string = null;
+  currentPosition: google.maps.LatLngLiteral;
 
   form = this.fb.group({
     category: [
@@ -36,7 +37,16 @@ export class FormComponent implements OnInit {
     private snackBar: MatSnackBar,
     private router: Router,
     private dialog: MatDialog
-  ) {}
+  ) {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.currentPosition = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+      });
+    }
+  }
 
   ngOnInit(): void {}
 
@@ -58,7 +68,7 @@ export class FormComponent implements OnInit {
 
   submit() {
     this.postService
-      .createPost(this.form.value, this.file)
+      .createPost(this.form.value, this.file, this.currentPosition)
       .then(() => {
         this.isComplete = true;
       })
