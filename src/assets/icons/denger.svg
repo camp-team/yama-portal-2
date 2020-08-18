@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="123.105" height="191.91" viewBox="0 0 123.105 191.91">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #ffd850;
+        stroke: #fff;
+      }
+
+      .cls-2 {
+        fill: #070606;
+        stroke: #707070;
+      }
+
+      .cls-3 {
+        fill: #f7f7f7;
+        stroke: #d5d5d5;
+      }
+
+      .cls-4 {
+        stroke: none;
+      }
+
+      .cls-5 {
+        fill: none;
+      }
+    </style>
+  </defs>
+  <g id="グループ_20" data-name="グループ 20" transform="translate(8.5 -209.5)">
+    <g id="グループ_9" data-name="グループ 9">
+      <path id="パス_9" data-name="パス 9" class="cls-1" d="M66.053,2C32.3,2,5,31.833,5,68.719c0,50.039,61.053,123.906,61.053,123.906s61.053-73.867,61.053-123.906C127.105,31.833,99.806,2,66.053,2Zm0,90.547c-12.036,0-21.8-10.675-21.8-23.828s9.768-23.828,21.8-23.828,21.8,10.675,21.8,23.828S78.089,92.547,66.053,92.547Z" transform="translate(-13 208)"/>
+      <g id="楕円形_1" data-name="楕円形 1" class="cls-2" transform="translate(10 226)">
+        <ellipse class="cls-4" cx="43" cy="47.5" rx="43" ry="47.5"/>
+        <ellipse class="cls-5" cx="43" cy="47.5" rx="42.5" ry="47"/>
+      </g>
+      <path id="パス_18" data-name="パス 18" class="cls-3" d="M52,2a50,50,0,1,0,50,50A50.018,50.018,0,0,0,52,2Zm5,75H47V67H57Zm0-20H47V27H57Z" transform="translate(0.569 221.582)"/>
+    </g>
+  </g>
+</svg>

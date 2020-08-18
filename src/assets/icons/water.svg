@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="123.105" height="191.91" viewBox="0 0 123.105 191.91">
+  <defs>
+    <style>
+      .cls-1, .cls-4 {
+        fill: #0a74cf;
+      }
+
+      .cls-1 {
+        stroke: #fff;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        fill: none;
+      }
+    </style>
+  </defs>
+  <g id="グループ_17" data-name="グループ 17" transform="translate(-153.5 -455.5)">
+    <g id="グループ_12" data-name="グループ 12" transform="translate(-9)">
+      <g id="グループ_6" data-name="グループ 6" transform="translate(-404 19)">
+        <path id="パス_16" data-name="パス 16" class="cls-1" d="M66.053,2C32.3,2,5,31.833,5,68.719c0,50.039,61.053,123.906,61.053,123.906s61.053-73.867,61.053-123.906C127.105,31.833,99.806,2,66.053,2Zm0,90.547c-12.036,0-21.8-10.675-21.8-23.828s9.768-23.828,21.8-23.828,21.8,10.675,21.8,23.828S78.089,92.547,66.053,92.547Z" transform="translate(562 435)"/>
+        <circle id="楕円形_6" data-name="楕円形 6" class="cls-2" cx="50" cy="50" r="50" transform="translate(578 450)"/>
+      </g>
+      <g id="local_drink-black-18dp" transform="translate(193.803 490.562)">
+        <path id="パス_23" data-name="パス 23" class="cls-3" d="M0,0H60.2V53.438H0Z"/>
+        <path id="パス_24" data-name="パス 24" class="cls-4" d="M3,2,9.052,47.062c.361,2.472,2.891,4.375,5.992,4.375H45.153c3.1,0,5.63-1.9,5.992-4.375L57.2,2ZM30.1,44.022c-5,0-9.033-3.312-9.033-7.416,0-4.944,9.033-13.348,9.033-13.348s9.033,8.4,9.033,13.348C39.131,40.71,35.1,44.022,30.1,44.022ZM49.158,16.831H11.039L9.714,6.944H50.453Z" transform="translate(0 0)"/>
+      </g>
+    </g>
+  </g>
+</svg>
