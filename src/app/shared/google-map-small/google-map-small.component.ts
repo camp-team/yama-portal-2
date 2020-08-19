@@ -11,7 +11,7 @@ import { Post } from 'src/app/interfaces/post';
 })
 export class GoogleMapSmallComponent implements OnInit {
   @ViewChild(GoogleMap, { static: false }) map: google.maps.Map;
-  @ViewChild(MapInfoWindow) infoWindow: MapInfoWindow;
+
   zoom = 14;
   center: google.maps.LatLngLiteral = {
     lat: 34.863439,
@@ -128,8 +128,8 @@ export class GoogleMapSmallComponent implements OnInit {
     this.map.panTo(this.currentPosition);
   }
 
-  openInfoWindow(marker: MapMarker) {
-    this.infoWindow.open(marker);
+  openInfoWindow(marker: MapMarker, window: MapInfoWindow) {
+    window.open(marker);
   }
 
   changeMarkerIcons(category: string) {

@@ -19,6 +19,11 @@
     *ngFor="let posts of posts$ | async"
     [position]="posts.currentPosition"
     [options]="changeMarkerIcons(posts.category)"
-    (mapClick)="openInfoWindow(marker)"
-  ></map-marker>
+    (mapClick)="openInfoWindow(marker, window)"
+  >
+    <map-info-window #window="mapInfoWindow">
+      <div>{{ posts.category }}</div>
+      <div>{{ posts.content }}</div>
+    </map-info-window>
+  </map-marker>
 </google-map>
