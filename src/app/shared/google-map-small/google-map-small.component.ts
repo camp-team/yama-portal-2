@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MapMarker, GoogleMap, MapInfoWindow } from '@angular/google-maps';
 import { PostService } from 'src/app/services/post.service';
 import { Observable } from 'rxjs';
@@ -12,25 +12,21 @@ import { Post } from 'src/app/interfaces/post';
 export class GoogleMapSmallComponent implements OnInit {
   @ViewChild(GoogleMap, { static: false }) map: google.maps.Map;
 
-  zoom = 14;
-  center: google.maps.LatLngLiteral = {
+  public zoom = 14;
+  public center: google.maps.LatLngLiteral = {
     lat: 34.863439,
     lng: 139.001569,
   };
-  // 地図のオプション
-  options: google.maps.MapOptions = {
+  public options: google.maps.MapOptions = {
     disableDefaultUI: true,
     zoomControl: true,
     fullscreenControl: true,
   };
+  public currentPosition: google.maps.LatLngLiteral;
+  public currentPositionMarkerOption = { draggable: false };
 
-  // 現在位置マーカーの座標
-  currentPosition: google.maps.LatLngLiteral;
-  // 現在位置マーカーのオプション
-  currentPositionMarkerOption = { draggable: false };
-
-  posts$: Observable<Post[]> = this.postService.getPosts();
-  markerOptions = { draggable: false };
+  public posts$: Observable<Post[]> = this.postService.getPosts();
+  public markerOptions = { draggable: false };
 
   constructor(private postService: PostService) {}
 
@@ -44,8 +40,7 @@ export class GoogleMapSmallComponent implements OnInit {
         const centerControlDiv = document.createElement('div');
         this.CenterControl(centerControlDiv, this.map);
 
-        // @ts-ignore TODO(jpoehnelt)
-        centerControlDiv.index = 1;
+        centerControlDiv.tabIndex = 1;
 
         this.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(
           centerControlDiv
@@ -59,12 +54,19 @@ export class GoogleMapSmallComponent implements OnInit {
         this.map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(
           currentPositionDiv
         );
+
+        this.map.data.loadGeoJson('assets/amagiTrail.geojson');
+
+        this.map.data.setStyle({
+          strokeColor: '#3471B8',
+          strokeWeight: 5,
+          strokeOpacity: 0.6470588235294118,
+        });
       });
     }
   }
 
   CenterControl(controlDiv: Element, map: google.maps.Map) {
-    // Set CSS for the control border.
     const controlUI = document.createElement('div');
     controlUI.style.backgroundColor = '#fff';
     controlUI.style.border = '2px solid #fff';
@@ -76,7 +78,6 @@ export class GoogleMapSmallComponent implements OnInit {
     controlUI.title = 'Click to recenter the map';
     controlDiv.appendChild(controlUI);
 
-    // Set CSS for the control interior.
     const controlText = document.createElement('div');
     controlText.style.color = 'rgb(25,25,25)';
     controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
@@ -87,14 +88,12 @@ export class GoogleMapSmallComponent implements OnInit {
     controlText.innerHTML = 'Center Map';
     controlUI.appendChild(controlText);
 
-    // Setup the click event listeners: simply set the map to Chicago.
     controlUI.addEventListener('click', () => {
       map.panTo(this.center);
     });
   }
 
   panToCurrentPositionControl(controlDiv: Element, map: google.maps.Map) {
-    // Set CSS for the control border.
     const controlUI = document.createElement('div');
     controlUI.style.backgroundColor = '#fff';
     controlUI.style.border = '2px solid #fff';
@@ -106,7 +105,6 @@ export class GoogleMapSmallComponent implements OnInit {
     controlUI.title = 'Click to current the map';
     controlDiv.appendChild(controlUI);
 
-    // Set CSS for the control interior.
     const controlText = document.createElement('div');
     controlText.style.color = 'rgb(25,25,25)';
     controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
@@ -117,13 +115,10 @@ export class GoogleMapSmallComponent implements OnInit {
     controlText.innerHTML = 'Current';
     controlUI.appendChild(controlText);
 
-    // Setup the click event listeners: simply set the map to Chicago.
     controlUI.addEventListener('click', () => {
       this.onCurrentPositionMarkerClick();
     });
   }
-
-  // 現在位置マーカーがクリックされた時のハンドラー
   onCurrentPositionMarkerClick() {
     this.map.panTo(this.currentPosition);
   }
@@ -142,7 +137,6 @@ export class GoogleMapSmallComponent implements OnInit {
           },
         };
         return markerOptions;
-        break;
       }
       case 'viewPoint': {
         const markerOptions: google.maps.MarkerOptions = {
@@ -152,7 +146,6 @@ export class GoogleMapSmallComponent implements OnInit {
           },
         };
         return markerOptions;
-        break;
       }
       case 'toilet': {
         const markerOptions: google.maps.MarkerOptions = {
@@ -162,7 +155,6 @@ export class GoogleMapSmallComponent implements OnInit {
           },
         };
         return markerOptions;
-        break;
       }
       case 'water': {
         const markerOptions: google.maps.MarkerOptions = {
@@ -172,7 +164,6 @@ export class GoogleMapSmallComponent implements OnInit {
           },
         };
         return markerOptions;
-        break;
       }
       case 'rest': {
         const markerOptions: google.maps.MarkerOptions = {
@@ -182,7 +173,6 @@ export class GoogleMapSmallComponent implements OnInit {
           },
         };
         return markerOptions;
-        break;
       }
       case 'other': {
         const markerOptions: google.maps.MarkerOptions = {
@@ -192,7 +182,6 @@ export class GoogleMapSmallComponent implements OnInit {
           },
         };
         return markerOptions;
-        break;
       }
       default:
     }
