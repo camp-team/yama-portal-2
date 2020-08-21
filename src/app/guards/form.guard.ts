@@ -8,8 +8,6 @@ import { FormComponent } from '../form/form/form.component';
 })
 export class FormGuard implements CanDeactivate<FormComponent> {
   canDeactivate(component: FormComponent): Observable<boolean> | boolean {
-    console.log('[pristine]' + component.form.pristine);
-    console.log('[valid]' + component.form.valid);
     if (component.form.pristine || component.form.valid) {
       return true;
     }

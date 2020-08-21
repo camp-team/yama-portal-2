@@ -19,6 +19,10 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { ImageUploadDialogComponent } from './dialogs/image-upload-dialog/image-upload-dialog.component';
 import { UserAvaterComponent } from './dialogs/user-avatar/user-avater.component';
 import { PostCardComponent } from './post-card/post-card.component';
+import { GoogleMapSmallComponent } from './google-map-small/google-map-small.component';
+import { GoogleMapLargeComponent } from './google-map-large/google-map-large.component';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { SharedRoutingModule } from './shared-routing.module';
 
 @NgModule({
   declarations: [
@@ -26,9 +30,12 @@ import { PostCardComponent } from './post-card/post-card.component';
     UserAvaterComponent,
     ImageUploadDialogComponent,
     PostCardComponent,
+    GoogleMapSmallComponent,
+    GoogleMapLargeComponent,
   ],
   imports: [
     CommonModule,
+    SharedRoutingModule,
     ReactiveFormsModule,
     FormsModule,
     MatInputModule,
@@ -45,7 +52,13 @@ import { PostCardComponent } from './post-card/post-card.component';
     MatDialogModule,
     MatRadioModule,
     ImageCropperModule,
+    GoogleMapsModule,
   ],
-  exports: [FilterComponent, PostCardComponent],
+  exports: [
+    FilterComponent,
+    PostCardComponent,
+    GoogleMapSmallComponent,
+    GoogleMapSmallComponent,
+  ],
 })
 export class SharedModule {}

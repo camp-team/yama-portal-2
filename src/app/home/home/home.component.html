@@ -4,11 +4,7 @@
       <h1>天城山</h1>
     </div>
     <div class="home__map">
-      <iframe
-        src="https://www.google.com/maps/d/embed?mid=1-Uov2ANGKaYKUV207hf7LgPu6XZFnwzp"
-        width="100%"
-        height="200"
-      ></iframe>
+      <app-google-map-small></app-google-map-small>
     </div>
     <div *ngIf="user$ | async" class="home__formLink">
       <button

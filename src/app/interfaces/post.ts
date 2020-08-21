@@ -10,6 +10,7 @@ export interface Post {
   public: boolean;
   likeCount: number;
   createdAt: firestore.Timestamp;
+  currentPosition: google.maps.LatLngLiteral;
 }
 
 export interface PostWithUser extends Post {

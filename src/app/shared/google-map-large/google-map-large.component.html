@@ -1,0 +1,19 @@
+<google-map
+  height="100%"
+  width="100%"
+  [center]="center"
+  [zoom]="zoom"
+  [options]="options"
+  mapTypeId="terrain"
+  class="map"
+>
+  <map-marker
+    *ngIf="currentPosition"
+    [position]="currentPosition"
+    [options]="currentPositionMarkerOption"
+  >
+  </map-marker>
+  <a routerLink="/" href="" class="map__homeLink">
+    <img src="/assets/icons/fullscreen_exit-black-18dp.svg" alt="" />
+  </a>
+</google-map>

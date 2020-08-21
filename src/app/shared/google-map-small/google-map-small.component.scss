@@ -1,0 +1,11 @@
+.map {
+  position: relative;
+  &__largeLink {
+    position: absolute;
+    bottom: 10;
+    right: 10;
+    width: 30px;
+    height: 30px;
+    z-index: 100;
+  }
+}
