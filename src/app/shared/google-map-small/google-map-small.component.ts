@@ -37,8 +37,15 @@ export class GoogleMapSmallComponent implements OnInit {
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         };
+        this.map.data.loadGeoJson('assets/amagiTrail.geojson');
+
+        this.map.data.setStyle({
+          strokeColor: '#3471B8',
+          strokeWeight: 5,
+          strokeOpacity: 0.6470588235294118,
+        });
         const centerControlDiv = document.createElement('div');
-        this.CenterControl(centerControlDiv, this.map);
+        this.panToCenterControl(centerControlDiv, this.map);
 
         centerControlDiv.tabIndex = 1;
 
@@ -54,19 +61,11 @@ export class GoogleMapSmallComponent implements OnInit {
         this.map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(
           currentPositionDiv
         );
-
-        this.map.data.loadGeoJson('assets/amagiTrail.geojson');
-
-        this.map.data.setStyle({
-          strokeColor: '#3471B8',
-          strokeWeight: 5,
-          strokeOpacity: 0.6470588235294118,
-        });
       });
     }
   }
 
-  CenterControl(controlDiv: Element, map: google.maps.Map) {
+  panToCenterControl(controlDiv: Element, map: google.maps.Map) {
     const controlUI = document.createElement('div');
     controlUI.style.backgroundColor = '#fff';
     controlUI.style.border = '2px solid #fff';
