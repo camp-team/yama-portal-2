@@ -5,18 +5,23 @@ import { PostService } from 'src/app/services/post.service';
 import { User } from 'src/app/interfaces/user';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-post-card',
   templateUrl: './post-card.component.html',
   styleUrls: ['./post-card.component.scss'],
+  providers: [DatePipe],
 })
 export class PostCardComponent implements OnInit {
   @Input() post: PostWithUser;
 
+  createdDate: string;
+
   constructor(
     private userService: UserService,
-    private postService: PostService
+    private postService: PostService,
+    private datePipe: DatePipe
   ) {}
 
   user$: Observable<User> = this.userService.user$.pipe(

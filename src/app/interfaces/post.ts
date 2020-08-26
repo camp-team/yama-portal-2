@@ -9,7 +9,7 @@ export interface Post {
   content: string;
   public: boolean;
   likeCount: number;
-  createdAt: firestore.Timestamp;
+  createdAt: number;
   currentPosition: google.maps.LatLngLiteral;
 }
 
