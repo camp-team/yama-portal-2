@@ -1,7 +1,7 @@
 import { Injectable, Input } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Post } from '../interfaces/post';
-import { map, switchMap, first } from 'rxjs/operators';
+import { Post, PostWithUser } from '../interfaces/post';
+import { map, switchMap, first, take } from 'rxjs/operators';
 import { Observable, combineLatest } from 'rxjs';
 import { firestore } from 'firebase';
 import { AuthService } from './auth.service';
@@ -9,6 +9,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 
 import { User } from '../interfaces/user';
 import { LikedPostDocument } from '../interfaces/liked-post-document';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +19,8 @@ export class PostService {
   constructor(
     private db: AngularFirestore,
     private authService: AuthService,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    private userService: UserService
   ) {}
 
   async createPost(
@@ -52,12 +54,32 @@ export class PostService {
     }
   }
 
-  getPost(): Observable<Post[]> {
-    return this.db
-      .collection<Post>('posts', (ref) => {
-        return ref.limit(2);
+  getPostById(id: string): Observable<Post> {
+    console.log(id);
+    return this.db.doc<Post>(`posts/${id}`).valueChanges();
+  }
+
+  async getPostWithUserById(id: string): Promise<Observable<PostWithUser>> {
+    const post$: Observable<Post> = this.getPostById(id);
+    const uid$ = post$.pipe(map((item: Post) => item.userId));
+    const uid = await uid$.pipe(take(1)).toPromise();
+    console.log(uid);
+    const user$: Observable<User> = this.userService.getUserByUid(uid);
+    post$.subscribe((post) => {
+      console.log(post);
+    });
+    user$.subscribe((user) => {
+      console.log(user);
+    });
+
+    return combineLatest([post$, user$]).pipe(
+      map(([item, user]) => {
+        return {
+          ...item,
+          user,
+        };
       })
-      .valueChanges();
+    );
   }
 
   getPosts(): Observable<Post[]> {
