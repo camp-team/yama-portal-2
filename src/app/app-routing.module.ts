@@ -50,6 +50,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('./shared/shared.module').then((m) => m.SharedModule),
   },
+  {
+    path: 'post-detail',
+    loadChildren: () =>
+      import('./post-detail/post-detail.module').then(
+        (m) => m.PostDetailModule
+      ),
+  },
 
   {
     path: '**',
