@@ -4,10 +4,6 @@ import { PostDetailComponent } from './post-detail/post-detail.component';
 
 const routes: Routes = [
   {
-    path: '',
-    component: PostDetailComponent,
-  },
-  {
     path: ':id',
     component: PostDetailComponent,
   },

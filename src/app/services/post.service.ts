@@ -55,7 +55,6 @@ export class PostService {
   }
 
   getPostById(id: string): Observable<Post> {
-    console.log(id);
     return this.db.doc<Post>(`posts/${id}`).valueChanges();
   }
 
@@ -63,14 +62,7 @@ export class PostService {
     const post$: Observable<Post> = this.getPostById(id);
     const uid$ = post$.pipe(map((item: Post) => item.userId));
     const uid = await uid$.pipe(take(1)).toPromise();
-    console.log(uid);
     const user$: Observable<User> = this.userService.getUserByUid(uid);
-    post$.subscribe((post) => {
-      console.log(post);
-    });
-    user$.subscribe((user) => {
-      console.log(user);
-    });
 
     return combineLatest([post$, user$]).pipe(
       map(([item, user]) => {

@@ -21,9 +21,6 @@ export class PostDetailComponent implements OnInit {
         this.post = await result.pipe(take(1)).toPromise();
       });
     });
-    setTimeout(() => {
-      console.log(this.post);
-    }, 1000);
   }
 
   ngOnInit(): void {}
