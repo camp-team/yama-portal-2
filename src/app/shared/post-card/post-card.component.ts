@@ -35,17 +35,6 @@ export class PostCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.user$.subscribe();
-    if (typeof this.post.createdAt === 'number') {
-      this.createdDate = this.datePipe.transform(
-        this.post.createdAt,
-        'yyyy/MM/dd HH:mm'
-      );
-    } else {
-      this.createdDate = this.datePipe.transform(
-        this.post.createdAt.toDate(),
-        'yyyy/MM/dd HH:mm'
-      );
-    }
   }
   async likePost(post: PostWithUser): Promise<void[]> {
     this.isProcessing = true;

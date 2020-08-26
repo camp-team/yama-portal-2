@@ -21,7 +21,7 @@
       <mat-card-content class="card__body">
         <p class="card__content">{{ post.content }}</p>
         <p class="card__date">
-          {{ createdDate }}
+          {{ post.createdAt | date: 'yyyy/MM/dd HH:mm' }}
         </p>
       </mat-card-content>
       <div class="card__actions">

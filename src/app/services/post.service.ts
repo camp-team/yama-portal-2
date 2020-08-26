@@ -35,7 +35,7 @@ export class PostService {
       id,
       imageURL,
       currentPosition,
-      createdAt: firestore.Timestamp.now(),
+      createdAt: Date.now(),
       userId: this.authService.userId,
       likeCount: 0,
       ...post,
