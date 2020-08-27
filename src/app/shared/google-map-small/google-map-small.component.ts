@@ -29,6 +29,18 @@ export class GoogleMapSmallComponent implements OnInit, AfterViewInit {
   public markerOptions = { draggable: false };
 
   constructor(private postService: PostService) {}
+
+  ngOnInit(): void {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.currentPosition = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+      });
+    }
+  }
+
   ngAfterViewInit(): void {
     this.map.data.loadGeoJson('assets/amagiTrail.geojson');
 
@@ -54,17 +66,6 @@ export class GoogleMapSmallComponent implements OnInit, AfterViewInit {
     this.map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(
       currentPositionDiv
     );
-  }
-
-  ngOnInit(): void {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.currentPosition = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        };
-      });
-    }
   }
 
   panToCenterControl(controlDiv: Element, map: google.maps.Map) {
