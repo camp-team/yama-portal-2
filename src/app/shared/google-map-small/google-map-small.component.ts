@@ -37,32 +37,34 @@ export class GoogleMapSmallComponent implements OnInit {
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         };
-        this.map.data.loadGeoJson('assets/amagiTrail.geojson');
-
-        this.map.data.setStyle({
-          strokeColor: '#3471B8',
-          strokeWeight: 5,
-          strokeOpacity: 0.6470588235294118,
-        });
-        const centerControlDiv = document.createElement('div');
-        this.panToCenterControl(centerControlDiv, this.map);
-
-        centerControlDiv.tabIndex = 1;
-
-        this.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(
-          centerControlDiv
-        );
-
-        const currentPositionDiv = document.createElement('div');
-        this.panToCurrentPositionControl(currentPositionDiv, this.map);
-
-        currentPositionDiv.tabIndex = 1;
-
-        this.map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(
-          currentPositionDiv
-        );
       });
     }
+    setTimeout(() => {
+      this.map.data.loadGeoJson('assets/amagiTrail.geojson');
+
+      this.map.data.setStyle({
+        strokeColor: '#3471B8',
+        strokeWeight: 5,
+        strokeOpacity: 0.6470588235294118,
+      });
+      const centerControlDiv = document.createElement('div');
+      this.panToCenterControl(centerControlDiv, this.map);
+
+      centerControlDiv.tabIndex = 1;
+
+      this.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(
+        centerControlDiv
+      );
+
+      const currentPositionDiv = document.createElement('div');
+      this.panToCurrentPositionControl(currentPositionDiv, this.map);
+
+      currentPositionDiv.tabIndex = 1;
+
+      this.map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(
+        currentPositionDiv
+      );
+    }, 1000);
   }
 
   panToCenterControl(controlDiv: Element, map: google.maps.Map) {
