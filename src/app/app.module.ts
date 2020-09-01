@@ -1,6 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AngularFireFunctionsModule, REGION } from '@angular/fire/functions';
+import {
+  AngularFireFunctionsModule,
+  REGION,
+  ORIGIN,
+} from '@angular/fire/functions';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -51,7 +55,13 @@ import { MatDialogModule } from '@angular/material/dialog';
       enabled: environment.production,
     }),
   ],
-  providers: [{ provide: REGION, useValue: 'asia-northeast1' }],
+  providers: [
+    { provide: REGION, useValue: 'asia-northeast1' },
+    {
+      provide: ORIGIN,
+      useValue: environment.production ? undefined : 'http://localhost:5001',
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
