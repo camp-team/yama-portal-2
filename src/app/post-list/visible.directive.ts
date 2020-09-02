@@ -36,7 +36,6 @@ export class VisibleDirective implements OnDestroy, AfterViewInit {
         entry.target === this.element.nativeElement;
 
       if (isIntersecting) {
-        console.log('check');
         this.Visible.emit(true);
       }
     });

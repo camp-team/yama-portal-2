@@ -17,7 +17,6 @@ export class Algolia {
     return Object.entries(data).reduce((obj, [key, value]) => {
       if (value instanceof admin.firestore.Timestamp) {
         obj[key] = value.toMillis();
-        console.log('[transformDate]' + obj[key]);
       }
       return obj;
     }, data);
@@ -37,7 +36,6 @@ export class Algolia {
     isKey: string,
     largeConcentKey: string
   ) {
-    console.log('addDistributedRecords');
     const reg = new RegExp(`[\\s\\S]{1,${this.maxContentLength}}`, 'gm');
     const records = data[largeConcentKey]
       .match(reg)
