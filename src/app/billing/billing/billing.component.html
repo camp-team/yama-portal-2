@@ -1,0 +1,32 @@
+<div class="container">
+  <h2>開発者に寄付</h2>
+  <p></p>
+  <form [formGroup]="donationForm">
+    <mat-form-field>
+      <mat-label>金額</mat-label>
+      <input
+        matInput
+        type="number"
+        autocomplete="off"
+        formControlName="donationAmount"
+        required
+        min="0"
+        step="100"
+      />
+      <span matPrefix>¥ &nbsp;</span>
+      <mat-hint *ngIf="!donationForm.invalid">税込み金額です</mat-hint>
+      <mat-error *ngIf="donationAmountControl.hasError('required')"
+        >必須入力です</mat-error
+      >
+      <mat-error *ngIf="donationAmountControl.hasError('min')"
+        >100円以上での入力をお願いします</mat-error
+      >
+      <mat-error *ngIf="donationAmountControl.hasError('max')"
+        >10万円以下での入力をお願いします</mat-error
+      >
+    </mat-form-field>
+    <button mat-flat-button color="primary" [disabled]="donationForm.invalid">
+      寄付する
+    </button>
+  </form>
+</div>
