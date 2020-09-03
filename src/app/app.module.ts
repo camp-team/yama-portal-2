@@ -11,7 +11,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
+import {
+  AngularFirestoreModule,
+  SETTINGS as FIRESTORE_SETTINGS,
+} from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -22,7 +25,6 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { NgAisModule } from 'angular-instantsearch';
 import { MatButtonModule } from '@angular/material/button';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -61,6 +63,10 @@ import { MatDialogModule } from '@angular/material/dialog';
       provide: ORIGIN,
       useValue: environment.production ? undefined : 'http://localhost:5001',
     },
+    // {
+    //   provide: FIRESTORE_SETTINGS,
+    //   useFactory: () => environment.production ? { host: 'localhost:8080', ssl: false } : {}
+    // }
   ],
   bootstrap: [AppComponent],
 })

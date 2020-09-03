@@ -30,6 +30,11 @@
     "functions": {
       "port": 5001
     },
+    "ui": {
+      "enabled": true,
+      "host": "localhost",
+      "port": 4000
+    },
     "firestore": {
       "port": 8080
     },
