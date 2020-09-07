@@ -4,25 +4,50 @@
   <p>
     クレジットカードは世界的な決済サービスStripeによって厳重に保管されており、漏洩の心配はありません。
   </p>
+  <mat-nav-list *ngIf="customerService.customer$ | async as customer">
+    <mat-list-item *ngIf="loading">読み込み中...</mat-list-item>
+    <ng-container *ngIf="paymentMethods && !paymentMethods.length" disabled>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="openCreditCardDialog()"
+      >
+        カードを登録する
+      </button>
+    </ng-container>
 
-  <ng-container *ngIf="paymentMethod; else register">
-    <div class="customer">
-      <p>こちらのカードを使用します</p>
-      <p class="customer__card">
-        **** **** **** {{ paymentMethod.card.last4 }}
-      </p>
-      <div class="customer__actions">
-        <button mat-button color="primary" (click)="openCreditCardDialog()">
-          変更する
+    <mat-list-item *ngFor="let method of paymentMethods">
+      <span matLine
+        >**** **** **** {{ method.card.last4 }} / {{ method.card.brand }}</span
+      >
+      <span matLine *ngIf="customer.defaultPaymentMethod === method.id"
+        >デフォルト</span
+      >
+      <button
+        mat-icon-button
+        [matMenuTriggerFor]="menuRef"
+        *ngIf="customer.defaultPaymentMethod !== method.id"
+      >
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menuRef="matMenu">
+        <button
+          mat-menu-item
+          (click)="paymentService.setDefaultMethod(method.id)"
+        >
+          <mat-icon>credit_card</mat-icon>
+          <span>デフォルトに設定する</span>
         </button>
-      </div>
-    </div>
-  </ng-container>
-  <ng-template #register>
-    <button mat-raised-button color="primary" (click)="openCreditCardDialog()">
-      カードを登録する
+        <button mat-menu-item (click)="deleteStripePaymentMethod(method.id)">
+          <mat-icon>delete</mat-icon>
+          <span>削除</span>
+        </button>
+      </mat-menu>
+    </mat-list-item>
+    <button mat-button color="primary" (click)="openCreditCardDialog()">
+      カードを追加する
     </button>
-  </ng-template>
+  </mat-nav-list>
 
   <h2>開発者に寄付</h2>
   <form [formGroup]="donationForm">

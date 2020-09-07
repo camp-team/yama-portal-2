@@ -8,6 +8,8 @@ import { CreditCardComponent } from 'src/app/shared/dialogs/credit-card/credit-c
 import Stripe from 'stripe';
 import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirm-dialog/confirm-dialog.component';
 import { Subscription } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { CustomerService } from 'src/app/services/customer.service';
 
 @Component({
   selector: 'app-billing',
@@ -16,8 +18,10 @@ import { Subscription } from 'rxjs';
 })
 export class BillingComponent implements OnInit, OnDestroy {
   public paymentMethod: Stripe.PaymentMethod;
+  public paymentMethods: Stripe.PaymentMethod[];
 
   private subscriptions: Subscription = new Subscription();
+  loading = true;
 
   donationForm = this.fb.group({
     donationAmount: [
@@ -31,21 +35,21 @@ export class BillingComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    private paymentService: PaymentService,
+    public paymentService: PaymentService,
     private fb: FormBuilder,
     private dialog: MatDialog,
-    private authService: AuthService,
-    private userService: UserService
+    private snackBar: MatSnackBar,
+    public customerService: CustomerService
   ) {}
 
   ngOnInit(): void {
-    this.getCard();
+    this.getCards();
   }
 
   openCreditCardDialog() {
     const dialogRef = this.dialog.open(CreditCardComponent);
     this.subscriptions = dialogRef.afterClosed().subscribe(() => {
-      this.getCard();
+      this.getCards();
     });
   }
 
@@ -60,15 +64,33 @@ export class BillingComponent implements OnInit, OnDestroy {
       });
   }
 
-  getCard() {
-    console.log('test');
-    this.paymentService.getPaymentMethod().then((methods) => {
-      console.log(methods);
+  getCards() {
+    this.paymentService.getPaymentMethods().then((methods) => {
       if (methods) {
-        this.paymentMethod = methods.data[0];
-        console.log(this.paymentMethod);
+        this.paymentMethods = methods.data;
+        this.loading = false;
       }
     });
+  }
+
+  deleteStripePaymentMethod(id: string) {
+    const progress = this.snackBar.open('カードを削除しています', null, {
+      duration: null,
+    });
+    this.loading = true;
+    this.paymentService
+      .deleteStripePaymentMethod(id)
+      .then(() => {
+        this.snackBar.open('カードを削除しました');
+        this.getCards();
+      })
+      .catch(() => {
+        this.snackBar.open('カードの削除に失敗しました');
+      })
+      .finally(() => {
+        progress.dismiss();
+        this.loading = false;
+      });
   }
 
   private donate() {
