@@ -1,6 +1,30 @@
 <div class="container">
+  <h2 class="title">決済情報</h2>
+  <h3>クレジットカード</h3>
+  <p>
+    クレジットカードは世界的な決済サービスStripeによって厳重に保管されており、漏洩の心配はありません。
+  </p>
+
+  <ng-container *ngIf="paymentMethod; else register">
+    <div class="customer">
+      <p>こちらのカードを使用します</p>
+      <p class="customer__card">
+        **** **** **** {{ paymentMethod.card.last4 }}
+      </p>
+      <div class="customer__actions">
+        <button mat-button color="primary" (click)="openCreditCardDialog()">
+          変更する
+        </button>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #register>
+    <button mat-raised-button color="primary" (click)="openCreditCardDialog()">
+      カードを登録する
+    </button>
+  </ng-template>
+
   <h2>開発者に寄付</h2>
-  <p></p>
   <form [formGroup]="donationForm">
     <mat-form-field>
       <mat-label>金額</mat-label>
@@ -25,8 +49,16 @@
         >10万円以下での入力をお願いします</mat-error
       >
     </mat-form-field>
-    <button mat-flat-button color="primary" [disabled]="donationForm.invalid">
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="donationForm.invalid"
+      (click)="openConfirmDialog()"
+    >
       寄付する
     </button>
   </form>
+  <div class="billing__wrap-invoice">
+    <app-invoice></app-invoice>
+  </div>
 </div>
