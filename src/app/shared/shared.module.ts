@@ -23,6 +23,8 @@ import { GoogleMapSmallComponent } from './google-map-small/google-map-small.com
 import { GoogleMapLargeComponent } from './google-map-large/google-map-large.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { SharedRoutingModule } from './shared-routing.module';
+import { CreditCardComponent } from './dialogs/credit-card/credit-card.component';
+import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,8 @@ import { SharedRoutingModule } from './shared-routing.module';
     PostCardComponent,
     GoogleMapSmallComponent,
     GoogleMapLargeComponent,
+    CreditCardComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     CommonModule,
