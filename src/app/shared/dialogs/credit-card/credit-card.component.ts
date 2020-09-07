@@ -43,11 +43,8 @@ export class CreditCardComponent implements OnInit {
     return this.form.get('email') as FormControl;
   }
 
-  /**
-   * カード一覧を取得
-   */
   getCard() {
-    this.paymentService.getPaymentMethod().then((methods) => {
+    this.paymentService.getPaymentMethods().then((methods) => {
       if (methods) {
         this.methods = methods.data;
       }
@@ -55,7 +52,6 @@ export class CreditCardComponent implements OnInit {
   }
 
   async buildForm() {
-    console.log('check');
     this.stripeClient = await this.paymentService.getStripeClient();
     const elements = this.stripeClient.elements();
     this.cardElement = elements.create('card');
@@ -66,9 +62,6 @@ export class CreditCardComponent implements OnInit {
     );
   }
 
-  /**
-   * カードを作成
-   */
   createCard() {
     if (this.form.valid) {
       this.inProgress = true;
@@ -102,9 +95,6 @@ export class CreditCardComponent implements OnInit {
     }
   }
 
-  /**
-   * 編集するカードをフォームの初期値にセット
-   */
   setCardToForm(paymentMethod: Stripe.PaymentMethod) {
     this.form.patchValue({
       name: paymentMethod.billing_details.name,
@@ -113,9 +103,6 @@ export class CreditCardComponent implements OnInit {
     this.cardElement.clear();
   }
 
-  /**
-   * カードの削除
-   */
   deleteStripePaymentMethod(id: string) {
     const progress = this.snackBar.open('カードを削除しています', null, {
       duration: null,

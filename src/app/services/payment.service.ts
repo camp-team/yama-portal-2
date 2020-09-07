@@ -28,18 +28,12 @@ export class PaymentService {
     return callable({}).toPromise();
   }
 
-  getPaymentMethod(): Promise<Stripe.ApiList<Stripe.PaymentMethod>> {
+  getPaymentMethods(): Promise<Stripe.ApiList<Stripe.PaymentMethod>> {
     const callable = this.fns.httpsCallable('getPaymentMethods');
     callable({})
       .toPromise()
       .then(async (method) => {
-        console.log('tt');
         const card = await method;
-        if (card) {
-          console.log(card.data);
-        } else {
-          console.log('error');
-        }
       });
     return callable({}).toPromise();
   }
@@ -73,6 +67,15 @@ export class PaymentService {
         }).toPromise();
       }
     }
+  }
+
+  setDefaultMethod(id: string): Promise<void> {
+    const callable = this.fns.httpsCallable('setStripeDefaultPaymentMethod');
+    return callable({ id })
+      .toPromise()
+      .then(() => {
+        this.snackBar.open('デフォルトのカードに設定しました');
+      });
   }
 
   deleteStripePaymentMethod(id: string): Promise<void> {
