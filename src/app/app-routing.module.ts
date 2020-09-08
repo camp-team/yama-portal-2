@@ -57,6 +57,13 @@ const routes: Routes = [
         (m) => m.PostDetailModule
       ),
   },
+  {
+    path: 'billing',
+    loadChildren: () =>
+      import('./billing/billing.module').then((m) => m.BillingModule),
+    canLoad: [AuthGuard],
+    canActivate: [AuthGuard],
+  },
 
   {
     path: '**',

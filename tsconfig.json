@@ -12,7 +12,10 @@
     "importHelpers": true,
     "target": "es2015",
     "lib": ["es2018", "dom"],
-    "types": ["node"]
+    "types": ["node"],
+    "paths": {
+      "@interfaces/*": ["functions/src/interfaces/*"]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

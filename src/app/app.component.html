@@ -38,9 +38,17 @@
           routerLinkActive="active"
           >設定</a
         >
+        <a
+          (click)="sidenav.toggle()"
+          *ngIf="user$ | async"
+          mat-list-item
+          routerLink="billing"
+          routerLinkActive="active"
+          >開発者に寄付</a
+        >
       </mat-nav-list>
       <mat-divider></mat-divider>
-      <mat-nav-list>
+      <mat-nav-list class="sidenav__list">
         <a
           (click)="sidenav.toggle()"
           routerLink="/terms"
