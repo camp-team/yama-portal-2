@@ -5,7 +5,7 @@ service cloud.firestore {
     //   allow read, create, write, update, delete: if true;
     // }
     match /posts/{id} {
-      allow read: if resource.data.public == true || request.auth.uid == resource.data.userId;
+      allow read: if true;
       allow create: if request.auth.uid != null;
       allow update: if request.auth.uid == resource.data.userId;
       allow delete: if request.auth.uid == resource.data.userId;
@@ -20,7 +20,7 @@ service cloud.firestore {
     }
     match /users/{uid} {
       allow read: if true;
-      allow create: if request.auth.uid == request.resource.data.uid;
+      allow create: if true;
       allow update: if request.auth.uid == resource.data.uid;
       allow delete: if request.auth.uid == resource.data.uid;
     }
