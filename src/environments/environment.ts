@@ -8,6 +8,10 @@ export const environment = {
     appId: 'YTCNWA1M3V',
     searchKey: '266d4f34268aad279908ca35f27a5250',
   },
+  stripe: {
+    publicKey:
+      'pk_test_51HKazNHfsoP9rVSqsQRzZuK6CkCeh0RmlXS8K4AVawsVH6gQIzMOUlP0WW06qSVEmOVgIWe3279JkhWYxE6l95TJ00zARaBlAO',
+  },
   firebase: {
     apiKey: 'AIzaSyDDtE-uIhnFyjwkfXoPttqfmr-89zBvPOM',
     authDomain: 'yama-portal.firebaseapp.com',

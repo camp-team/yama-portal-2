@@ -8,7 +8,6 @@ export const createPost = functions
   .firestore.document('posts/{id}')
   .onCreate(async (snap, context) => {
     const data = snap.data();
-    console.log(data);
     return algolia.saveRecord({
       indexName: 'posts',
       largeConcentKey: 'body',

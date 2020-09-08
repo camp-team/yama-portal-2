@@ -30,9 +30,7 @@ export class SettingsComponent implements OnInit {
     private dialog: MatDialog
   ) {}
 
-  ngOnInit(): void {
-    console.log('check');
-  }
+  ngOnInit(): void {}
 
   chengeUserName(): Promise<void> {
     const newUserName = this.nameForm.value;

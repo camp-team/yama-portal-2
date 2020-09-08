@@ -66,7 +66,6 @@ export class AuthService {
         this.router.navigateByUrl('/');
       })
       .catch((error) => {
-        console.log(error.code);
         switch (error.code) {
           case 'auth/account-exists-with-different-credential':
             alert('同じメールアドレスで複数のアカウントは作成できません');
@@ -149,7 +148,6 @@ export class AuthService {
 
   resetPassword(email: string) {
     this.afAuth.sendPasswordResetEmail(email).catch((error) => {
-      console.log(error.code);
       switch (error.code) {
         case 'auth/user-not-found':
           alert('このメールアドレスのユーザーは見つかりません');
