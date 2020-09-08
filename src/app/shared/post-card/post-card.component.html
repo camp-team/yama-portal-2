@@ -1,51 +1,51 @@
 <div class="timeLine">
   <mat-card class="card">
+    <mat-card-header>
+      <div
+        mat-card-avatar
+        [style.background-image]="'url(' + post.user.avaterURL + ')'"
+        class="card__avatar"
+      ></div>
+      <mat-card-title>{{ post.user.name }}</mat-card-title>
+      <mat-card-subtitle>{{ post.category }}</mat-card-subtitle>
+    </mat-card-header>
+    <a href="{{ post.imageURL }}">
+      <div
+        *ngIf="post.imageURL"
+        [style.background-image]="'url(' + post.imageURL + ')'"
+        class="card__image"
+        alt="image"
+      ></div>
+    </a>
     <a href="" class="card__link" routerLink="/post-detail/{{ post.id }}">
-      <mat-card-header>
-        <div
-          mat-card-avatar
-          [style.background-image]="'url(' + post.user.avaterURL + ')'"
-          class="card__avatar"
-        ></div>
-        <mat-card-title>{{ post.user.name }}</mat-card-title>
-        <mat-card-subtitle>{{ post.category }}</mat-card-subtitle>
-      </mat-card-header>
-      <a href="{{ post.imageURL }}">
-        <div
-          *ngIf="post.imageURL"
-          [style.background-image]="'url(' + post.imageURL + ')'"
-          class="card__image"
-          alt="image"
-        ></div>
-      </a>
       <mat-card-content class="card__body">
         <p class="card__content">{{ post.content }}</p>
         <p class="card__date">
           {{ post.createdAt | date: 'yyyy/MM/dd HH:mm' }}
         </p>
       </mat-card-content>
-      <div class="card__actions">
+    </a>
+    <div class="card__actions">
+      <button
+        *ngIf="isLiked; else unLiked"
+        (click)="unLikePost(post.id)"
+        class="card__like-btn"
+        mat-icon-button
+        color="warn"
+      >
+        <mat-icon>favorite</mat-icon>
+        <span>{{ post.likeCount }}</span>
+      </button>
+      <ng-template #unLiked>
         <button
-          *ngIf="isLiked; else unLiked"
-          (click)="unLikePost(post.id)"
-          class="card__like-btn"
+          [disabled]="isProcessing"
+          (click)="likePost(post)"
           mat-icon-button
-          color="warn"
         >
-          <mat-icon>favorite</mat-icon>
+          <mat-icon>favorite_border</mat-icon>
           <span>{{ post.likeCount }}</span>
         </button>
-        <ng-template #unLiked>
-          <button
-            [disabled]="isProcessing"
-            (click)="likePost(post)"
-            mat-icon-button
-          >
-            <mat-icon>favorite_border</mat-icon>
-            <span>{{ post.likeCount }}</span>
-          </button>
-        </ng-template>
-      </div>
-    </a>
+      </ng-template>
+    </div>
   </mat-card>
 </div>
