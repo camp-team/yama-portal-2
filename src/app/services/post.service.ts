@@ -75,7 +75,6 @@ export class PostService {
   }
 
   getPosts(): Observable<Post[]> {
-    console.log(this.authService.userId);
     return this.db
       .collection<Post>('posts', (ref) => ref.where('public', '==', true))
       .valueChanges();
