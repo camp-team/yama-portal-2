@@ -5,7 +5,7 @@ service cloud.firestore {
     //   allow read, create, write, update, delete: if true;
     // }
     match /posts/{id} {
-      allow read: if true;
+      allow read: if resource.data.public == true || (request.auth != null && request.auth.uid == resource.data.userId);
       allow create: if request.auth.uid != null;
       allow update: if request.auth.uid == resource.data.userId;
       allow delete: if request.auth.uid == resource.data.userId;

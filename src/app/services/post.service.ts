@@ -75,7 +75,10 @@ export class PostService {
   }
 
   getPosts(): Observable<Post[]> {
-    return this.db.collection<Post>('posts').valueChanges();
+    console.log(this.authService.userId);
+    return this.db
+      .collection<Post>('posts', (ref) => ref.where('public', '==', true))
+      .valueChanges();
   }
 
   deletePost(id: string): Promise<void> {
