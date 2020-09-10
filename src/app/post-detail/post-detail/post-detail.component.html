@@ -1,4 +1,4 @@
-<div class="container">
-  <app-google-map-small></app-google-map-small>
-  <app-post-card *ngIf="post" [post]="post"></app-post-card>
+<div class="container" *ngIf="post">
+  <app-google-map-small [post]="post"></app-google-map-small>
+  <app-post-card [post]="post"></app-post-card>
 </div>

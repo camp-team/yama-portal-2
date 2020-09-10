@@ -1,8 +1,14 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  AfterViewInit,
+  Input,
+} from '@angular/core';
 import { MapMarker, GoogleMap, MapInfoWindow } from '@angular/google-maps';
 import { PostService } from 'src/app/services/post.service';
 import { Observable } from 'rxjs';
-import { Post } from 'src/app/interfaces/post';
+import { Post, PostWithUser } from 'src/app/interfaces/post';
 
 @Component({
   selector: 'app-google-map-small',
@@ -11,6 +17,7 @@ import { Post } from 'src/app/interfaces/post';
 })
 export class GoogleMapSmallComponent implements OnInit, AfterViewInit {
   @ViewChild(GoogleMap, { static: false }) map: google.maps.Map;
+  @Input() post: PostWithUser;
 
   public zoom = 14;
   public center: google.maps.LatLngLiteral = {
@@ -38,6 +45,9 @@ export class GoogleMapSmallComponent implements OnInit, AfterViewInit {
           lng: position.coords.longitude,
         };
       });
+    }
+    if (!!this.post) {
+      this.center = this.post.currentPosition;
     }
   }
 

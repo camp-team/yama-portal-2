@@ -21,9 +21,17 @@
     [options]="changeMarkerIcons(posts.category)"
     (mapClick)="openInfoWindow(marker, window)"
   >
-    <map-info-window #window="mapInfoWindow">
-      <div>{{ posts.category }}</div>
-      <div>{{ posts.content }}</div>
+    <map-info-window class="info__container" #window="mapInfoWindow">
+      <a href="" class="info__link" routerLink="/post-detail/{{ posts.id }}">
+        <div class="info__content">{{ posts.content }}</div>
+        <ng-container class="info__image" *ngIf="posts.imageURL">
+          <div
+            [style.background-image]="'url(' + posts.imageURL + ')'"
+            class="info__image"
+            alt="image"
+          ></div>
+        </ng-container>
+      </a>
     </map-info-window>
   </map-marker>
 </google-map>
