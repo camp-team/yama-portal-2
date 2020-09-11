@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class FormComponent implements OnInit {
   isComplete: boolean;
   isChecked = true;
+  isPosition = true;
   imageFile: string | ArrayBuffer;
   file: File | null = null;
   croppedImage: string = null;
@@ -29,6 +30,7 @@ export class FormComponent implements OnInit {
     ],
     content: ['', [Validators.required, Validators.maxLength(500)]],
     public: [true],
+    isPosition: [true],
   });
 
   constructor(
@@ -67,6 +69,9 @@ export class FormComponent implements OnInit {
   }
 
   submit() {
+    if (!this.form.value.isPosition) {
+      this.currentPosition = null;
+    }
     this.postService
       .createPost(this.form.value, this.file, this.currentPosition)
       .then(() => {

@@ -47,7 +47,11 @@ export class GoogleMapSmallComponent implements OnInit, AfterViewInit {
       });
     }
     if (!!this.post) {
-      this.center = this.post.currentPosition;
+      if (this.post.currentPosition) {
+        this.center = this.post.currentPosition;
+      } else {
+        return;
+      }
     }
   }
 

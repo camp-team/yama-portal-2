@@ -8,6 +8,7 @@ export interface Post {
   category: string;
   content: string;
   public: boolean;
+  isPosition: boolean;
   likeCount: number;
   createdAt: number;
   currentPosition: google.maps.LatLngLiteral;
