@@ -75,7 +75,9 @@ export class PostService {
   }
 
   getPosts(): Observable<Post[]> {
-    return this.db.collection<Post>('posts').valueChanges();
+    return this.db
+      .collection<Post>('posts', (ref) => ref.where('public', '==', true))
+      .valueChanges();
   }
 
   deletePost(id: string): Promise<void> {
@@ -98,7 +100,6 @@ export class PostService {
   unlikePost(postId: string, userId: string): Promise<void[]> {
     return Promise.all([
       this.db.doc(`posts/${postId}/likedUserIds/${userId}`).delete(),
-      this.db.doc(`users/${userId}/likedposts/${postId}`).delete(),
     ]);
   }
 

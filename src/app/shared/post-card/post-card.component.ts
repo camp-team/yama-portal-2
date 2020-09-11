@@ -1,9 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { PostWithUser } from 'src/app/interfaces/post';
 import { UserService } from 'src/app/services/user.service';
 import { PostService } from 'src/app/services/post.service';
 import { User } from 'src/app/interfaces/user';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { DatePipe } from '@angular/common';
 
@@ -13,7 +13,7 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./post-card.component.scss'],
   providers: [DatePipe],
 })
-export class PostCardComponent implements OnInit {
+export class PostCardComponent implements OnInit, OnDestroy {
   @Input() post: PostWithUser;
 
   createdDate: string;
@@ -23,6 +23,8 @@ export class PostCardComponent implements OnInit {
     private postService: PostService,
     private datePipe: DatePipe
   ) {}
+
+  subscriptions: Subscription = new Subscription();
 
   user$: Observable<User> = this.userService.user$.pipe(
     tap(async (user) => {
@@ -34,7 +36,7 @@ export class PostCardComponent implements OnInit {
   isLiked: boolean;
 
   ngOnInit(): void {
-    this.user$.subscribe();
+    this.subscriptions.add(this.user$.subscribe());
   }
   async likePost(post: PostWithUser): Promise<void[]> {
     this.isProcessing = true;
@@ -56,5 +58,9 @@ export class PostCardComponent implements OnInit {
     this.post.likeCount--;
     this.isLiked = false;
     return this.postService.unlikePost(postId, uid);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

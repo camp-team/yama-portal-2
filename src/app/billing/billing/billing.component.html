@@ -6,7 +6,10 @@
   </p>
   <mat-nav-list *ngIf="customerService.customer$ | async as customer">
     <mat-list-item *ngIf="loading">読み込み中...</mat-list-item>
-    <ng-container *ngIf="paymentMethods && !paymentMethods.length" disabled>
+    <ng-container
+      *ngIf="paymentMethods && !paymentMethods.length; else update"
+      disabled
+    >
       <button
         mat-raised-button
         color="primary"
@@ -44,9 +47,11 @@
         </button>
       </mat-menu>
     </mat-list-item>
-    <button mat-button color="primary" (click)="openCreditCardDialog()">
-      カードを追加する
-    </button>
+    <ng-template #update>
+      <button mat-button color="primary" (click)="openCreditCardDialog()">
+        カードを追加する
+      </button>
+    </ng-template>
   </mat-nav-list>
 
   <h2>開発者に寄付</h2>
