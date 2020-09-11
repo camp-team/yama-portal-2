@@ -47,10 +47,10 @@ export class GoogleMapSmallComponent implements OnInit, AfterViewInit {
       });
     }
     if (!!this.post) {
-      if (this.post.currentPosition === null) {
-        return;
-      } else {
+      if (this.post.currentPosition) {
         this.center = this.post.currentPosition;
+      } else {
+        return;
       }
     }
   }
