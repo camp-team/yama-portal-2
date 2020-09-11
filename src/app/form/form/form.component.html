@@ -9,9 +9,18 @@
       [(ngModel)]="isChecked"
       color="primary"
       class="form__public"
-      ><div *ngIf="isChecked; then thenBlock; else elseBlock"></div>
-      <ng-template #thenBlock>公開</ng-template>
-      <ng-template #elseBlock>非公開</ng-template></mat-slide-toggle
+      ><div *ngIf="isChecked; then public; else private"></div>
+      <ng-template #public>公開</ng-template>
+      <ng-template #private>非公開</ng-template></mat-slide-toggle
+    >
+    <mat-slide-toggle
+      formControlName="isPosition"
+      [(ngModel)]="isPosition"
+      color="primary"
+      class="form__isPosition"
+      ><div *ngIf="isPosition; then thenBlock; else elseBlock"></div>
+      <ng-template #thenBlock>位置情報を含める</ng-template>
+      <ng-template #elseBlock>位置情報を含めない</ng-template></mat-slide-toggle
     >
     <mat-form-field>
       <mat-label>投稿の種類</mat-label>
