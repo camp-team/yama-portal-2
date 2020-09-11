@@ -36,7 +36,7 @@ export class PostCardComponent implements OnInit, OnDestroy {
   isLiked: boolean;
 
   ngOnInit(): void {
-    this.user$.subscribe();
+    this.subscriptions.add(this.user$.subscribe());
   }
   async likePost(post: PostWithUser): Promise<void[]> {
     this.isProcessing = true;
