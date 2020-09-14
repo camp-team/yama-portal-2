@@ -11,9 +11,49 @@
     *ngIf="currentPosition"
     [position]="currentPosition"
     [options]="currentPositionMarkerOption"
+    (mapClick)="onCurrentPositionMarkerClicked()"
   >
   </map-marker>
-  <a routerLink="/" href="" class="map__homeLink">
-    <img src="/assets/icons/fullscreen_exit-black-18dp.svg" alt="" />
-  </a>
+  <map-marker
+    #marker="mapMarker"
+    *ngFor="let posts of posts$ | async"
+    [position]="posts.currentPosition"
+    [options]="changeMarkerIcons(posts.category)"
+    (mapClick)="markerClicked(marker, window)"
+  >
+    <map-info-window class="info__container" #window="mapInfoWindow">
+      <a href="" class="info__link" routerLink="/post-detail/{{ posts.id }}">
+        <div class="info__content">{{ posts.content }}</div>
+        <ng-container class="info__image" *ngIf="posts.imageURL">
+          <div
+            [style.background-image]="'url(' + posts.imageURL + ')'"
+            class="info__image"
+            alt="image"
+          ></div>
+        </ng-container>
+      </a>
+    </map-info-window>
+  </map-marker>
 </google-map>
+<button mat-fab color="primary" class="button__home" (click)="clickToHome()">
+  <mat-icon>home</mat-icon>
+</button>
+<button mat-fab color="primary" class="button__form" (click)="clickToForm()">
+  <mat-icon>textsms</mat-icon>
+</button>
+<button
+  mat-mini-fab
+  color="primary"
+  class="button__center"
+  (click)="panToCenter()"
+>
+  <mat-icon>center_focus_strong</mat-icon>
+</button>
+<button
+  mat-mini-fab
+  color="primary"
+  class="button__current"
+  (click)="panToCurrentPosition()"
+>
+  <mat-icon>near_me</mat-icon>
+</button>

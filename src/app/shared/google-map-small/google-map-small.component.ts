@@ -9,6 +9,7 @@ import { MapMarker, GoogleMap, MapInfoWindow } from '@angular/google-maps';
 import { PostService } from 'src/app/services/post.service';
 import { Observable } from 'rxjs';
 import { Post, PostWithUser } from 'src/app/interfaces/post';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-google-map-small',
@@ -26,8 +27,6 @@ export class GoogleMapSmallComponent implements OnInit, AfterViewInit {
   };
   public options: google.maps.MapOptions = {
     disableDefaultUI: true,
-    zoomControl: true,
-    fullscreenControl: true,
   };
   public currentPosition: google.maps.LatLngLiteral;
   public currentPositionMarkerOption = { draggable: false };
@@ -35,7 +34,7 @@ export class GoogleMapSmallComponent implements OnInit, AfterViewInit {
   public posts$: Observable<Post[]> = this.postService.getPosts();
   public markerOptions = { draggable: false };
 
-  constructor(private postService: PostService) {}
+  constructor(private postService: PostService, private router: Router) {}
 
   ngOnInit(): void {
     if (navigator.geolocation) {
@@ -63,26 +62,18 @@ export class GoogleMapSmallComponent implements OnInit, AfterViewInit {
       strokeWeight: 5,
       strokeOpacity: 0.6470588235294118,
     });
-    const centerControlDiv = document.createElement('div');
-    this.panToCenterControl(centerControlDiv, this.map);
 
-    centerControlDiv.tabIndex = 1;
+    const fullscreenControlDiv = document.createElement('div');
+    this.fullscreenControl(fullscreenControlDiv, this.map);
 
-    this.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(
-      centerControlDiv
-    );
+    fullscreenControlDiv.tabIndex = 1;
 
-    const currentPositionDiv = document.createElement('div');
-    this.panToCurrentPositionControl(currentPositionDiv, this.map);
-
-    currentPositionDiv.tabIndex = 1;
-
-    this.map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(
-      currentPositionDiv
+    this.map.controls[google.maps.ControlPosition.RIGHT_TOP].push(
+      fullscreenControlDiv
     );
   }
 
-  panToCenterControl(controlDiv: Element, map: google.maps.Map) {
+  fullscreenControl(controlDiv: Element, map: google.maps.Map) {
     const controlUI = document.createElement('div');
     controlUI.style.backgroundColor = '#fff';
     controlUI.style.border = '2px solid #fff';
@@ -91,55 +82,27 @@ export class GoogleMapSmallComponent implements OnInit, AfterViewInit {
     controlUI.style.cursor = 'pointer';
     controlUI.style.marginBottom = '22px';
     controlUI.style.textAlign = 'center';
-    controlUI.title = 'Click to recenter the map';
+    controlUI.style.backgroundImage =
+      'url(../assets/icons/fullscreen-black-18dp.svg)';
+    controlUI.style.backgroundSize = 'contain';
+    controlUI.style.position = 'absolute';
+    controlUI.style.top = '8px';
+    controlUI.style.right = '8px';
+    controlUI.style.height = '32px';
+    controlUI.style.width = '32px';
+    controlUI.title = 'Click to fullscreen the map';
     controlDiv.appendChild(controlUI);
 
-    const controlText = document.createElement('div');
-    controlText.style.color = 'rgb(25,25,25)';
-    controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
-    controlText.style.fontSize = '16px';
-    controlText.style.lineHeight = '38px';
-    controlText.style.paddingLeft = '5px';
-    controlText.style.paddingRight = '5px';
-    controlText.innerHTML = 'Center Map';
-    controlUI.appendChild(controlText);
-
     controlUI.addEventListener('click', () => {
-      map.panTo(this.center);
+      this.router.navigate(['/map']);
     });
   }
 
-  panToCurrentPositionControl(controlDiv: Element, map: google.maps.Map) {
-    const controlUI = document.createElement('div');
-    controlUI.style.backgroundColor = '#fff';
-    controlUI.style.border = '2px solid #fff';
-    controlUI.style.borderRadius = '3px';
-    controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
-    controlUI.style.cursor = 'pointer';
-    controlUI.style.marginBottom = '22px';
-    controlUI.style.textAlign = 'center';
-    controlUI.title = 'Click to current the map';
-    controlDiv.appendChild(controlUI);
-
-    const controlText = document.createElement('div');
-    controlText.style.color = 'rgb(25,25,25)';
-    controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
-    controlText.style.fontSize = '16px';
-    controlText.style.lineHeight = '38px';
-    controlText.style.paddingLeft = '5px';
-    controlText.style.paddingRight = '5px';
-    controlText.innerHTML = 'Current';
-    controlUI.appendChild(controlText);
-
-    controlUI.addEventListener('click', () => {
-      this.onCurrentPositionMarkerClick();
-    });
-  }
-  onCurrentPositionMarkerClick() {
+  onCurrentPositionMarkerClicked() {
     this.map.panTo(this.currentPosition);
   }
 
-  openInfoWindow(marker: MapMarker, window: MapInfoWindow) {
+  markerClicked(marker: MapMarker, window: MapInfoWindow) {
     window.open(marker);
   }
 

@@ -11,7 +11,7 @@
     *ngIf="currentPosition"
     [position]="currentPosition"
     [options]="currentPositionMarkerOption"
-    (mapClick)="onCurrentPositionMarkerClick()"
+    (mapClick)="onCurrentPositionMarkerClicked()"
   >
   </map-marker>
   <map-marker
@@ -19,7 +19,7 @@
     *ngFor="let posts of posts$ | async"
     [position]="posts.currentPosition"
     [options]="changeMarkerIcons(posts.category)"
-    (mapClick)="openInfoWindow(marker, window)"
+    (mapClick)="markerClicked(marker, window)"
   >
     <map-info-window class="info__container" #window="mapInfoWindow">
       <a href="" class="info__link" routerLink="/post-detail/{{ posts.id }}">
