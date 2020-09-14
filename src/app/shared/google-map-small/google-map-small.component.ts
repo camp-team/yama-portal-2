@@ -98,11 +98,11 @@ export class GoogleMapSmallComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onCurrentPositionMarkerClick() {
+  onCurrentPositionMarkerClicked() {
     this.map.panTo(this.currentPosition);
   }
 
-  openInfoWindow(marker: MapMarker, window: MapInfoWindow) {
+  markerClicked(marker: MapMarker, window: MapInfoWindow) {
     window.open(marker);
   }
 
