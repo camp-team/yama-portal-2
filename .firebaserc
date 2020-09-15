@@ -1,14 +1,6 @@
 {
   "projects": {
-    "default": "yama-portal"
-  },
-  "targets": {
-    "yama-portal": {
-      "hosting": {
-        "yama-portal": [
-          "yama-portal"
-        ]
-      }
-    }
+    "prod": "yamapath-3d9c1",
+    "dev": "yama-portal"
   }
 }

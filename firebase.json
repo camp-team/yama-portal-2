@@ -10,19 +10,9 @@
     ],
     "source": "functions"
   },
-  "hosting": [
-    {
-      "target": "yama-portal",
-      "public": "dist/yama-portal",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
-    }
-  ],
+  "hosting": {
+    "public": "dist/yama-portal"
+  },
   "storage": {
     "rules": "storage.rules"
   },
