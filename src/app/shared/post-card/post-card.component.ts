@@ -5,13 +5,13 @@ import { PostService } from 'src/app/services/post.service';
 import { User } from 'src/app/interfaces/user';
 import { Observable, Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { DatePipe } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-post-card',
   templateUrl: './post-card.component.html',
   styleUrls: ['./post-card.component.scss'],
-  providers: [DatePipe],
 })
 export class PostCardComponent implements OnInit, OnDestroy {
   @Input() post: PostWithUser;
@@ -21,7 +21,8 @@ export class PostCardComponent implements OnInit, OnDestroy {
   constructor(
     private userService: UserService,
     private postService: PostService,
-    private datePipe: DatePipe
+    private snackBar: MatSnackBar,
+    private router: Router
   ) {}
 
   subscriptions: Subscription = new Subscription();
@@ -58,6 +59,22 @@ export class PostCardComponent implements OnInit, OnDestroy {
     this.post.likeCount--;
     this.isLiked = false;
     return this.postService.unlikePost(postId, uid);
+  }
+
+  editPost(postId: string) {
+    this.router.navigate(['/form'], {
+      queryParams: {
+        id: postId,
+      },
+    });
+  }
+
+  deletePost(postId: string) {
+    this.postService.deletePost(postId).then(() => {
+      this.snackBar.open('削除しました、反映にはリロードが必要です', null, {
+        duration: 3000,
+      });
+    });
   }
 
   ngOnDestroy(): void {
