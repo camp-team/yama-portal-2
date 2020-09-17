@@ -15,7 +15,6 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./form.component.scss'],
 })
 export class FormComponent implements OnInit, OnDestroy {
-  public isComplete: boolean;
   public isChecked = true;
   public isPosition = true;
   public imageFile: string | ArrayBuffer;
@@ -117,9 +116,6 @@ export class FormComponent implements OnInit, OnDestroy {
     } else {
       this.postService
         .createPost(this.form.value, this.file, this.currentPosition)
-        .then(() => {
-          this.isComplete = true;
-        })
         .then(() => {
           this.snackBar.open('投稿しました、反映にはリロードが必要です', null, {
             duration: 3000,
