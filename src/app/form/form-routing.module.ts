@@ -9,6 +9,12 @@ const routes: Routes = [
     pathMatch: 'full',
     component: FormComponent,
     canDeactivate: [FormGuard],
+    children: [
+      {
+        path: ':id',
+        component: FormComponent,
+      },
+    ],
   },
 ];
 

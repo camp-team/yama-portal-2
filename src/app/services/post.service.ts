@@ -44,6 +44,23 @@ export class PostService {
     return newValue;
   }
 
+  async updatePost(
+    post: Omit<Post, 'id' | 'createdAt' | 'userId'>,
+    file: Blob,
+    id: string
+  ) {
+    const urls = await this.uploadImage(id, file);
+    const imageURL = urls;
+    const newValue: Post = {
+      id,
+      imageURL,
+      createdAt: Date.now(),
+      userId: this.authService.userId,
+      ...post,
+    };
+    return this.db.doc<Post>(`posts/${id}`).update(newValue);
+  }
+
   async uploadImage(id: string, file: Blob): Promise<string> {
     if (file === null) {
       const urls = null;
@@ -82,10 +99,6 @@ export class PostService {
 
   deletePost(id: string): Promise<void> {
     return this.db.doc<Post>(`posts/${id}`).delete();
-  }
-
-  updatePost(post: Post) {
-    return this.db.doc<Post>(`posts/${post.id}`).update(post);
   }
 
   likePost(post: Post, userId: string): Promise<void[]> {
