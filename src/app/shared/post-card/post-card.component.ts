@@ -1,11 +1,14 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, Inject } from '@angular/core';
 import { PostWithUser } from 'src/app/interfaces/post';
 import { UserService } from 'src/app/services/user.service';
 import { PostService } from 'src/app/services/post.service';
 import { User } from 'src/app/interfaces/user';
 import { Observable, Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import {
+  MatSnackBar,
+  MAT_SNACK_BAR_DEFAULT_OPTIONS,
+} from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
 @Component({
@@ -22,7 +25,8 @@ export class PostCardComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private postService: PostService,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    @Inject(MAT_SNACK_BAR_DEFAULT_OPTIONS) public data: any
   ) {}
 
   subscriptions: Subscription = new Subscription();
@@ -71,9 +75,11 @@ export class PostCardComponent implements OnInit, OnDestroy {
 
   deletePost(postId: string) {
     this.postService.deletePost(postId).then(() => {
-      this.snackBar.open('削除しました、反映にはリロードが必要です', null, {
-        duration: 3000,
-      });
+      this.snackBar.open(
+        '削除しました、反映にはリロードが必要です',
+        null,
+        this.data
+      );
     });
   }
 

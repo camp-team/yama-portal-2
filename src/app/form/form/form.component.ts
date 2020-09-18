@@ -1,9 +1,18 @@
-import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  HostListener,
+  OnDestroy,
+  Inject,
+} from '@angular/core';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { PostService } from 'src/app/services/post.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ImageUploadDialogComponent } from 'src/app/shared/dialogs/image-upload-dialog/image-upload-dialog.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import {
+  MatSnackBar,
+  MAT_SNACK_BAR_DEFAULT_OPTIONS,
+} from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from 'src/app/interfaces/post';
 import { Subscription } from 'rxjs';
@@ -46,7 +55,8 @@ export class FormComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar,
     private router: Router,
     private route: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    @Inject(MAT_SNACK_BAR_DEFAULT_OPTIONS) public data: any
   ) {}
 
   ngOnInit(): void {
@@ -108,18 +118,22 @@ export class FormComponent implements OnInit, OnDestroy {
       this.postService
         .updatePost(this.form.value, this.file, this.post.id)
         .then(() => {
-          this.snackBar.open('更新しました、反映にはリロードが必要です', null, {
-            duration: 3000,
-          });
+          this.snackBar.open(
+            '更新しました、反映にはリロードが必要です',
+            null,
+            this.data
+          );
           this.router.navigateByUrl('/');
         });
     } else {
       this.postService
         .createPost(this.form.value, this.file, this.currentPosition)
         .then(() => {
-          this.snackBar.open('投稿しました、反映にはリロードが必要です', null, {
-            duration: 3000,
-          });
+          this.snackBar.open(
+            '投稿しました、反映にはリロードが必要です',
+            null,
+            this.data
+          );
           this.router.navigateByUrl('/');
         });
     }
