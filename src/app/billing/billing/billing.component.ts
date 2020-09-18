@@ -17,8 +17,8 @@ import { CustomerService } from 'src/app/services/customer.service';
   styleUrls: ['./billing.component.scss'],
 })
 export class BillingComponent implements OnInit, OnDestroy {
-  public paymentMethod: Stripe.PaymentMethod;
-  public paymentMethods: Stripe.PaymentMethod[];
+  paymentMethod: Stripe.PaymentMethod;
+  paymentMethods: Stripe.PaymentMethod[];
 
   private subscriptions: Subscription = new Subscription();
   loading = true;

@@ -15,11 +15,11 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./form.component.scss'],
 })
 export class FormComponent implements OnInit, OnDestroy {
-  public isChecked = true;
-  public isPosition = true;
-  public imageFile: string | ArrayBuffer;
-  public content = null;
-  public isEdit: boolean;
+  isChecked = true;
+  isPosition = true;
+  imageFile: string | ArrayBuffer;
+  content = null;
+  isEdit: boolean;
 
   private file: File | null = null;
   private croppedImage: string = null;
