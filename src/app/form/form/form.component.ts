@@ -63,8 +63,8 @@ export class FormComponent implements OnInit, OnDestroy {
 
   initForm() {
     this.route.queryParamMap.subscribe((map) => {
-      if (map.get('id')) {
-        const id = map.get('id');
+      const id = map.get('id');
+      if (id) {
         this.isEdit = true;
         this.subscriptions.add(
           this.postService
