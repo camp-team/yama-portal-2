@@ -19,19 +19,19 @@ import { PostService } from 'src/app/services/post.service';
 export class GoogleMapLargeComponent implements OnInit, AfterViewInit {
   @ViewChild(GoogleMap, { static: false }) map: google.maps.Map;
 
-  public zoom = 14;
-  public center: google.maps.LatLngLiteral = {
+  zoom = 14;
+  center: google.maps.LatLngLiteral = {
     lat: 34.863439,
     lng: 139.001569,
   };
-  public options: google.maps.MapOptions = {
+  options: google.maps.MapOptions = {
     disableDefaultUI: true,
   };
-  public currentPosition: google.maps.LatLngLiteral;
-  public currentPositionMarkerOption = { draggable: false };
+  currentPosition: google.maps.LatLngLiteral;
+  currentPositionMarkerOption = { draggable: false };
 
-  public posts$: Observable<Post[]> = this.postService.getPosts();
-  public markerOptions = { draggable: false };
+  posts$: Observable<Post[]> = this.postService.getPosts();
+  markerOptions = { draggable: false };
 
   constructor(private postService: PostService, private router: Router) {}
 

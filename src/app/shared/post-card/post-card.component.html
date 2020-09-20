@@ -8,6 +8,26 @@
       ></div>
       <mat-card-title>{{ post.user.name }}</mat-card-title>
       <mat-card-subtitle>{{ post.category }}</mat-card-subtitle>
+      <ng-container *ngIf="user$ | async as user">
+        <button
+          *ngIf="user.uid === post.userId"
+          mat-icon-button
+          [matMenuTriggerFor]="menuRef"
+          class="card__edit"
+        >
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menuRef="matMenu">
+          <button mat-menu-item (click)="editPost(post.id)">
+            <mat-icon>edit</mat-icon>
+            <span>編集する</span>
+          </button>
+          <button mat-menu-item (click)="deletePost(post.id)">
+            <mat-icon>delete</mat-icon>
+            <span>削除</span>
+          </button>
+        </mat-menu>
+      </ng-container>
     </mat-card-header>
     <a href="{{ post.imageURL }}">
       <div
