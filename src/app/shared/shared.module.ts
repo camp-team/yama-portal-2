@@ -28,6 +28,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { SharedRoutingModule } from './shared-routing.module';
 import { CreditCardComponent } from './dialogs/credit-card/credit-card.component';
 import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.component';
+import { DeleteComponent } from './dialogs/delete/delete.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.
     GoogleMapLargeComponent,
     CreditCardComponent,
     ConfirmDialogComponent,
+    DeleteComponent,
   ],
   imports: [
     CommonModule,
