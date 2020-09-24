@@ -1,6 +1,11 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
-import { markEventTried, shouldEventRun } from './util.ts/firebase-util';
+import {
+  markEventTried,
+  shouldEventRun,
+  deleteCollectionByPath,
+  deleteCollectionByReference,
+} from './util.ts/firebase-util';
 const db = admin.firestore();
 
 export const createUser = functions
@@ -25,7 +30,20 @@ export const createUser = functions
 
 export const deleteUser = functions
   .region('asia-northeast1')
+  .https.onCall((data, _) => {
+    return admin.auth().deleteUser(data);
+  });
+
+export const deleteUserAccount = functions
+  .region('asia-northeast1')
   .auth.user()
-  .onDelete((user) => {
-    return db.doc(`users/${user.uid}`).delete();
+  .onDelete(async (user, _) => {
+    const uid = user.uid;
+    const posts = db.collection(`posts`).where('userId', '==', uid);
+    const deleteUserData = db.doc(`users/${uid}`).delete();
+    const deleteAllPosts = deleteCollectionByReference(posts);
+    const deleteAllLikedPosts = deleteCollectionByPath(
+      `users/${uid}/likedPosts`
+    );
+    return Promise.all([deleteAllPosts, deleteAllLikedPosts, deleteUserData]);
   });

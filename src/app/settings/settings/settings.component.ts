@@ -7,6 +7,9 @@ import { FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { UserAvaterComponent } from 'src/app/shared/dialogs/user-avatar/user-avater.component';
+import { DeleteComponent } from 'src/app/shared/dialogs/delete/delete.component';
+import { AngularFireFunctions } from '@angular/fire/functions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-settings',
@@ -27,7 +30,9 @@ export class SettingsComponent implements OnInit {
     private userService: UserService,
     private authService: AuthService,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private fns: AngularFireFunctions,
+    private router: Router
   ) {}
 
   ngOnInit(): void {}
@@ -51,5 +56,30 @@ export class SettingsComponent implements OnInit {
 
   openUserAvaterDialog() {
     this.dialog.open(UserAvaterComponent);
+  }
+
+  openDeleteDialog() {
+    this.dialog
+      .open(DeleteComponent)
+      .afterClosed()
+      .subscribe((status) => {
+        if (status) {
+          this.deleteUser(this.uid).then(() => {
+            this.snackBar.open(
+              'アカウントを削除しました、反映には時間がかかります',
+              null,
+              {
+                duration: 5000,
+              }
+            );
+            this.router.navigateByUrl('/');
+          });
+        }
+      });
+  }
+
+  deleteUser(uid: string) {
+    const callable = this.fns.httpsCallable('deleteUser');
+    return callable(uid).toPromise();
   }
 }
